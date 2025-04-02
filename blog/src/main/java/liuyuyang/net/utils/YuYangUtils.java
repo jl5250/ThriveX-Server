@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.jsonwebtoken.Claims;
-import liuyuyang.net.mapper.UserTokenMapper;
+import liuyuyang.net.web.mapper.UserTokenMapper;
 import liuyuyang.net.model.UserToken;
 import liuyuyang.net.properties.JwtProperties;
 import liuyuyang.net.vo.FilterVo;

@@ -46,8 +46,9 @@ public class Article extends BaseModel {
     @ApiModelProperty(value = "分类列表")
     private List<Cate> cateList = new ArrayList<>();
 
+    @TableField(exist = false)
     @ApiModelProperty(value = "该文章所绑定的标签ID", example = "1,2,3")
-    private String tagIds;
+    private List<Integer> tagIds;
     @TableField(exist = false)
     @ApiModelProperty(value = "标签列表")
     private List<Tag> tagList = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class ArticleFillterVo extends FilterVo {
     @ApiModelProperty(value = "根据分类进行筛选")
-    private List<Integer> cateIds;
+    private Integer cateId;
     @ApiModelProperty(value = "根据标签进行筛选")
     private Integer tagId;
     @ApiModelProperty(value = "是否为草稿, 默认：0 | 草稿：1", example = "0")

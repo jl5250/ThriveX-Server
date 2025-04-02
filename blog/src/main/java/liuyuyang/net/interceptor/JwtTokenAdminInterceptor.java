@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.jsonwebtoken.Claims;
 import liuyuyang.net.annotation.NoTokenRequired;
 import liuyuyang.net.execption.CustomException;
-import liuyuyang.net.mapper.UserTokenMapper;
+import liuyuyang.net.web.mapper.UserTokenMapper;
 import liuyuyang.net.model.UserToken;
 import liuyuyang.net.properties.JwtProperties;
 import liuyuyang.net.utils.JwtUtils;
