@@ -106,6 +106,11 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
             // 获取当前项目的路径
             String projectPath = System.getProperty("user.dir");
             oss.setEndPoint(projectPath + "/");
+
+            // 每次修改时候，如果路径不包含static则追加上
+            if(!oss.getDomain().contains("static")){
+                oss.setDomain(oss.getDomain() + "static/");
+            }
         }
 
         // 不允许更改平台

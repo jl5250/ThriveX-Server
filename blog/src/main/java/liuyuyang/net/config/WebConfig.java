@@ -51,7 +51,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**")
+        registry.addResourceHandler("/static/upload/**")
                 .addResourceLocations("file:" + uploadDir);
         /* 配置knife4j 显示文档 */
         registry.addResourceHandler("doc.html")
