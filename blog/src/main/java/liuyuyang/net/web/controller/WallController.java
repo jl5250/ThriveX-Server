@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liuyuyang.net.annotation.NoTokenRequired;
-import liuyuyang.net.annotation.PremName;
-import liuyuyang.net.execption.CustomException;
+import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.PremName;
+import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.model.Wall;
 import liuyuyang.net.model.WallCate;
-import liuyuyang.net.utils.Result;
+import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.WallService;
-import liuyuyang.net.utils.Paging;
+import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.wall.WallFilterVo;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,6 +123,15 @@ public class WallController {
 
         data.setAuditStatus(1);
         wallService.updateById(data);
+        return Result.success();
+    }
+
+    @PremName("wall:choice")
+    @PatchMapping("/choice/{id}")
+    @ApiOperation("设置与取消精选留言")
+    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 11)
+    public Result updateChoice(@PathVariable Integer id) {
+        wallService.updateChoice(id);
         return Result.success();
     }
 }

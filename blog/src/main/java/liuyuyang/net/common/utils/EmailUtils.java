@@ -1,4 +1,4 @@
-package liuyuyang.net.utils;
+package liuyuyang.net.common.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;

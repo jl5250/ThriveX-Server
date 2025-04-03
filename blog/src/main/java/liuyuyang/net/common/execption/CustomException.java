@@ -1,4 +1,4 @@
-package liuyuyang.net.execption;
+package liuyuyang.net.common.execption;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

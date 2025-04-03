@@ -1,4 +1,4 @@
-package liuyuyang.net.utils;
+package liuyuyang.net.common.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

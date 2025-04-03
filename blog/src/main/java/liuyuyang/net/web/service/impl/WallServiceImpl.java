@@ -3,14 +3,14 @@ package liuyuyang.net.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import liuyuyang.net.execption.CustomException;
+import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.web.mapper.WallCateMapper;
 import liuyuyang.net.web.mapper.WallMapper;
 import liuyuyang.net.model.Wall;
 import liuyuyang.net.model.WallCate;
 import liuyuyang.net.web.service.WallService;
-import liuyuyang.net.utils.EmailUtils;
-import liuyuyang.net.utils.YuYangUtils;
+import liuyuyang.net.common.utils.EmailUtils;
+import liuyuyang.net.common.utils.YuYangUtils;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.wall.WallFilterVo;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -72,8 +73,17 @@ public class WallServiceImpl extends ServiceImpl<WallMapper, Wall> implements Wa
 
     @Override
     public Page<Wall> getCateWallList(Integer cateId, PageVo pageVo) {
+        WallCate wallCate = wallCateMapper.selectById(cateId);
+
         QueryWrapper<Wall> queryWrapper = new QueryWrapper<>();
-        if (cateId != 1) queryWrapper.eq("cate_id", cateId);
+        if (!Objects.equals(wallCate.getMark(), "all")) {
+            if (Objects.equals(wallCate.getMark(), "choice")) {
+                queryWrapper.eq("is_choice", 1);
+            } else {
+                queryWrapper.eq("cate_id", cateId);
+            }
+        }
+
         queryWrapper.eq("audit_status", 1);
         queryWrapper.orderByDesc("create_time");
 
@@ -81,6 +91,8 @@ public class WallServiceImpl extends ServiceImpl<WallMapper, Wall> implements Wa
         wallMapper.selectPage(page, queryWrapper);
 
         List<Wall> list = page.getRecords();
+        System.out.println(list);
+        System.out.println(7777);
 
         // 绑定数据
         for (Wall wall : list) {
@@ -96,5 +108,20 @@ public class WallServiceImpl extends ServiceImpl<WallMapper, Wall> implements Wa
         QueryWrapper<WallCate> queryWrapper = new QueryWrapper<>();
         List<WallCate> list = wallCateMapper.selectList(queryWrapper);
         return list;
+    }
+
+    @Override
+    public void updateChoice(Integer id) {
+        Wall wall = wallMapper.selectById(id);
+        if (wall == null) throw new CustomException("没有这条留言");
+
+        // 如果是精选则取消，否则设置
+        if (wall.getIsChoice() == 0) {
+            wall.setIsChoice(1);
+        } else {
+            wall.setIsChoice(0);
+        }
+
+        wallMapper.updateById(wall);
     }
 }

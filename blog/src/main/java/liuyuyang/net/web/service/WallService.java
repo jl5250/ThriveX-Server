@@ -21,4 +21,6 @@ public interface WallService extends IService<Wall> {
     List<Wall> list(WallFilterVo filterVo);
 
     Page<Wall> paging(WallFilterVo filterVo, PageVo pageVo);
+
+    void updateChoice(Integer id);
 }

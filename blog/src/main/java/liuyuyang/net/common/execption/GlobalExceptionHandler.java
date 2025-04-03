@@ -1,7 +1,7 @@
-package liuyuyang.net.execption;
+package liuyuyang.net.common.execption;
 
 import com.qiniu.common.QiniuException;
-import liuyuyang.net.utils.Result;
+import liuyuyang.net.common.utils.Result;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

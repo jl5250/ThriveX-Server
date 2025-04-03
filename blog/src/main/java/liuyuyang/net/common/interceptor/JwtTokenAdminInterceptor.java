@@ -1,13 +1,13 @@
-package liuyuyang.net.interceptor;
+package liuyuyang.net.common.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.jsonwebtoken.Claims;
-import liuyuyang.net.annotation.NoTokenRequired;
-import liuyuyang.net.execption.CustomException;
+import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.web.mapper.UserTokenMapper;
 import liuyuyang.net.model.UserToken;
-import liuyuyang.net.properties.JwtProperties;
-import liuyuyang.net.utils.JwtUtils;
+import liuyuyang.net.common.properties.JwtProperties;
+import liuyuyang.net.common.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;

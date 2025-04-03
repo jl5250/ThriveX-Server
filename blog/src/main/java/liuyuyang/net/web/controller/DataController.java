@@ -1,8 +1,8 @@
 package liuyuyang.net.web.controller;
 
 import io.swagger.annotations.Api;
-import liuyuyang.net.annotation.CheckRole;
-import liuyuyang.net.utils.Result;
+import liuyuyang.net.common.annotation.CheckRole;
+import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.DataService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

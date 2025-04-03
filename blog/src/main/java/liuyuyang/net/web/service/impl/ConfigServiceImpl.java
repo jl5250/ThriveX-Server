@@ -2,7 +2,7 @@ package liuyuyang.net.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import liuyuyang.net.execption.CustomException;
+import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.web.mapper.ConfigMapper;
 import liuyuyang.net.model.Config;
 import liuyuyang.net.web.service.ConfigService;

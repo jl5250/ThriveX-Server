@@ -1,4 +1,4 @@
-package liuyuyang.net.aspect;
+package liuyuyang.net.common.aspect;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import io.jsonwebtoken.Claims;
-import liuyuyang.net.annotation.CheckRole;
-import liuyuyang.net.execption.CustomException;
-import liuyuyang.net.properties.JwtProperties;
-import liuyuyang.net.utils.JwtUtils;
+import liuyuyang.net.common.annotation.CheckRole;
+import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.common.properties.JwtProperties;
+import liuyuyang.net.common.utils.JwtUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -30,7 +30,7 @@ public class CheckRoleAspect {
     private JwtProperties jwtProperties;
 
     // 定义切点，支持类和方法上的注解
-    @Pointcut("@within(liuyuyang.net.annotation.CheckRole) || @annotation(liuyuyang.net.annotation.CheckRole)")
+    @Pointcut("@within(liuyuyang.net.common.annotation.CheckRole) || @annotation(liuyuyang.net.common.annotation.CheckRole)")
     private void cut() {
     }
 

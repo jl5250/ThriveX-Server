@@ -1,4 +1,4 @@
-package liuyuyang.net.utils;
+package liuyuyang.net.common.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;

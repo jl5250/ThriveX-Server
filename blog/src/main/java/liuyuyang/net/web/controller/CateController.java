@@ -5,13 +5,13 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import liuyuyang.net.annotation.NoTokenRequired;
-import liuyuyang.net.annotation.PremName;
+import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Cate;
-import liuyuyang.net.utils.Result;
+import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.result.cate.CateArticleCount;
 import liuyuyang.net.web.service.CateService;
-import liuyuyang.net.utils.Paging;
+import liuyuyang.net.common.utils.Paging;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

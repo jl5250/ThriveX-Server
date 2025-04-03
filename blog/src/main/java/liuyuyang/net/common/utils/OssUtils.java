@@ -1,4 +1,4 @@
-package liuyuyang.net.utils;
+package liuyuyang.net.common.utils;
 
 
 import liuyuyang.net.model.Oss;

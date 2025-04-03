@@ -244,21 +244,21 @@ Running: java -jar /server/app.jar --PORT=9003 --DB_INFO=172.20.9.120:3306/Thriv
 2025-03-27 02:40:46.324  INFO 30 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
 2025-03-27 02:40:46.378  INFO 30 --- [           main] o.d.x.f.s.c.FileStorageServiceBuilder    : 加载本地升级版存储平台：local
 2025-03-27 02:40:46.384  INFO 30 --- [           main] liuyuyang.net.Main                       : Started Main in 8.529 seconds (JVM running for 9.055)
-2025-03-27 02:40:46.385  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : 
+2025-03-27 02:40:46.385  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : 
 ----------------------------------------------------------
                 服务已启动: 欢迎使用 ThriveX 博客管理系统 
                 接口地址:       http://localhost:9003/api
                 API文档:        http://localhost:9003/doc.html
                 加入项目交流群: liuyuyang2023
 ----------------------------------------------------------
-2025-03-27 02:40:46.386  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : === 配置信息 ===
-2025-03-27 02:40:46.386  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : PORT = 9003
-2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : DB_INFO = jdbc:mysql://172.20.9.120:3306/ThriveX?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
-2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : DB_USERNAME = thrive
-2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : DB_PASSWORD = ThriveX@123?
-2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : EMAIL_HOST = mail.qq.com
-2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : EMAIL_PORT = 465
-2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : EMAIL_USERNAME = 123456789@qq.com
-2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : EMAIL_PASSWORD = 123456789
-2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.config.PrintConfig         : === 配置信息打印完成 ===
+2025-03-27 02:40:46.386  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : === 配置信息 ===
+2025-03-27 02:40:46.386  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : PORT = 9003
+2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : DB_INFO = jdbc:mysql://172.20.9.120:3306/ThriveX?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : DB_USERNAME = thrive
+2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : DB_PASSWORD = ThriveX@123?
+2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : EMAIL_HOST = mail.qq.com
+2025-03-27 02:40:46.387  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : EMAIL_PORT = 465
+2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : EMAIL_USERNAME = 123456789@qq.com
+2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : EMAIL_PASSWORD = 123456789
+2025-03-27 02:40:46.388  INFO 30 --- [           main] liuyuyang.net.common.config.PrintConfig         : === 配置信息打印完成 ===
 ```

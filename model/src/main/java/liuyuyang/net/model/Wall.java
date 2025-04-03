@@ -29,4 +29,7 @@ public class Wall extends BaseModel {
 
     @ApiModelProperty(value = "评论是否审核通过", example = "1")
     private Integer auditStatus;
+
+    @ApiModelProperty(value = "设置与取消精选", example = "1")
+    private Integer isChoice;
 }

@@ -1,4 +1,4 @@
-package liuyuyang.net.utils;
+package liuyuyang.net.common.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.jsonwebtoken.Claims;
 import liuyuyang.net.web.mapper.UserTokenMapper;
 import liuyuyang.net.model.UserToken;
-import liuyuyang.net.properties.JwtProperties;
+import liuyuyang.net.common.properties.JwtProperties;
 import liuyuyang.net.vo.FilterVo;
 import liuyuyang.net.vo.PageVo;
 import org.springframework.stereotype.Component;

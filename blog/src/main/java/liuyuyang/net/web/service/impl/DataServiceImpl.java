@@ -1,6 +1,6 @@
 package liuyuyang.net.web.service.impl;
 
-import liuyuyang.net.execption.CustomException;
+import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.web.service.DataService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;

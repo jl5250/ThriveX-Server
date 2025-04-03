@@ -1,8 +1,8 @@
-package liuyuyang.net.listener;
+package liuyuyang.net.common.listener;
 
 import liuyuyang.net.model.Oss;
 import liuyuyang.net.web.service.OssService;
-import liuyuyang.net.utils.OssUtils;
+import liuyuyang.net.common.utils.OssUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
