@@ -30,14 +30,14 @@ public class Article extends BaseModel {
     @ApiModelProperty(value = "文章评论数量", example = "20")
     private Integer comment;
 
-    @ApiModelProperty(value = "是否为文章草稿", example = "默认：0，草稿：1")
-    private Integer isDraft;
-
-    @ApiModelProperty(value = "是否为加密文章", example = "默认：0，加密：1")
-    private Integer isEncrypt;
-
-    @ApiModelProperty(value = "是否严格删除", example = "默认：0，严格删除：1")
-    private Integer isDel;
+    // @ApiModelProperty(value = "是否为文章草稿", example = "默认：0，草稿：1")
+    // private Integer isDraft;
+    //
+    // @ApiModelProperty(value = "是否为加密文章", example = "默认：0，加密：1")
+    // private Integer isEncrypt;
+    //
+    // @ApiModelProperty(value = "是否严格删除", example = "默认：0，严格删除：1")
+    // private Integer isDel;
 
     @TableField(exist = false)
     @ApiModelProperty(value = "该文章所绑定的分类ID", example = "1,2,3")

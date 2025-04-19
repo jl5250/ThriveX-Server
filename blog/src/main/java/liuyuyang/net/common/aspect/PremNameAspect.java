@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -90,6 +91,11 @@ public class PremNameAspect {
                     response.setStatus(401);
                     throw new CustomException(401, e.getMessage());
                 }
+
+                String mark = (String) role.get("mark");
+
+                // 如果是管理员，则不需要权限校验
+                if(Objects.equals(mark, "admin")) return;
 
                 // 查询当前角色的权限
                 LambdaQueryWrapper<RolePermission> roleLambdaQueryWrapper = new LambdaQueryWrapper<>();
