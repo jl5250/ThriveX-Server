@@ -8,7 +8,15 @@ import liuyuyang.net.result.cate.CateArticleCount;
 import java.util.List;
 
 public interface CateService extends IService<Cate> {
-    Boolean exist(Integer cid);
+    // 判断是否存在二级分类
+    Boolean isExistTwoCate(Integer cid);
+
+    // 判断该分类中是否有文章
+    Boolean isCateArticleCount(Integer cid);
+
+    void del(Integer cid);
+
+    void batchDel(List<Integer> ids);
 
     Cate get(Integer cid);
 

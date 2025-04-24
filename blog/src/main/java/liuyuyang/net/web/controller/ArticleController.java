@@ -9,14 +9,18 @@ import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Article;
 import liuyuyang.net.common.utils.Result;
+import liuyuyang.net.model.File;
 import liuyuyang.net.web.service.ArticleService;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.article.ArticleFillterVo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -141,5 +145,20 @@ public class ArticleController {
     public Result<String> recordView(@PathVariable Integer article_id) {
         articleService.recordView(article_id);
         return Result.success();
+    }
+
+    @PostMapping("/import")
+    @ApiOperation("批量导入文章")
+    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 14)
+    public Result<String> importArticle(@RequestParam MultipartFile[] list) throws IOException {
+        articleService.importArticle(list);
+        return Result.success();
+    }
+
+    @PostMapping("/export")
+    @ApiOperation("批量导出文章")
+    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 15)
+    public ResponseEntity<byte[]> exportArticle(@RequestBody List<Integer> ids) {
+        return articleService.exportArticle(ids);
     }
 }

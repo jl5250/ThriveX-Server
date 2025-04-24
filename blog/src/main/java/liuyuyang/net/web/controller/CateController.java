@@ -41,13 +41,7 @@ public class CateController {
     @ApiOperation("删除分类")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
-        boolean e = cateService.exist(id);
-        if (!e) return Result.error();
-
-        Cate data = cateService.getById(id);
-        if (data == null) return Result.error("该数据不存在");
-
-        cateService.removeById(id);
+        cateService.del(id);
         return Result.success();
     }
 
@@ -57,7 +51,7 @@ public class CateController {
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
     public Result batchDel(@RequestBody List<Integer> ids) {
         for (Integer id : ids) {
-            boolean e = cateService.exist(id);
+            boolean e = cateService.isExistTwoCate(id);
             if (!e) return Result.error();
             cateService.removeById(id);
         }

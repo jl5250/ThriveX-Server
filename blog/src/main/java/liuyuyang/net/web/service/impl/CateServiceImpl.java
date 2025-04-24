@@ -1,13 +1,18 @@
 package liuyuyang.net.web.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.common.utils.Result;
+import liuyuyang.net.model.ArticleCate;
+import liuyuyang.net.web.mapper.ArticleCateMapper;
 import liuyuyang.net.web.mapper.CateMapper;
 import liuyuyang.net.model.Cate;
 import liuyuyang.net.result.cate.CateArticleCount;
 import liuyuyang.net.web.service.CateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,28 +27,58 @@ import java.util.Objects;
 public class CateServiceImpl extends ServiceImpl<CateMapper, Cate> implements CateService {
     @Resource
     private CateMapper cateMapper;
+    @Autowired
+    private ArticleCateMapper articleCateMapper;
 
+    // 判断是否存在二级分类
     @Override
-    public Boolean exist(Integer id) {
-        QueryWrapper<Cate> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("level", id);
+    public Boolean isExistTwoCate(Integer id) {
+        LambdaQueryWrapper<Cate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Cate::getLevel, id);
 
-        List<Cate> data = cateMapper.selectList(queryWrapper);
+        List<Cate> data = cateMapper.selectList(lambdaQueryWrapper);
 
-        if (!data.isEmpty()) {
-            throw new CustomException(400, "ID为：" + id + "的分类中绑定了 " + data.size() + " 个二级分类，请解绑后重试");
-        }
+        if (!data.isEmpty())
+            throw new CustomException(400, "ID为：" + id + "的分类中有 " + data.size() + " 个二级分类，请解绑后重试");
 
         return true;
+    }
+
+    // 判断该分类中是否有文章
+    @Override
+    public Boolean isCateArticleCount(Integer id) {
+        LambdaQueryWrapper<ArticleCate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ArticleCate::getCateId, id);
+
+        List<ArticleCate> data = articleCateMapper.selectList(lambdaQueryWrapper);
+
+        if (!data.isEmpty())
+            throw new CustomException(400, "ID为：" + id + "的分类中有 " + data.size() + " 篇文章，请删除后重试");
+
+        return true;
+    }
+
+    @Override
+    public void del(Integer id) {
+        Cate data = cateMapper.selectById(id);
+
+        if (data == null) throw new CustomException("该分类不存在");
+
+        if (isExistTwoCate(id) && isCateArticleCount(id)) {
+            cateMapper.deleteById(id);
+        }
+    }
+
+    @Override
+    public void batchDel(List<Integer> ids) {
+        for (Integer id : ids) del(id);
     }
 
     @Override
     public Cate get(Integer id) {
         Cate data = cateMapper.selectById(id);
 
-        if (data == null) {
-            throw new CustomException(400, "该分类不存在");
-        }
+        if (data == null) throw new CustomException(400, "该分类不存在");
 
         // 获取当前分类下的所有子分类
         List<Cate> cates = cateMapper.selectList(null);
@@ -54,13 +89,17 @@ public class CateServiceImpl extends ServiceImpl<CateMapper, Cate> implements Ca
 
     @Override
     public List<Cate> list(String pattern) {
+        // 分类排序
+        LambdaQueryWrapper<Cate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.orderByAsc(Cate::getOrder);
+
         // 查询所有分类
-        List<Cate> list = cateMapper.selectList(null);
+        List<Cate> list = cateMapper.selectList(lambdaQueryWrapper);
 
         // 分类排序
-        list.sort(Comparator.comparingInt(Cate::getOrder));
+        // list.sort(Comparator.comparingInt(Cate::getOrder));
 
-        // 如果参数是list则直接不进行递归处理
+        // 如果参数是list则返回列表，否则处理成树形结构
         if (Objects.equals(pattern, "list")) return list;
 
         // 构建分类树
@@ -70,10 +109,12 @@ public class CateServiceImpl extends ServiceImpl<CateMapper, Cate> implements Ca
 
     @Override
     public Page<Cate> paging(Integer page, Integer size) {
-        // 查询所有分类
-        List<Cate> list = cateMapper.selectList(null);
         // 分类排序
-        list.sort(Comparator.comparingInt(Cate::getOrder));
+        LambdaQueryWrapper<Cate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.orderByAsc(Cate::getOrder);
+
+        // 查询所有分类
+        List<Cate> list = cateMapper.selectList(lambdaQueryWrapper);
 
         // 构建分类树
         List<Cate> cates = buildCateTree(list, 0);

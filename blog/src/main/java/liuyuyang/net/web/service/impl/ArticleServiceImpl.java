@@ -15,12 +15,22 @@ import liuyuyang.net.common.utils.YuYangUtils;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.article.ArticleFillterVo;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Service
 @Transactional
@@ -67,7 +77,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         // 新增标签
         List<Integer> tagIdList = article.getTagIds();
-        if (!tagIdList.isEmpty()) {
+
+        if (tagIdList != null && !tagIdList.isEmpty()) {
             ArrayList<ArticleTag> tagArrayList = new ArrayList<>(tagIdList.size());
             for (Integer id : tagIdList) {
                 ArticleTag articleTag = new ArticleTag();
@@ -625,5 +636,188 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         QueryWrapper<ArticleConfig> queryWrapperArticleConfig = new QueryWrapper<>();
         queryWrapperArticleConfig.in("article_id", ids);
         articleConfigMapper.delete(queryWrapperArticleConfig);
+    }
+
+    @Override
+    public void importArticle(MultipartFile[] list) throws IOException {
+        // 首先验证所有文件格式
+        for (MultipartFile file : list) {
+            if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".md")) {
+                throw new CustomException(400, "导入失败：存在非 Markdown 格式文件，请确保所有文件都是 .md 格式");
+            }
+        }
+
+        // 如果所有文件格式都正确，则继续处理
+        for (MultipartFile file : list) {
+            // 读取文件内容
+            String content = new String(file.getBytes(), StandardCharsets.UTF_8);
+
+            // 解析 Markdown 内容
+            String[] lines = content.split("\n");
+            String title = "";
+            String description = "";
+            StringBuilder articleContent = new StringBuilder();
+
+            // 提取标题（第一个 # 开头的行）
+            for (String line : lines) {
+                if (line.startsWith("# ")) {
+                    title = line.substring(2).trim();
+                    break;
+                }
+            }
+
+            // 提取描述（第一个空行后的第一段）
+            boolean foundDescription = false;
+            for (String line : lines) {
+                if (line.trim().isEmpty()) {
+                    foundDescription = true;
+                    continue;
+                }
+                if (foundDescription && !line.startsWith("#")) {
+                    description = line.trim();
+                    break;
+                }
+            }
+
+            // 提取文章内容（跳过标题和描述后的所有内容）
+            boolean startContent = false;
+            for (String line : lines) {
+                if (line.trim().isEmpty()) {
+                    startContent = true;
+                    continue;
+                }
+                if (startContent) {
+                    articleContent.append(line).append("\n");
+                }
+            }
+
+            // 创建文章对象
+            Article article = new Article();
+            article.setTitle(title);
+            article.setDescription(description);
+            article.setContent(articleContent.toString().trim());
+            article.setView(0);
+            article.setComment(0);
+            article.setCreateTime(String.valueOf(LocalDateTime.now()));
+
+            // 设置默认分类（这里假设使用 ID 为 1 的分类）
+            article.setCateIds(Collections.singletonList(1));
+
+            // 设置默认文章配置
+            ArticleConfig config = new ArticleConfig();
+            config.setStatus("default");
+            config.setPassword("");
+            config.setIsDraft(0);
+            config.setIsEncrypt(0);
+            config.setIsDel(0);
+            article.setConfig(config);
+
+            // 保存文章
+            add(article);
+        }
+    }
+
+    @Override
+    public ResponseEntity<byte[]> exportArticle(List<Integer> ids) {
+        // 创建一个临时目录用于存储导出的Markdown文件
+        java.io.File tempDir = new java.io.File(System.getProperty("java.io.tmpdir"), "exported_articles");
+        if (!tempDir.exists()) {
+            tempDir.mkdirs();
+        }
+
+        // 遍历文章ID列表，生成Markdown文件
+        for (Integer id : ids) {
+            Article article = getById(id);
+            if (article != null) {
+                String markdownContent = buildMarkdownContent(article);
+                String fileName = sanitizeFileName(article.getTitle()) + ".md";
+                java.io.File markdownFile = new java.io.File(tempDir, fileName);
+                try (java.io.FileWriter writer = new java.io.FileWriter(markdownFile)) {
+                    writer.write(markdownContent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        // 将所有Markdown文件压缩为一个ZIP文件
+        java.io.File zipFile = new java.io.File(tempDir, "articles.zip");
+        try (java.util.zip.ZipOutputStream zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(zipFile))) {
+            for (java.io.File file : tempDir.listFiles()) {
+                if (file.isFile() && file.getName().endsWith(".md")) {
+                    try (java.io.FileInputStream fis = new java.io.FileInputStream(file)) {
+                        java.util.zip.ZipEntry zipEntry = new java.util.zip.ZipEntry(file.getName());
+                        zos.putNextEntry(zipEntry);
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = fis.read(buffer)) > 0) {
+                            zos.write(buffer, 0, length);
+                        }
+                        zos.closeEntry();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 读取ZIP文件为字节数组
+        byte[] zipBytes = new byte[(int) zipFile.length()];
+        try (java.io.FileInputStream fis = new java.io.FileInputStream(zipFile)) {
+            int offset = 0;
+            int numRead;
+            while (offset < zipBytes.length && (numRead = fis.read(zipBytes, offset, zipBytes.length - offset)) >= 0) {
+                offset += numRead;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 删除临时目录及其内容
+        for (java.io.File file : tempDir.listFiles()) {
+            file.delete();
+        }
+        tempDir.delete();
+
+        // 返回ResponseEntity
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=articles.zip")
+                .body(zipBytes);
+    }
+
+    /**
+     * 构建Markdown格式的文章内容
+     */
+    private String buildMarkdownContent(Article article) {
+        StringBuilder content = new StringBuilder();
+
+        // 添加标题
+        content.append("# ").append(article.getTitle()).append("\n\n");
+
+        // 添加描述（如果有）
+        if (article.getDescription() != null && !article.getDescription().isEmpty()) {
+            content.append(article.getDescription()).append("\n\n");
+        }
+
+        // 添加内容
+        content.append(article.getContent());
+
+        // 添加元数据（可选）
+        content.append("\n\n---\n");
+        content.append("导出时间: ").append(LocalDateTime.now()).append("\n");
+        content.append("原文ID: ").append(article.getId()).append("\n");
+
+        return content.toString();
+    }
+
+    /**
+     * 清理文件名，移除非法字符
+     */
+    private String sanitizeFileName(String fileName) {
+        if (fileName == null) {
+            return "untitled";
+        }
+        // 替换Windows和Linux文件系统中的非法字符
+        return fileName.replaceAll("[\\\\/:*?\"<>|]", "_");
     }
 }

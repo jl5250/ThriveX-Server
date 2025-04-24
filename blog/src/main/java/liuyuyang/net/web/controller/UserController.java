@@ -11,7 +11,6 @@ import liuyuyang.net.dto.user.UserInfoDTO;
 import liuyuyang.net.dto.user.UserLoginDTO;
 import liuyuyang.net.model.User;
 import liuyuyang.net.common.utils.Result;
-import liuyuyang.net.web.service.RoleService;
 import liuyuyang.net.web.service.UserService;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.vo.PageVo;
@@ -30,8 +29,6 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService userService;
-    @Resource
-    private RoleService roleService;
 
     @PremName("user:add")
     @PostMapping
