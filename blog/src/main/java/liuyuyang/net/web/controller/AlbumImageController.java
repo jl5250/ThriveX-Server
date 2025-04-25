@@ -25,7 +25,7 @@ public class AlbumImageController {
     @Resource
     private AlbumImageService albumImageService;
 
-    @PremName("album:add")
+    @PremName("album_image:add")
     @PostMapping
     @ApiOperation("新增照片")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -34,7 +34,7 @@ public class AlbumImageController {
         return Result.success();
     }
 
-    @PremName("album:del")
+    @PremName("album_image:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除照片")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -43,7 +43,7 @@ public class AlbumImageController {
         return Result.success();
     }
 
-    @PremName("album:del")
+    @PremName("album_image:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除照片")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -52,7 +52,7 @@ public class AlbumImageController {
         return Result.success();
     }
 
-    @PremName("album:edit")
+    @PremName("album_image:edit")
     @PatchMapping
     @ApiOperation("编辑照片")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)

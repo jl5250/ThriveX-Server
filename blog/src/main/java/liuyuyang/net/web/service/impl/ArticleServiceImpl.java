@@ -5,18 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.common.utils.YuYangUtils;
 import liuyuyang.net.model.*;
+import liuyuyang.net.vo.PageVo;
+import liuyuyang.net.vo.article.ArticleFillterVo;
 import liuyuyang.net.web.mapper.*;
 import liuyuyang.net.web.service.ArticleCateService;
 import liuyuyang.net.web.service.ArticleService;
 import liuyuyang.net.web.service.ArticleTagService;
 import liuyuyang.net.web.service.CateService;
-import liuyuyang.net.common.utils.YuYangUtils;
-import liuyuyang.net.vo.PageVo;
-import liuyuyang.net.vo.article.ArticleFillterVo;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +33,7 @@ import java.util.zip.ZipOutputStream;
 
 @Service
 @Transactional
+@Slf4j
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
     @Resource
     private ArticleMapper articleMapper;
@@ -724,65 +724,80 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (!tempDir.exists()) {
             tempDir.mkdirs();
         }
-
-        // 遍历文章ID列表，生成Markdown文件
-        for (Integer id : ids) {
-            Article article = getById(id);
-            if (article != null) {
-                String markdownContent = buildMarkdownContent(article);
-                String fileName = sanitizeFileName(article.getTitle()) + ".md";
-                java.io.File markdownFile = new java.io.File(tempDir, fileName);
-                try (java.io.FileWriter writer = new java.io.FileWriter(markdownFile)) {
-                    writer.write(markdownContent);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (ids == null || ids.isEmpty()) {
+            // 查询所有的文章
+            List<Article> list = this.lambdaQuery()
+                    .select(Article::getId)
+                    .list();
+            if (list.isEmpty()) {
+                throw new CustomException("没有文章可以导出");
             }
+            ids = list.stream()
+                    .map(Article::getId)
+                    .collect(Collectors.toList());
         }
 
-        // 将所有Markdown文件压缩为一个ZIP文件
-        java.io.File zipFile = new java.io.File(tempDir, "articles.zip");
-        try (java.util.zip.ZipOutputStream zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(zipFile))) {
-            for (java.io.File file : tempDir.listFiles()) {
-                if (file.isFile() && file.getName().endsWith(".md")) {
-                    try (java.io.FileInputStream fis = new java.io.FileInputStream(file)) {
-                        java.util.zip.ZipEntry zipEntry = new java.util.zip.ZipEntry(file.getName());
-                        zos.putNextEntry(zipEntry);
-                        byte[] buffer = new byte[1024];
-                        int length;
-                        while ((length = fis.read(buffer)) > 0) {
-                            zos.write(buffer, 0, length);
-                        }
-                        zos.closeEntry();
+        try {
+            // 遍历文章ID列表，生成Markdown文件
+            for (Integer id : ids) {
+                Article article = getById(id);
+                if (article != null) {
+                    String markdownContent = buildMarkdownContent(article);
+                    String fileName = sanitizeFileName(article.getTitle()) + ".md";
+                    java.io.File markdownFile = new java.io.File(tempDir, fileName);
+                    try (java.io.FileWriter writer = new java.io.FileWriter(markdownFile)) {
+                        writer.write(markdownContent);
+                    } catch (IOException e) {
+                        throw new CustomException("写入Markdown文件失败");
                     }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        // 读取ZIP文件为字节数组
-        byte[] zipBytes = new byte[(int) zipFile.length()];
-        try (java.io.FileInputStream fis = new java.io.FileInputStream(zipFile)) {
-            int offset = 0;
-            int numRead;
-            while (offset < zipBytes.length && (numRead = fis.read(zipBytes, offset, zipBytes.length - offset)) >= 0) {
-                offset += numRead;
+
+            // 将所有Markdown文件压缩为一个ZIP文件
+            ByteArrayOutputStream zipOutputStream = new ByteArrayOutputStream();
+            try (ZipOutputStream zos = new ZipOutputStream(zipOutputStream)) {
+                for (java.io.File file : Objects.requireNonNull(tempDir.listFiles())) {
+                    if (file.isFile() && file.getName().endsWith(".md")) {
+                        try (java.io.FileInputStream fis = new java.io.FileInputStream(file)) {
+                            ZipEntry zipEntry = new ZipEntry(file.getName());
+                            zos.putNextEntry(zipEntry);
+                            byte[] buffer = new byte[1024];
+                            int length;
+                            while ((length = fis.read(buffer)) > 0) {
+                                zos.write(buffer, 0, length);
+                            }
+                            zos.closeEntry();
+                        }
+                    }
+                }
+                zos.finish(); // 确保 ZIP 文件正确关闭
+            } catch (Exception e) {
+                log.error("生成 ZIP 文件失败", e);
+                throw new CustomException("生成 ZIP 文件失败");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        // 删除临时目录及其内容
-        for (java.io.File file : tempDir.listFiles()) {
-            file.delete();
-        }
-        tempDir.delete();
+            // 获取ZIP文件的字节数组
+            byte[] zipBytes = zipOutputStream.toByteArray();
 
-        // 返回ResponseEntity
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=articles.zip")
-                .body(zipBytes);
+            // 删除临时目录及其内容
+            for (java.io.File file : Objects.requireNonNull(tempDir.listFiles())) {
+                if (!file.delete()) {
+                    log.warn("无法删除临时文件: {}", file.getAbsolutePath());
+                }
+            }
+            if (!tempDir.delete()) {
+                log.warn("无法删除临时目录: {}", tempDir.getAbsolutePath());
+            }
+
+            // 返回ResponseEntity
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=articles.zip")
+                    .body(zipBytes);
+        } catch (Exception e) {
+            log.error("导出文章失败", e);
+            throw new CustomException("导出文章失败");
+        }
     }
 
     /**

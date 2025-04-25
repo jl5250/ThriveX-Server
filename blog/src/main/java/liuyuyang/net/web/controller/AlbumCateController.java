@@ -26,7 +26,7 @@ public class AlbumCateController {
     @Resource
     private AlbumCateService albumCateService;
 
-    @PremName("album:add")
+    @PremName("album_cate:add")
     @PostMapping
     @ApiOperation("新增相册")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -35,7 +35,7 @@ public class AlbumCateController {
         return Result.success();
     }
 
-    @PremName("album:del")
+    @PremName("album_cate:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除相册")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -44,7 +44,7 @@ public class AlbumCateController {
         return Result.success();
     }
 
-    @PremName("album:del")
+    @PremName("album_cate:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除相册")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -53,7 +53,7 @@ public class AlbumCateController {
         return Result.success();
     }
 
-    @PremName("album:edit")
+    @PremName("album_cate:edit")
     @PatchMapping
     @ApiOperation("编辑相册")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
