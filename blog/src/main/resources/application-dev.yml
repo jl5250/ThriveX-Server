@@ -15,3 +15,4 @@ lyy:
     username: ${EMAIL_USERNAME}
     password: ${EMAIL_PASSWORD}
 
+domain: ${DOMAIN}

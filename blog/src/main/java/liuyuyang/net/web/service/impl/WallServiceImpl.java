@@ -91,8 +91,6 @@ public class WallServiceImpl extends ServiceImpl<WallMapper, Wall> implements Wa
         wallMapper.selectPage(page, queryWrapper);
 
         List<Wall> list = page.getRecords();
-        System.out.println(list);
-        System.out.println(7777);
 
         // 绑定数据
         for (Wall wall : list) {

@@ -14,3 +14,5 @@ lyy:
     port: ${EMAIL_PORT}
     username: ${EMAIL_USERNAME}
     password: ${EMAIL_PASSWORD}
+
+domain: ${DOMAIN}
