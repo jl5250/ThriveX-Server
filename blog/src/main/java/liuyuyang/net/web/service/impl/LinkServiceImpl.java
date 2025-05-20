@@ -1,5 +1,6 @@
 package liuyuyang.net.web.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -46,8 +47,17 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
             return;
         }
 
+        // 如果没有设置 order 则放在最后
+        if (link.getOrder() == null) {
+            // 查询当前类型下的网站数量
+            LambdaQueryWrapper<Link> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(Link::getTypeId, link.getTypeId());
+            List<Link> links = linkMapper.selectList(queryWrapper);
+            link.setOrder(links.size() + 1);
+        }
+
         // 判断权限
-        Boolean isAdminPermissions = yuYangUtils.isAdmin(token);
+        boolean isAdminPermissions = yuYangUtils.isAdmin();
         // 如果是超级管理员在添加时候不需要审核，直接显示
         if (isAdminPermissions) {
             link.setAuditStatus(1);

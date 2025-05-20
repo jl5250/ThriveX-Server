@@ -21,11 +21,8 @@ import java.util.Objects;
 
 @Component
 public class YuYangUtils {
-
-
     @Resource
     private UserTokenMapper userTokenMapper;
-
 
     /**
      * 获取 HttpServletRequest
