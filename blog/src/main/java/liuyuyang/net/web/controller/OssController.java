@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = "对象存储管理")
+@Api(tags = "存储管理")
 @RestController
 @RequestMapping("/oss")
 @AllArgsConstructor
