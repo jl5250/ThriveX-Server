@@ -74,4 +74,25 @@ public class AssistantController {
         List<Assistant> data = assistantService.list();
         return Result.success(data);
     }
+
+    @PremName("assistant:default")
+    @PatchMapping("/default/{id}")
+    @ApiOperation("设置默认助手")
+    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)
+    public Result<String> selectDefault(@PathVariable Integer id) {
+        Assistant assistant = assistantService.getById(id);
+        if (assistant == null) return Result.error("暂无该助手");
+
+        // 将之前的都设置为 0 表示未选中
+        List<Assistant> allAssistants = assistantService.list();
+        for (Assistant a : allAssistants) {
+            a.setIsDefault(0);
+            assistantService.updateById(a);
+        }
+
+        // 将当前的设置为 1 选中状态
+        assistant.setIsDefault(1);
+        assistantService.updateById(assistant);
+        return Result.success();
+    }
 }

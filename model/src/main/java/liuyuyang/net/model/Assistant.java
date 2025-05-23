@@ -15,11 +15,11 @@ public class Assistant {
     private Integer id;
     @ApiModelProperty(value = "助手名称", example = "DeepSeek", required = true)
     private String name;
-    @ApiModelProperty(value = "API 地址", example = "https://api.deepseek.com")
-    private String url;
     @TableField("`key`")
     @ApiModelProperty(value = "API 密钥", example = "xxxxxxxxxxxxxxxxxxxxxxxxxx")
     private String key;
     @ApiModelProperty(value = "API 模型", example = "deepseek-chat")
     private String model;
+    @ApiModelProperty(value = "设置默认助手", example = "默认：0，选择：1")
+    private Integer isDefault = 0;
 }
