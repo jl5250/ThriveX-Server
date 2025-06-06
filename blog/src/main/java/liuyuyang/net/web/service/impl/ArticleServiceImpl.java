@@ -153,9 +153,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void reduction(Integer id) {
-        Article article = articleMapper.selectById(id);
-        article.getConfig().setIsDel(0);
-        articleMapper.updateById(article);
+        LambdaQueryWrapper<ArticleConfig> articleConfigLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        articleConfigLambdaQueryWrapper.eq(ArticleConfig::getArticleId, id);
+        ArticleConfig articleConfig = articleConfigMapper.selectOne(articleConfigLambdaQueryWrapper);
+        articleConfig.setIsDel(0);
+        articleConfigMapper.updateById(articleConfig);
     }
 
     @Override
