@@ -27,6 +27,13 @@ public class AssistantController {
     @ApiOperation("新增助手")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
     public Result<String> add(@RequestBody Assistant assistant) {
+        // 将之前的都设置为 0 表示未选中
+        assistantService.lambdaUpdate()
+                .set(Assistant::getIsDefault, 0)
+                .update();
+
+        // 将当前的设置为选中状态
+        assistant.setIsDefault(1);
         assistantService.save(assistant);
         return Result.success();
     }
@@ -84,11 +91,9 @@ public class AssistantController {
         if (assistant == null) return Result.error("暂无该助手");
 
         // 将之前的都设置为 0 表示未选中
-        List<Assistant> allAssistants = assistantService.list();
-        for (Assistant a : allAssistants) {
-            a.setIsDefault(0);
-            assistantService.updateById(a);
-        }
+        assistantService.lambdaUpdate()
+                .set(Assistant::getIsDefault, 0)
+                .update();
 
         // 将当前的设置为 1 选中状态
         assistant.setIsDefault(1);
