@@ -135,6 +135,13 @@
                 <version>${email.version}</version>
             </dependency>
 
+            <!-- WebClient -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>3.1.2</version>
+            </dependency>
+
             <!-- 自定义模块 -->
             <dependency>
                 <groupId>liuyuyang.net</groupId>

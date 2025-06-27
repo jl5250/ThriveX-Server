@@ -5,3 +5,6 @@ blog/src/main/resources/application-local.yml
 
 docker/mysql_data
 docker/backup
+
+.DS_Store
+**/.DS_Store

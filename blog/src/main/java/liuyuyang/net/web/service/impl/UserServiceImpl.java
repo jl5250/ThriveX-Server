@@ -133,7 +133,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) throw new CustomException(400, "用户名或密码错误");
-        user.setPassword("只有聪明的人才能看到密码");
 
         Role role = roleMapper.selectById(user.getRoleId());
 

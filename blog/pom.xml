@@ -192,6 +192,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- WebClient -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>liuyuyang.net</groupId>
             <artifactId>model</artifactId>
