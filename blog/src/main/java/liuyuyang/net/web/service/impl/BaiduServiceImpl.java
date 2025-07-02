@@ -302,4 +302,16 @@ public class BaiduServiceImpl implements BaiduService {
                 "基础概览时间趋势报表"
         );
     }
+
+    @Override
+    public JsonNode getDistribution(String startDate, String endDate) {
+        return callBaiduStatisticsApi(
+                "pv_count,visit_count,visitor_count",
+                "visit/district/a",
+                null,
+                startDate,
+                endDate,
+                "地域分布报表"
+        );
+    }
 }

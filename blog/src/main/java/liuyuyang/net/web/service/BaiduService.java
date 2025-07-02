@@ -53,4 +53,12 @@ public interface BaiduService {
      * @return 基础统计数据的JsonNode对象
      */
     JsonNode getBasicOverviewTrend(String startDate, String endDate);
-} 
+
+    /**
+     * 获取地域分布数据
+     * @param startDate 开始日期 (格式: 20240101)，可选
+     * @param endDate 结束日期 (格式: 20240131)，可选
+     * @return 地域分布数据的JsonNode对象
+     */
+    JsonNode getDistribution(String startDate, String endDate);
+}
