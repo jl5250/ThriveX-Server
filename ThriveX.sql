@@ -224,7 +224,7 @@ CREATE TABLE `baidu` (
                          `expires_time` datetime NOT NULL COMMENT '过期时间',
                          `create_time` datetime NOT NULL COMMENT '创建时间',
                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='百度统计token管理';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='百度统计token管理';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -750,7 +750,7 @@ CREATE TABLE `user_token` (
                               PRIMARY KEY (`id`),
                               UNIQUE KEY `user_token_pk_2` (`id`),
                               UNIQUE KEY `user_token_pk_3` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -759,7 +759,7 @@ CREATE TABLE `user_token` (
 
 LOCK TABLES `user_token` WRITE;
 /*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
-INSERT INTO `user_token` VALUES (56,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzUxMTc5OTQ5LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IuWPquacieiBquaYjueahOS6uuaJjeiDveeci-WIsOWvhueggSIsIm5hbWUiOiLlrofpmLMiLCJpbmZvIjoiVGhyaXZlWCDljZrlrqLnrqHnkIbns7vnu5_kvZzogIUiLCJlbWFpbCI6IjMzMTExMTg4ODFAcXEuY29tIiwiYXZhdGFyIjoiaHR0cHM6Ly9idS5kdXNheXMuY29tLzIwMjQvMTEvMTcvNjczOWFkZjE4OGY2NC5wbmciLCJyb2xlSWQiOiIxIiwicm9sZSI6bnVsbCwiZ2l0aHViSWQiOiIxMDMxMTA1NTAifX0.sTEFVSZm35ed2uVKkvwi2PZnA7ph7mn6zNGu4bfNSbk');
+INSERT INTO `user_token` VALUES (57,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzUxMjgzNTg1LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwibmFtZSI6IuWuh-mYsyIsImluZm8iOiJUaHJpdmVYIOWNmuWuoueuoeeQhuezu-e7n-S9nOiAhSIsImVtYWlsIjoiMzMxMTExODg4MUBxcS5jb20iLCJhdmF0YXIiOiJodHRwczovL2J1LmR1c2F5cy5jb20vMjAyNC8xMS8xNy82NzM5YWRmMTg4ZjY0LnBuZyIsInJvbGVJZCI6IjEiLCJyb2xlIjpudWxsfX0.s5W_OtcNsVr25XJy2kIw8ayV-Q2bfWI-aVFDYM0GE7M');
 /*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -831,4 +831,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-26 20:58:49
+-- Dump completed on 2025-06-27 20:30:06

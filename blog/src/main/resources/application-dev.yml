@@ -8,17 +8,4 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
-lyy:
-  email:
-    host: ${EMAIL_HOST}
-    port: ${EMAIL_PORT}
-    username: ${EMAIL_USERNAME}
-    password: ${EMAIL_PASSWORD}
-  baidu:
-    isOpen: ${BAIDU_IS_OPEN}
-    clientKey: ${BAIDU_CLIENT_KEY}
-    clientSecret: ${BAIDU_CLIENT_SECRET}
-    refreshToken: ${BAIDU_REFRESH_TOKEN}
-    siteId: ${BAIDU_SITE_ID}
-
 domain: ${DOMAIN}

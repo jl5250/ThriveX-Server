@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.CheckRole;
 import liuyuyang.net.common.utils.Result;
-import liuyuyang.net.model.Baidu;
 import liuyuyang.net.web.service.impl.BaiduServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -22,33 +21,6 @@ import javax.annotation.Resource;
 public class BaiduController {
     @Resource
     private BaiduServiceImpl baiduService;
-
-    // 手动刷新百度统计access token
-    @PostMapping("/refresh-token")
-    @ApiOperation("刷新 Token")
-    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<Baidu> refreshToken() {
-        Baidu baidu = baiduService.refreshAccessToken();
-        return Result.success("token刷新成功", baidu);
-    }
-
-    // 获取当前有效的access token
-    @GetMapping("/access-token")
-    @ApiOperation("获取有效的 Token")
-    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
-    public Result<String> getAccessToken() {
-        String accessToken = baiduService.getValidAccessToken();
-        return Result.success(accessToken, "获取token成功");
-    }
-
-    // 检查token状态
-    @GetMapping("/token-status")
-    @ApiOperation("检查 Token 状态")
-    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
-    public Result<Boolean> checkTokenStatus() {
-        boolean needRefresh = baiduService.isTokenNeedRefresh();
-        return Result.success(needRefresh ? "token需要刷新" : "token状态正常");
-    }
 
     /**
      * 统一的百度统计数据获取接口
@@ -68,7 +40,7 @@ public class BaiduController {
         try {
             JsonNode data = null;
             String successMsg = "";
-            
+
             switch (type.toLowerCase()) {
                 case "basic":
                     data = baiduService.getStatisData(startDate, endDate);
@@ -93,13 +65,13 @@ public class BaiduController {
                 default:
                     return Result.error("不支持的统计类型: " + type + "。支持的类型: basic, overview, new-visitor, basic-overview, distribution");
             }
-            
+
             if (data == null) {
                 return Result.error("获取" + type + "类型统计数据失败");
             }
-            
+
             return Result.success(successMsg, data);
-            
+
         } catch (Exception e) {
             log.error("获取{}类型统计数据失败", type, e);
             return Result.error("获取" + type + "类型统计数据失败: " + e.getMessage());

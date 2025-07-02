@@ -63,4 +63,18 @@ public class EmailController {
 
         return Result.success();
     }
+
+    /**
+     * 测试邮件发送功能
+     */
+    @PostMapping("/test")
+    public Result testEmail(@RequestParam(required = false) String to, 
+                           @RequestParam(required = false) String subject) {
+        String testTo = (to == null || to.isEmpty()) ? null : to;
+        String testSubject = (subject == null || subject.isEmpty()) ? "邮件发送测试" : subject;
+        String testContent = "测试邮件";
+
+        emailUtils.send(testTo, testSubject, testContent);
+        return Result.success("测试邮件发送成功！请检查控制台日志和邮箱收件。");
+    }
 }
