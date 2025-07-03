@@ -22,7 +22,7 @@ public class EnvConfigController {
     @Resource
     private EnvConfigService envConfigService;
 
-    @ApiOperation("获取全部环境配置列表")
+    @ApiOperation("获取环境配置列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
     @GetMapping("/list")
     public Result<List<EnvConfig>> list() {

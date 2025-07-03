@@ -23,4 +23,7 @@ public class EnvConfig {
     @TableField(typeHandler = JacksonTypeHandler.class)
     @ApiModelProperty(value = "配置值(JSON格式)", example = "{\"host\":\"localhost\",\"port\":3306}", required = true)
     private Map<String, Object> value;
+
+    @ApiModelProperty(value = "配置备注")
+    private String notes;
 }

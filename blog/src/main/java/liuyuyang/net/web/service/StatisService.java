@@ -2,7 +2,7 @@ package liuyuyang.net.web.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public interface BaiduService {
+public interface StatisService {
     /**
      * 获取百度统计数据
      * @param startDate 开始日期 (格式: 20240101)，可选

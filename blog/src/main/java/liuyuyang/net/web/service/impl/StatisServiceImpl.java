@@ -1,13 +1,10 @@
 package liuyuyang.net.web.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import liuyuyang.net.common.execption.CustomException;
-import liuyuyang.net.common.utils.SpringUtils;
 import liuyuyang.net.model.EnvConfig;
-import liuyuyang.net.web.mapper.EnvConfigMapper;
-import liuyuyang.net.web.service.BaiduService;
+import liuyuyang.net.web.service.StatisService;
 import liuyuyang.net.web.service.EnvConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +20,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @Transactional
-public class BaiduServiceImpl implements BaiduService {
+public class StatisServiceImpl implements StatisService {
     @Resource
     private WebClient webClient;
     @Resource
@@ -34,7 +31,7 @@ public class BaiduServiceImpl implements BaiduService {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     private Map<String, Object> getBaiduConfig() {
-        EnvConfig envConfig = envConfigService.getByName("baidu");
+        EnvConfig envConfig = envConfigService.getByName("baidu_statis");
         return envConfig.getValue();
     }
 

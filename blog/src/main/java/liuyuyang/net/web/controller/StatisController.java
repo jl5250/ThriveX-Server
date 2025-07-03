@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.CheckRole;
 import liuyuyang.net.common.utils.Result;
-import liuyuyang.net.web.service.impl.BaiduServiceImpl;
+import liuyuyang.net.web.service.impl.StatisServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +18,9 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/baidu")
 @CheckRole
-public class BaiduController {
+public class StatisController {
     @Resource
-    private BaiduServiceImpl baiduService;
+    private StatisServiceImpl baiduService;
 
     /**
      * 统一的百度统计数据获取接口
@@ -67,14 +67,14 @@ public class BaiduController {
             }
 
             if (data == null) {
-                return Result.error("获取" + type + "类型统计数据失败");
+                return Result.error(600, "获取" + type + "类型统计数据失败");
             }
 
             return Result.success(successMsg, data);
 
         } catch (Exception e) {
             log.error("获取{}类型统计数据失败", type, e);
-            return Result.error("获取" + type + "类型统计数据失败: " + e.getMessage());
+            return Result.error(600, "获取" + type + "类型统计数据失败: " + e.getMessage());
         }
     }
 }
