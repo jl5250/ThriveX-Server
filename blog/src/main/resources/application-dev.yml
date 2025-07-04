@@ -7,5 +7,3 @@ spring:
     url: jdbc:mysql://${DB_INFO}?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-
-domain: ${DOMAIN}

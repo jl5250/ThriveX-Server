@@ -7,19 +7,6 @@ spring:
   servlet.multipart.max-file-size: 10MB
   servlet.multipart.max-request-size: 100MB
 
-#  mail:
-#    default-encoding: UTF-8
-#    host: ${lyy.email.host}
-#    port: ${lyy.email.port}  # 使用 SSL 的端口
-#    username: ${lyy.email.username}
-#    password: ${lyy.email.password}
-#    properties:
-#      mail:
-#        smtp: # 修正拼写错误
-#          auth: true
-#          ssl:
-#            enable: true
-
 logging.level.org.springframework.mail: DEBUG
 logging.level.org.springframework.boot.autoconfigure.mail: DEBUG
 

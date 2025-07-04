@@ -9,7 +9,7 @@ import liuyuyang.net.web.mapper.CommentMapper;
 import liuyuyang.net.model.Article;
 import liuyuyang.net.model.Comment;
 import liuyuyang.net.web.service.CommentService;
-import liuyuyang.net.web.service.ConfigService;
+import liuyuyang.net.web.service.WebConfigService;
 import liuyuyang.net.common.utils.EmailUtils;
 import liuyuyang.net.common.utils.YuYangUtils;
 import liuyuyang.net.vo.PageVo;
@@ -40,7 +40,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Resource
     private ArticleMapper articleMapper;
     @Resource
-    private ConfigService configService;
+    private WebConfigService configService;
 
     @Override
     public void add(Comment comment) throws Exception {

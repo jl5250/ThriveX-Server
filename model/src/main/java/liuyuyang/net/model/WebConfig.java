@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@TableName("config")
-public class Config {
+@TableName("web_config")
+public class WebConfig {
     @ApiModelProperty(value = "defaultDarkTheme", example = "配置名称", required = true)
     private String name;
 

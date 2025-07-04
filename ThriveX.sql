@@ -211,32 +211,6 @@ LOCK TABLES `assistant` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `baidu`
---
-
-DROP TABLE IF EXISTS `baidu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `baidu` (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `access_token` varchar(255) NOT NULL COMMENT '访问令牌',
-                         `refresh_token` varchar(255) NOT NULL COMMENT '刷新令牌',
-                         `expires_time` datetime NOT NULL COMMENT '过期时间',
-                         `create_time` datetime NOT NULL COMMENT '创建时间',
-                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='百度统计token管理';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `baidu`
---
-
-LOCK TABLES `baidu` WRITE;
-/*!40000 ALTER TABLE `baidu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `baidu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cate`
 --
 
@@ -301,29 +275,31 @@ INSERT INTO `comment` VALUES (514,'宇阳','https://q1.qlogo.cn/g?b=qq&nk=331111
 UNLOCK TABLES;
 
 --
--- Table structure for table `config`
+-- Table structure for table `env_config`
 --
 
-DROP TABLE IF EXISTS `config`;
+DROP TABLE IF EXISTS `env_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `config` (
-                          `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名称',
-                          `value` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置值',
-                          `group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置分组',
-                          `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-                          UNIQUE KEY `config_pk` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='网站配置';
+CREATE TABLE `env_config` (
+                              `id` int NOT NULL AUTO_INCREMENT,
+                              `name` varchar(255) DEFAULT NULL,
+                              `value` json NOT NULL COMMENT '配置项',
+                              `notes` varchar(255) NOT NULL COMMENT '配置备注',
+                              PRIMARY KEY (`id`),
+                              UNIQUE KEY `env_config_pk_2` (`id`),
+                              UNIQUE KEY `env_config_pk` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `config`
+-- Dumping data for table `env_config`
 --
 
-LOCK TABLES `config` WRITE;
-/*!40000 ALTER TABLE `config` DISABLE KEYS */;
-INSERT INTO `config` VALUES ('covers','[\"https://bu.dusays.com/2023/11/10/654e2da1d80f8.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d719d31c.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf92cd45.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf6055b0.jpg\",\"https://bu.dusays.com/2023/11/10/654e2db0889fe.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d50015a9.jpg\",\"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c870e280.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c717eb73.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c5d75d5b.jpg\",\"https://bu.dusays.com/2023/11/10/654e2da27801e.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d2a67517.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf47f17a.jpg\",\"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\"]','layout','文章随机封面'),('create_time','1547568000000','web','网站创建时间'),('dark_logo','https://bu.dusays.com/2024/05/03/663481106dcfd.png','layout','暗色LOGO'),('description','也许会是最好用的博客管理系统','web','网站描述'),('favicon','https://res.liuyuyang.net/usr/images/favicon.ico','web','网站ico图标'),('font','https://res.liuyuyang.net/LXGWWenKai.ttf','web','网站字体'),('footer','真诚邀请大家成为 ThriveX 博客管理系统的贡献者，一起参与项目开发，构建一个强大的博客管理系统！','web','网站底部信息'),('icp','豫ICP备2020031040号-1','web','域名备案号'),('is_article_layout','classics','layout','网站布局'),('keyword','宇阳,刘宇阳,Thrive,前端,Python,Java,Thrive,ThriveX,ThriveX现代化博客管理系统','web','网站关键词'),('light_logo','https://bu.dusays.com/2024/05/03/663481106e2a4.png','layout','亮色LOGO'),('reco_article','[\"1\",\"2\"]','layout','作者推荐的文章'),('record_info','🎯 梦想做一名技术顶尖的架构师，奈何学历太低！','layout','说说卡片个人介绍'),('record_name','👋 Liu 宇阳','layout','说说卡片名称'),('right_sidebar','[\"author\",\"hotArticle\",\"newComments\",\"randomArticle\"]','layout','侧边栏布局'),('social','[\"{\\\"name\\\":\\\"GitHub\\\",\\\"url\\\":\\\"https://github.com/LiuYuYang01\\\"}\",\"{\\\"name\\\":\\\"Gitee\\\",\\\"url\\\":\\\"https://gitee.com/liu_yu_yang666\\\"}\",\"{\\\"name\\\":\\\"Juejin\\\",\\\"url\\\":\\\"https://juejin.cn/user/3083456627092078/posts\\\"}\",\"{\\\"name\\\":\\\"CSDN\\\",\\\"url\\\":\\\"https://blog.csdn.net/haodian666?type=blog\\\"}\",\"{\\\"name\\\":\\\"QQ\\\",\\\"url\\\":\\\"http://wpa.qq.com/msgrd?v=3&uin=3311118881&site=qq&menu=yes\\\"}\"]','layout','社交网站'),('subhead','现代化博客管理系统','web','网站副标题'),('swiper_image','https://bu.dusays.com/2024/04/24/6628990012b51.jpg','layout','首页轮播图'),('swiper_text','[\"System.out.print(\\\"欢迎使用 ThriveX 博客管理系统！\\\"); \",\"print(\\\"这是一个 Nextjs + Spring Boot 的产物\\\") \"]','layout','首页轮播图打字机文案'),('title','ThriveX','web','网站名称'),('url','https://liuyuyang.net/','web','网站地址');
-/*!40000 ALTER TABLE `config` ENABLE KEYS */;
+LOCK TABLES `env_config` WRITE;
+/*!40000 ALTER TABLE `env_config` DISABLE KEYS */;
+INSERT INTO `env_config` VALUES (1,'baidu_statis','{\"site_id\": 0, \"access_token\": \"\"}','百度统计配置'),(2,'email','{\"host\": \"smtp.qq.com\", \"port\": 465, \"password\": \"\", \"username\": \"\"}','邮件发送配置'),(3,'gaode_map','{\"key_code\": \"\", \"security_code\": \"\"}','高德地图配置'),(4,'gaode_coordinate','{\"key\": \"\"}','高德地图坐标配置');
+/*!40000 ALTER TABLE `env_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -424,7 +400,7 @@ CREATE TABLE `link` (
                         `audit_status` int NOT NULL DEFAULT '0' COMMENT '是否审核',
                         `create_time` varchar(255) NOT NULL COMMENT '网站创建时间',
                         PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,7 +409,7 @@ CREATE TABLE `link` (
 
 LOCK TABLES `link` WRITE;
 /*!40000 ALTER TABLE `link` DISABLE KEYS */;
-INSERT INTO `link` VALUES (50,'宇阳','ThriveX 博客管理系统作者','liuyuyang1024@yeah.net','https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640','https://liuyuyang.net/','https://liuyuyang.net/api/rss',0,4,1,'1723533206613');
+INSERT INTO `link` VALUES (50,'宇阳','ThriveX 博客管理系统作者','liuyuyang1024@yeah.net','https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640','https://liuyuyang.net/','https://liuyuyang.net/api/rss',0,4,1,'1723533206613'),(52,'这是一个网站','这是一个网站的描述','liuyuyang1024@yeah.net','http://127.0.0.1:5000/1.jpg','/','/',123,1,1,'1723533206613'),(53,'这是一个网站','这是一个网站的描述','liuyuyang1024@yeah.net','http://127.0.0.1:5000/1.jpg','/','/',123,1,1,'1723533206613');
 /*!40000 ALTER TABLE `link` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,7 +485,7 @@ CREATE TABLE `permission` (
                               `group` varchar(50) NOT NULL COMMENT '权限分组',
                               PRIMARY KEY (`id`),
                               UNIQUE KEY `Permission_pk_2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限';
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -518,7 +494,7 @@ CREATE TABLE `permission` (
 
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
-INSERT INTO `permission` VALUES (1,'user:add','新增用户','user'),(2,'user:del','删除用户','user'),(3,'user:edit','编辑用户','user'),(4,'user:info','获取用户','user'),(5,'user:list','获取用户列表','user'),(6,'user:pass','修改用户密码','user'),(7,'data:add','新增数据','data'),(8,'data:del','删除数据','data'),(9,'article:add','新增文章','article'),(10,'article:del','删除文章','article'),(11,'article:reduction','还原被删除的文章','article'),(12,'article:del','批量删除文章','article'),(13,'article:edit','编辑文章','article'),(14,'cate:add','新增分类','cate'),(15,'cate:del','删除分类','cate'),(16,'cate:edit','编辑分类','cate'),(17,'comment:del','删除评论','comment'),(18,'comment:edit','编辑评论','comment'),(19,'comment:audit','审核评论','comment'),(22,'config:edit','修改项目配置','config'),(23,'email:dismiss','驳回通知邮件','email'),(24,'file:info','获取文件信息','file'),(25,'file:dir','获取目录列表','file'),(26,'file:list','获取文件列表','file'),(27,'file:add','文件上传','file'),(28,'file:del','删除文件','file'),(29,'oss:add','新增oss配置','oss'),(30,'oss:del','删除oss配置','oss'),(31,'oss:edit','更新oss配置','oss'),(32,'oss:info','获取oss配置','oss'),(33,'oss:list','获取oss配置列表','oss'),(34,'oss:enable','启用oss配置','oss'),(35,'oss:getEnableOss','获取当前启用的oss配置','oss'),(36,'oss:getPlatform','获取支持的oss平台','oss'),(37,'record:add','新增说说','record'),(38,'record:del','删除说说','record'),(39,'record:edit','编辑说说','record'),(40,'role:add','新增角色','role'),(41,'role:del','删除角色','role'),(42,'role:edit','编辑角色','role'),(43,'role:info','获取角色','role'),(44,'role:list','获取角色列表','role'),(46,'role:bindingRoute','分配角色权限','role'),(47,'route:add','新增路由','route'),(48,'route:del','删除路由','route'),(49,'route:edit','编辑路由','route'),(50,'route:info','获取路由','route'),(51,'route:list','获取路由列表','route'),(52,'swiper:add','新增轮播图','swiper'),(53,'swiper:del','删除轮播图','swiper'),(54,'swiper:edit','编辑轮播图','swiper'),(55,'tag:add','新增标签','tag'),(56,'tag:del','删除标签','tag'),(57,'tag:edit','编辑标签','tag'),(58,'wall:del','删除留言','wall'),(59,'wall:edit','编辑留言','wall'),(60,'wall:audit','审核留言','wall'),(62,'permission:add','新增权限','permission'),(63,'permission:del','删除权限','permission'),(64,'permission:edit','编辑权限','permission'),(65,'permission:info','获取权限','permission'),(66,'permission:list','获取权限列表','permission'),(67,'link:del','删除网站','link'),(68,'link:edit','编辑网站','link'),(69,'link:audit','审核网站','link'),(70,'email:reply_wall','回复留言','email'),(71,'wall:choice','设置与取消精选留言','wall'),(72,'album_cate:add','新增相册','album'),(73,'album_cate:del','删除相册','album'),(74,'album_cate:edit','编辑相册','album'),(75,'album_image:add','新增照片','album'),(76,'album_image:del','删除照片','album'),(77,'album_image:edit','编辑照片','album'),(78,'assistant:add','新增助手','assistant'),(79,'assistant:del','删除助手','assistant'),(80,'assistant:edit','编辑助手','assistant'),(81,'assistant:list','获取助手列表','assistant'),(82,'assistant:default','设置默认助手','assistant');
+INSERT INTO `permission` VALUES (1,'user:add','新增用户','user'),(2,'user:del','删除用户','user'),(3,'user:edit','编辑用户','user'),(4,'user:info','获取用户','user'),(5,'user:list','获取用户列表','user'),(6,'user:pass','修改用户密码','user'),(7,'data:add','新增数据','data'),(8,'data:del','删除数据','data'),(9,'article:add','新增文章','article'),(10,'article:del','删除文章','article'),(11,'article:reduction','还原被删除的文章','article'),(12,'article:del','批量删除文章','article'),(13,'article:edit','编辑文章','article'),(14,'cate:add','新增分类','cate'),(15,'cate:del','删除分类','cate'),(16,'cate:edit','编辑分类','cate'),(17,'comment:del','删除评论','comment'),(18,'comment:edit','编辑评论','comment'),(19,'comment:audit','审核评论','comment'),(22,'config:edit','修改项目配置','config'),(23,'email:dismiss','驳回通知邮件','email'),(24,'file:info','获取文件信息','file'),(25,'file:dir','获取目录列表','file'),(26,'file:list','获取文件列表','file'),(27,'file:add','文件上传','file'),(28,'file:del','删除文件','file'),(29,'oss:add','新增oss配置','oss'),(30,'oss:del','删除oss配置','oss'),(31,'oss:edit','更新oss配置','oss'),(32,'oss:info','获取oss配置','oss'),(33,'oss:list','获取oss配置列表','oss'),(34,'oss:enable','启用oss配置','oss'),(35,'oss:getEnableOss','获取当前启用的oss配置','oss'),(36,'oss:getPlatform','获取支持的oss平台','oss'),(37,'record:add','新增说说','record'),(38,'record:del','删除说说','record'),(39,'record:edit','编辑说说','record'),(40,'role:add','新增角色','role'),(41,'role:del','删除角色','role'),(42,'role:edit','编辑角色','role'),(43,'role:info','获取角色','role'),(44,'role:list','获取角色列表','role'),(46,'role:bindingRoute','分配角色权限','role'),(47,'route:add','新增路由','route'),(48,'route:del','删除路由','route'),(49,'route:edit','编辑路由','route'),(50,'route:info','获取路由','route'),(51,'route:list','获取路由列表','route'),(52,'swiper:add','新增轮播图','swiper'),(53,'swiper:del','删除轮播图','swiper'),(54,'swiper:edit','编辑轮播图','swiper'),(55,'tag:add','新增标签','tag'),(56,'tag:del','删除标签','tag'),(57,'tag:edit','编辑标签','tag'),(58,'wall:del','删除留言','wall'),(59,'wall:edit','编辑留言','wall'),(60,'wall:audit','审核留言','wall'),(62,'permission:add','新增权限','permission'),(63,'permission:del','删除权限','permission'),(64,'permission:edit','编辑权限','permission'),(65,'permission:info','获取权限','permission'),(66,'permission:list','获取权限列表','permission'),(67,'link:del','删除网站','link'),(68,'link:edit','编辑网站','link'),(69,'link:audit','审核网站','link'),(70,'email:reply_wall','回复留言','email'),(71,'wall:choice','设置与取消精选留言','wall'),(72,'album_cate:add','新增相册','album'),(73,'album_cate:del','删除相册','album'),(74,'album_cate:edit','编辑相册','album'),(75,'album_image:add','新增照片','album'),(76,'album_image:del','删除照片','album'),(77,'album_image:edit','编辑照片','album'),(78,'assistant:add','新增助手','assistant'),(79,'assistant:del','删除助手','assistant'),(80,'assistant:edit','编辑助手','assistant'),(81,'assistant:list','获取助手列表','assistant'),(82,'assistant:default','设置默认助手','assistant'),(84,'config','编辑配置','config');
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -614,7 +590,7 @@ CREATE TABLE `route` (
                          PRIMARY KEY (`id`),
                          UNIQUE KEY `routes_pk_2` (`id`),
                          UNIQUE KEY `routes_pk` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -623,7 +599,7 @@ CREATE TABLE `route` (
 
 LOCK TABLES `route` WRITE;
 /*!40000 ALTER TABLE `route` DISABLE KEYS */;
-INSERT INTO `route` VALUES (1,'/','仪表盘'),(2,'/create','创作'),(5,'/setup','系统'),(6,'/article','文章管理'),(7,'/tag','标签管理'),(8,'/comment','评论管理'),(9,'/cate','分类管理'),(10,'/web','网站管理'),(11,'/swiper','轮播图管理'),(12,'/user','用户管理'),(13,'/role','角色管理'),(14,'/rss','订阅中心'),(15,'/chart','文件系统'),(17,'/iter','更新日志'),(20,'/route','路由管理'),(21,'/file','文件管理'),(23,'/footprint','足迹管理'),(24,'/work','工作台'),(25,'/wall','留言管理'),(26,'/draft','草稿箱'),(27,'/recycle','回收站'),(28,'/record','说说管理'),(29,'/create_record','闪念'),(30,'/storage','存储管理'),(31,'/album','相册管理'),(32,'/assistant','助手管理');
+INSERT INTO `route` VALUES (1,'/','仪表盘'),(2,'/create','创作'),(5,'/setup','系统'),(6,'/article','文章管理'),(7,'/tag','标签管理'),(8,'/comment','评论管理'),(9,'/cate','分类管理'),(10,'/web','网站管理'),(11,'/swiper','轮播图管理'),(12,'/user','用户管理'),(13,'/role','角色管理'),(14,'/rss','订阅中心'),(15,'/chart','文件系统'),(17,'/iter','更新日志'),(20,'/route','路由管理'),(21,'/file','文件管理'),(23,'/footprint','足迹管理'),(24,'/work','工作台'),(25,'/wall','留言管理'),(26,'/draft','草稿箱'),(27,'/recycle','回收站'),(28,'/record','说说管理'),(29,'/create_record','闪念'),(30,'/storage','存储管理'),(31,'/album','相册管理'),(32,'/assistant','助手管理'),(33,'/config','环境配置');
 /*!40000 ALTER TABLE `route` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,7 +625,7 @@ CREATE TABLE `route_role` (
 
 LOCK TABLES `route_role` WRITE;
 /*!40000 ALTER TABLE `route_role` DISABLE KEYS */;
-INSERT INTO `route_role` VALUES (1,1,5),(2,10,5),(3,7,5),(4,9,5),(5,8,5),(6,6,5),(7,2,5),(8,5,5),(9,30,1),(10,27,1),(11,26,1),(12,25,1),(13,24,1),(14,23,1),(15,21,1),(16,14,1),(17,17,1),(18,20,1),(19,1,1),(20,2,1),(21,5,1),(22,6,1),(23,7,1),(24,8,1),(25,9,1),(26,10,1),(27,11,1),(28,12,1),(29,13,1),(30,15,1),(31,16,1),(32,28,1),(33,29,1),(34,32,1),(35,33,1),(36,1,2),(37,7,2),(38,9,2),(39,8,2),(40,6,2),(41,2,2),(42,31,1),(43,32,1);
+INSERT INTO `route_role` VALUES (1,1,5),(2,10,5),(3,7,5),(4,9,5),(5,8,5),(6,6,5),(7,2,5),(8,5,5),(36,1,2),(37,7,2),(38,9,2),(39,8,2),(40,6,2),(41,2,2);
 /*!40000 ALTER TABLE `route_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -667,7 +643,7 @@ CREATE TABLE `swiper` (
                           `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
                           `url` varchar(500) DEFAULT NULL,
                           PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -676,7 +652,7 @@ CREATE TABLE `swiper` (
 
 LOCK TABLES `swiper` WRITE;
 /*!40000 ALTER TABLE `swiper` DISABLE KEYS */;
-INSERT INTO `swiper` VALUES (1,'半山腰的风景很美，然而我还是更想到山顶看看','The scenery halfway up the mountain is beautiful, but I still prefer to see the mountaintop','https://bu.dusays.com/2023/11/10/654e2cf6055b0.jpg','/');
+INSERT INTO `swiper` VALUES (1,'ThriveX 3.0 来袭，不忘初心，保持热爱','','https://bu.dusays.com/2025/06/15/684e8f3435c97.png','https://github.com/LiuYuYang01/ThriveX-Admin'),(29,'ThriveX 官网全新发布 🎉',NULL,'https://bu.dusays.com/2025/01/21/678f4a609f91f.png','https://thrivex.liuyuyang.net/');
 /*!40000 ALTER TABLE `swiper` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -750,7 +726,7 @@ CREATE TABLE `user_token` (
                               PRIMARY KEY (`id`),
                               UNIQUE KEY `user_token_pk_2` (`id`),
                               UNIQUE KEY `user_token_pk_3` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -759,7 +735,7 @@ CREATE TABLE `user_token` (
 
 LOCK TABLES `user_token` WRITE;
 /*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
-INSERT INTO `user_token` VALUES (57,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzUxMjgzNTg1LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwibmFtZSI6IuWuh-mYsyIsImluZm8iOiJUaHJpdmVYIOWNmuWuoueuoeeQhuezu-e7n-S9nOiAhSIsImVtYWlsIjoiMzMxMTExODg4MUBxcS5jb20iLCJhdmF0YXIiOiJodHRwczovL2J1LmR1c2F5cy5jb20vMjAyNC8xMS8xNy82NzM5YWRmMTg4ZjY0LnBuZyIsInJvbGVJZCI6IjEiLCJyb2xlIjpudWxsfX0.s5W_OtcNsVr25XJy2kIw8ayV-Q2bfWI-aVFDYM0GE7M');
+INSERT INTO `user_token` VALUES (62,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzUxNzg5NDY3LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwibmFtZSI6IuWuh-mYsyIsImluZm8iOiJUaHJpdmVYIOWNmuWuoueuoeeQhuezu-e7n-S9nOiAhSIsImVtYWlsIjoiMzMxMTExODg4MUBxcS5jb20iLCJhdmF0YXIiOiJodHRwczovL2J1LmR1c2F5cy5jb20vMjAyNC8xMS8xNy82NzM5YWRmMTg4ZjY0LnBuZyIsInJvbGVJZCI6IjEiLCJyb2xlIjpudWxsfX0.DzqJ1o9L_E7-VjL9jyUgLUHV8SRi6tENII16zdrmwAs');
 /*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -821,6 +797,32 @@ LOCK TABLES `wall_cate` WRITE;
 INSERT INTO `wall_cate` VALUES (1,'全部','all',1),(2,'想对我说的话','info',2),(3,'对我的建议','suggest',3),(6,'其他','other',6),(7,'精选','choice',0);
 /*!40000 ALTER TABLE `wall_cate` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `web_config`
+--
+
+DROP TABLE IF EXISTS `web_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `web_config` (
+                              `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名称',
+                              `value` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置值',
+                              `group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置分组',
+                              `note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+                              UNIQUE KEY `web_config_pk` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='网站配置';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `web_config`
+--
+
+LOCK TABLES `web_config` WRITE;
+/*!40000 ALTER TABLE `web_config` DISABLE KEYS */;
+INSERT INTO `web_config` VALUES ('covers','[\"https://bu.dusays.com/2023/11/10/654e2da1d80f8.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d719d31c.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf92cd45.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf6055b0.jpg\",\"https://bu.dusays.com/2023/11/10/654e2db0889fe.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d50015a9.jpg\",\"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c870e280.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c717eb73.jpg\",\"https://bu.dusays.com/2023/11/10/654e2c5d75d5b.jpg\",\"https://bu.dusays.com/2023/11/10/654e2da27801e.jpg\",\"https://bu.dusays.com/2023/11/10/654e2d2a67517.jpg\",\"https://bu.dusays.com/2023/11/10/654e2cf47f17a.jpg\",\"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\"]','layout','文章随机封面'),('create_time','1547568000000','web','网站创建时间'),('dark_logo','https://bu.dusays.com/2024/05/03/663481106dcfd.png','layout','暗色LOGO'),('description','也许会是最好用的博客管理系统','web','网站描述'),('favicon','https://res.liuyuyang.net/usr/images/favicon.ico','web','网站ico图标'),('font','https://res.liuyuyang.net/LXGWWenKai.ttf','web','网站字体'),('footer','真诚邀请大家成为 ThriveX 博客管理系统的贡献者，一起参与项目开发，构建一个强大的博客管理系统！','web','网站底部信息'),('icp','豫ICP备2020031040号-1','web','域名备案号'),('is_article_layout','classics','layout','网站布局'),('keyword','宇阳,刘宇阳,Thrive,前端,Python,Java,Thrive,ThriveX,ThriveX现代化博客管理系统','web','网站关键词'),('light_logo','https://bu.dusays.com/2024/05/03/663481106e2a4.png','layout','亮色LOGO'),('reco_article','[\"1\",\"2\"]','layout','作者推荐的文章'),('record_info','🎯 梦想做一名技术顶尖的架构师，奈何学历太低！','layout','说说卡片个人介绍'),('record_name','👋 Liu 宇阳','layout','说说卡片名称'),('right_sidebar','[\"author\",\"hotArticle\",\"newComments\",\"randomArticle\"]','layout','侧边栏布局'),('social','[\"{\\\"name\\\":\\\"GitHub\\\",\\\"url\\\":\\\"https://github.com/LiuYuYang01\\\"}\",\"{\\\"name\\\":\\\"Gitee\\\",\\\"url\\\":\\\"https://gitee.com/liu_yu_yang666\\\"}\",\"{\\\"name\\\":\\\"Juejin\\\",\\\"url\\\":\\\"https://juejin.cn/user/3083456627092078/posts\\\"}\",\"{\\\"name\\\":\\\"CSDN\\\",\\\"url\\\":\\\"https://blog.csdn.net/haodian666?type=blog\\\"}\",\"{\\\"name\\\":\\\"QQ\\\",\\\"url\\\":\\\"http://wpa.qq.com/msgrd?v=3&uin=3311118881&site=qq&menu=yes\\\"}\"]','layout','社交网站'),('subhead','现代化博客管理系统','web','网站副标题'),('swiper_image','https://bu.dusays.com/2024/04/24/6628990012b51.jpg','layout','首页轮播图'),('swiper_text','[\"System.out.print(\\\"欢迎使用 ThriveX 博客管理系统！\\\"); \",\"print(\\\"这是一个 Nextjs + Spring Boot 的产物\\\") \"]','layout','首页轮播图打字机文案'),('title','ThriveX','web','网站名称'),('url','https://liuyuyang.net/','web','网站地址');
+/*!40000 ALTER TABLE `web_config` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -831,4 +833,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-27 20:30:06
+-- Dump completed on 2025-07-04 12:49:47

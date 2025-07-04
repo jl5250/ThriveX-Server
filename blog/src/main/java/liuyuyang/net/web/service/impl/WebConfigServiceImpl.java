@@ -3,9 +3,9 @@ package liuyuyang.net.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
-import liuyuyang.net.web.mapper.ConfigMapper;
-import liuyuyang.net.model.Config;
-import liuyuyang.net.web.service.ConfigService;
+import liuyuyang.net.web.mapper.WebConfigMapper;
+import liuyuyang.net.model.WebConfig;
+import liuyuyang.net.web.service.WebConfigService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import oshi.SystemInfo;
@@ -20,31 +20,31 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> implements ConfigService {
+public class WebConfigServiceImpl extends ServiceImpl<WebConfigMapper, WebConfig> implements WebConfigService {
     @Resource
-    private ConfigMapper configMapper;
+    private WebConfigMapper webConfigMapper;
 
     @Override
     public Object get(String name){
-        return configMapper.selectOne(new LambdaQueryWrapper<Config>().eq(Config::getName, name)).getValue();
+        return webConfigMapper.selectOne(new LambdaQueryWrapper<WebConfig>().eq(WebConfig::getName, name)).getValue();
     }
 
     @Override
     public Map<String, Object> list(String group) {
-        List<Config> list;
+        List<WebConfig> list;
         Map<String, Object> result;
-        LambdaQueryWrapper<Config> wrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<WebConfig> wrapper = new LambdaQueryWrapper<>();
 
         switch (group) {
             case "all":
-                list = configMapper.selectList(null);
-                result = list.stream().collect(Collectors.toMap(Config::getName, Config::getValue));
+                list = webConfigMapper.selectList(null);
+                result = list.stream().collect(Collectors.toMap(WebConfig::getName, WebConfig::getValue));
                 return result;
             case "web":
-                wrapper.eq(Config::getGroup, "web");
+                wrapper.eq(WebConfig::getGroup, "web");
                 break;
             case "layout":
-                wrapper.eq(Config::getGroup, "layout");
+                wrapper.eq(WebConfig::getGroup, "layout");
                 break;
             case "system":
                 return getSystemInfo();
@@ -53,8 +53,8 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
         }
 
         // 不等于 "all" or "system" 触发
-        list = configMapper.selectList(wrapper);
-        result = list.stream().collect(Collectors.toMap(Config::getName, Config::getValue));
+        list = webConfigMapper.selectList(wrapper);
+        result = list.stream().collect(Collectors.toMap(WebConfig::getName, WebConfig::getValue));
         return result;
     }
 
@@ -64,11 +64,11 @@ public class ConfigServiceImpl extends ServiceImpl<ConfigMapper, Config> impleme
             String name = entry.getKey();
             String value = entry.getValue();
 
-            LambdaQueryWrapper<Config> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Config::getName, name);
-            Config config = new Config();
+            LambdaQueryWrapper<WebConfig> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(WebConfig::getName, name);
+            WebConfig config = new WebConfig();
             config.setValue(value);
-            configMapper.update(config, wrapper);
+            webConfigMapper.update(config, wrapper);
         }
     }
 
