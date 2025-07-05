@@ -86,4 +86,12 @@ public class EnvConfigController {
         EnvConfig envConfig = envConfigService.getByName("gaode_map");
         return Result.success(envConfig.getValue());
     }
+
+    @ApiOperation("获取高德地图配置")
+    @ApiOperationSupport(author = "loong | 1662528926@qq.com", order = 8)
+    @GetMapping("/gaode_ip")
+    public Result<Map<String, Object>> getGaodeIpConfig() {
+        EnvConfig envConfig = envConfigService.getByName("gaode_ip");
+        return Result.success(envConfig.getValue());
+    }
 } 
