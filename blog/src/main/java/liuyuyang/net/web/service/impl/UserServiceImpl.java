@@ -158,7 +158,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void editPass(EditPassDTO data) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", data.getUsername());
+        queryWrapper.eq("username", data.getOldUsername());
         queryWrapper.eq("password", DigestUtils.md5DigestAsHex(data.getOldPassword().getBytes()));
 
         User user = userMapper.selectOne(queryWrapper);
@@ -167,6 +167,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new CustomException(400, "用户名或旧密码错误");
         }
 
+        user.setUsername(data.getNewUsername());
         user.setPassword(DigestUtils.md5DigestAsHex(data.getNewPassword().getBytes()));
         userMapper.updateById(user);
     }

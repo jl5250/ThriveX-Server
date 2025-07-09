@@ -25,10 +25,10 @@
 
 🛠️ **技术架构：**
 
-前端：React **19**、**Next.js 15**、**TailwindCSS 4**、TypeScript、Zustand、Motion React、React Form Hooks、Echarts、Antd、Scss、Vercel、Docker
+前端：**React 19**、**Next.js 15**、**TailwindCSS 4**、TypeScript、Zustand、Motion React、React Form Hooks、Echarts、Hero UI、Antd UI、Scss、Vercel、Docker、百度统计、高德地图
 
 
-后端：**Spring Boot**、Mybatis Plus、MySQL、X File Storage、Swagger、Docker
+后端：**Spring Boot**、Mybatis Plus、Redis、MySQL、Docker、X File Storage、Swagger
 
 
 ❤️ **项目初衷：**
@@ -42,7 +42,9 @@
 ### 前端
 
 这里只演示部分前端界面，具体大家可以自行查看 **->** [https://liuyuyang.net](https://liuyuyang.net)
+
 ![首页](https://bu.dusays.com/2024/10/28/671f7a44631d7.png)
+
 ![足迹](https://bu.dusays.com/2024/09/17/66e97036dddcb.png)
 
 
@@ -50,53 +52,20 @@
 ### 控制端
 
 ![数据分析](https://bu.dusays.com/2024/09/17/66e97035726ae.png)
+
 ![文件系统](https://bu.dusays.com/2024/09/17/66e97031cd456.png)
 
 
 
 ## 项目部署
 
-前端：[https://docs.liuyuyang.net/docs/项目部署/前端.html](https://docs.liuyuyang.net/docs/项目部署/前端.html)
-控制端：[https://docs.liuyuyang.net/docs/项目部署/控制端.html](https://docs.liuyuyang.net/docs/项目部署/控制端.html)
-后端：[https://docs.liuyuyang.net/docs/项目部署/后端.html](https://docs.liuyuyang.net/docs/项目部署/后端.html)
-
-
-
-## 项目结构
-
-```
-├── public // 存放公共资源
-├── src // 核心源码
-│   ├── api // 所有API接口
-│   ├── app
-│   │   ├── error.tsx // 自定义错误页
-│   │   ├── favicon.ico // 项目图标
-│   │   ├── layout.tsx // 网站布局
-│   │   ├── loading.tsx // 自定义加载页
-│   │   ├── not-found.tsx // 自定义404页
-│   │   ├── page.tsx // 首页
-│   ├── assets // 存放项目所有资源
-│   │   ├── font
-│   │   ├── image
-│   │   └── svg
-│   ├── components // 公共组件
-│   ├── stores // 数据全局共享
-│   ├── styles // 全局样式
-│   ├── types // 全局类型
-│   └── utils // 通用方法
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-├── tailwind.config.ts
-└── tsconfig.json
-```
-
+官方文档：[https://docs.liuyuyang.net/docs/项目部署/1Panel.html](https://docs.liuyuyang.net/docs/项目部署/1Panel.html)
 
 
 
 ## 开源地址
 
-### 2.0 最新版（Nextjs + Spring Boot）
+### 3.0 最新版（Nextjs + Spring Boot）
 
 前端：[LiuYuYang01/ThriveX-Blog (github.com)](https://github.com/LiuYuYang01/ThriveX-Blog)
 
@@ -106,7 +75,7 @@
 
 
 
-### 1.0 旧版（Vue3 + Python Flask）
+### 2.0 旧版（Vue3 + Python Flask）
 
 前端：[LiuYuYang01/Thrive-Blog (github.com)](https://github.com/LiuYuYang01/Thrive-Blog)
 
@@ -153,19 +122,22 @@
 
 ## ThriveX 交流群 🔥
 
-加微信：`liuyuyang2023`   记得备注：拉群
+大家在部署时遇到任何问题欢迎加入官方交流群进行探索
+
+加微信：`liuyuyang2023`   记得说明在哪里看到的 ThriveX 项目
 
 ![微信](https://bu.dusays.com/2025/06/03/683e96eb43ad8.jpg)
 
 
-## 技术支持
 
-项目部署 + `3` 天答疑服务 一口价 `200`，不议价哦。
+# 常见疑惑
 
-不过我不太提倡，因为我时间比较忙。大家可以在上述找到我的微信进入官方交流群，在我或热心网友闲的时候也会免费帮忙解决问题的
-
+下面总结一些大家常问的疑惑
 
 
+## 为什么会想到开发这个项目？
+
+**问：** 为什么会想到开发这个项目？
 # 常见疑惑
 
 下面总结一些大家常问的疑惑
