@@ -1,9 +1,11 @@
 package liuyuyang.net.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.dto.album.AlbumCateAddFormDTO;
 import liuyuyang.net.model.AlbumCate;
 import liuyuyang.net.model.AlbumImage;
 import liuyuyang.net.web.mapper.AlbumCateMapper;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,34 +28,32 @@ public class AlbumCateServiceImpl extends ServiceImpl<AlbumCateMapper, AlbumCate
     private AlbumImageMapper albumImageMapper;
 
     @Override
-    public void add(AlbumCate albumCate) {
+    public void add(AlbumCateAddFormDTO albumCateAddFormDTO) {
+        AlbumCate albumCate = BeanUtil.copyProperties(albumCateAddFormDTO, AlbumCate.class);
         albumCateMapper.insert(albumCate);
     }
 
     @Override
     public void del(Integer id) {
-        AlbumCate albumCate = albumCateMapper.selectById(id);
-        if (albumCate == null) throw new CustomException(400, "该相册不存在");
+        isExist(id);
         albumCateMapper.deleteById(id);
     }
 
     @Override
     public void batchDel(List<Integer> ids) {
+        isExist(ids);
         albumCateMapper.deleteBatchIds(ids);
     }
 
     @Override
     public void edit(AlbumCate albumCate) {
-        AlbumCate existAlbumCate = albumCateMapper.selectById(albumCate.getId());
-        if (existAlbumCate == null) throw new CustomException(400, "该相册不存在");
+        isExist(albumCate.getId());
         updateById(albumCate);
     }
 
     @Override
     public AlbumCate get(Integer id) {
-        AlbumCate albumCate = albumCateMapper.selectById(id);
-        if (albumCate == null) throw new CustomException(400, "该相册不存在");
-        return albumCate;
+        return albumCateMapper.selectById(id);
     }
 
     @Override
@@ -60,12 +62,18 @@ public class AlbumCateServiceImpl extends ServiceImpl<AlbumCateMapper, AlbumCate
         lambdaQueryAlbumCateWrapper.orderByDesc(AlbumCate::getId);
         List<AlbumCate> list = albumCateMapper.selectList(lambdaQueryAlbumCateWrapper);
 
+        if (list.isEmpty()) return list;
+
+        // 批量查所有图片
+        List<Integer> cateIds = list.stream().map(AlbumCate::getId).collect(Collectors.toList());
+        LambdaQueryWrapper<AlbumImage> imageWrapper = new LambdaQueryWrapper<>();
+        imageWrapper.in(AlbumImage::getCateId, cateIds);
+        List<AlbumImage> allImages = albumImageMapper.selectList(imageWrapper);
+
+        Map<Integer, Long> countMap = allImages.stream().collect(java.util.stream.Collectors.groupingBy(AlbumImage::getCateId, java.util.stream.Collectors.counting()));
+
         for (AlbumCate cate : list) {
-            LambdaQueryWrapper<AlbumImage> lambdaQueryAlbumImageWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryAlbumImageWrapper.eq(AlbumImage::getCateId, cate.getId());
-            lambdaQueryAlbumImageWrapper.orderByDesc(AlbumImage::getId);
-            List<AlbumImage> albumImageList = albumImageMapper.selectList(lambdaQueryAlbumImageWrapper);
-            cate.setCount(albumImageList.size());
+            cate.setCount(countMap.getOrDefault(cate.getId(), 0L).intValue());
         }
 
         return list;
@@ -75,15 +83,19 @@ public class AlbumCateServiceImpl extends ServiceImpl<AlbumCateMapper, AlbumCate
     public Page<AlbumCate> paging(Integer page, Integer size) {
         LambdaQueryWrapper<AlbumCate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.orderByDesc(AlbumCate::getId);
-
         Page<AlbumCate> list = page(new Page<>(page, size), lambdaQueryWrapper);
 
+        if (list.getRecords().isEmpty()) return list;
+
+        List<Integer> cateIds = list.getRecords().stream().map(AlbumCate::getId).collect(Collectors.toList());
+        LambdaQueryWrapper<AlbumImage> imageWrapper = new LambdaQueryWrapper<>();
+        imageWrapper.in(AlbumImage::getCateId, cateIds);
+        List<AlbumImage> allImages = albumImageMapper.selectList(imageWrapper);
+
+        Map<Integer, Long> countMap = allImages.stream().collect(java.util.stream.Collectors.groupingBy(AlbumImage::getCateId, java.util.stream.Collectors.counting()));
+
         for (AlbumCate cate : list.getRecords()) {
-            LambdaQueryWrapper<AlbumImage> lambdaQueryAlbumImageWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryAlbumImageWrapper.eq(AlbumImage::getCateId, cate.getId());
-            lambdaQueryAlbumImageWrapper.orderByDesc(AlbumImage::getId);
-            List<AlbumImage> albumImageList = albumImageMapper.selectList(lambdaQueryAlbumImageWrapper);
-            cate.setCount(albumImageList.size());
+            cate.setCount(countMap.getOrDefault(cate.getId(), 0L).intValue());
         }
 
         return list;
@@ -96,5 +108,18 @@ public class AlbumCateServiceImpl extends ServiceImpl<AlbumCateMapper, AlbumCate
         lambdaQueryWrapper.orderByDesc(AlbumImage::getId);
 
         return albumImageMapper.selectPage(new Page<>(page, size), lambdaQueryWrapper);
+    }
+
+    // 判断是否存在
+    public void isExist(Integer id) {
+        AlbumCate albumCate = this.get(id);
+        if (albumCate == null) throw new CustomException(400, "该相册不存在");
+    }
+
+    public void isExist(List<Integer> ids) {
+        for (Integer id : ids) {
+            AlbumCate albumCate = this.get(id);
+            if (albumCate == null) throw new CustomException(400, "ID为" + id + "的相册不存在");
+        }
     }
 }

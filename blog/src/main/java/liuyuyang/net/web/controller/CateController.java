@@ -1,5 +1,6 @@
 package liuyuyang.net.web.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
@@ -7,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.annotation.PremName;
+import liuyuyang.net.dto.cate.CateFormDTO;
 import liuyuyang.net.model.Cate;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.result.cate.CateArticleCount;
@@ -31,7 +33,8 @@ public class CateController {
     @PostMapping
     @ApiOperation("新增分类")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<String> add(@RequestBody Cate cate) {
+    public Result<String> add(@RequestBody CateFormDTO cateFormDTO) {
+        Cate cate = BeanUtil.copyProperties(cateFormDTO, Cate.class);
         cateService.save(cate);
         return Result.success();
     }
@@ -63,7 +66,8 @@ public class CateController {
     @PatchMapping
     @ApiOperation("编辑分类")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
-    public Result<String> edit(@RequestBody Cate cate) {
+    public Result<String> edit(@RequestBody CateFormDTO cateFormDTO) {
+        Cate cate = BeanUtil.copyProperties(cateFormDTO, Cate.class);
         cateService.updateById(cate);
         return Result.success();
     }

@@ -1,24 +1,20 @@
 package liuyuyang.net.web.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
-import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.model.ArticleCate;
 import liuyuyang.net.web.mapper.ArticleCateMapper;
 import liuyuyang.net.web.mapper.CateMapper;
 import liuyuyang.net.model.Cate;
 import liuyuyang.net.result.cate.CateArticleCount;
 import liuyuyang.net.web.service.CateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +23,7 @@ import java.util.Objects;
 public class CateServiceImpl extends ServiceImpl<CateMapper, Cate> implements CateService {
     @Resource
     private CateMapper cateMapper;
-    @Autowired
+    @Resource
     private ArticleCateMapper articleCateMapper;
 
     // 判断是否存在二级分类

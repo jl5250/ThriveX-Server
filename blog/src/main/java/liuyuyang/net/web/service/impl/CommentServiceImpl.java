@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.model.Comment;
 import liuyuyang.net.web.mapper.ArticleMapper;
 import liuyuyang.net.web.mapper.CommentMapper;
 import liuyuyang.net.model.Article;
-import liuyuyang.net.model.Comment;
 import liuyuyang.net.web.service.CommentService;
 import liuyuyang.net.web.service.WebConfigService;
 import liuyuyang.net.common.utils.EmailUtils;
@@ -73,7 +73,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         context.setVariable("content", content.toString());
 
         // 获取url
-        String url = (String) configService.get("url");
+        String url = (String) configService.getByName("web").getValue().get("url");
         String path = String.format("%s/article/%d", url, comment.getArticleId());
         context.setVariable("url", path);
 

@@ -45,7 +45,7 @@ public class PageConfigController {
         return pageConfig != null ? Result.success("获取成功", pageConfig) : Result.error("配置不存在");
     }
 
-    @ApiOperation("更新页面配置的JSON值")
+    @ApiOperation("根据ID更新页面配置")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
     @PatchMapping("/json/{id}")
     public Result<String> updateJsonValue(

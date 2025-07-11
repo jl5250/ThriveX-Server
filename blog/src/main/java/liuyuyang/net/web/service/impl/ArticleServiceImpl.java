@@ -1,11 +1,13 @@
 package liuyuyang.net.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.common.utils.YuYangUtils;
+import liuyuyang.net.dto.article.ArticleFormDTO;
 import liuyuyang.net.model.*;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.article.ArticleFillterVo;
@@ -30,6 +32,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import java.util.Collection;
 
 @Service
 @Transactional
@@ -80,7 +83,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public void add(Article article) {
+    public void add(ArticleFormDTO articleFormDTO) {
+        Article article = BeanUtil.copyProperties(articleFormDTO, Article.class);
         articleMapper.insert(article);
 
         // 新增分类
@@ -162,52 +166,55 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public void delBatch(List<Integer> ids) {
-        // for (Integer id : ids) {
-        //     // 删除文章关联的数据
-        //     delArticleCorrelationData(id);
-        // }
-
         delArticleCorrelationData(ids);
 
         // 批量删除文章
+        if (ids == null || ids.isEmpty()) return;
+
         QueryWrapper<Article> queryWrapperArticle = new QueryWrapper<>();
         queryWrapperArticle.in("id", ids);
         articleMapper.delete(queryWrapperArticle);
     }
 
     @Override
-    public void edit(Article article) {
-        if (article.getCateIds() == null) throw new CustomException(400, "编辑失败：请绑定分类");
+    public void edit(ArticleFormDTO articleFormDTO) {
+        if (articleFormDTO.getCateIds() == null || articleFormDTO.getCateIds().isEmpty())
+            throw new CustomException(400, "编辑失败：请绑定分类");
 
         // 删除文章关联的数据
-        delArticleCorrelationData(article.getId());
-
+        delArticleCorrelationData(articleFormDTO.getId());
         // 重新绑定分类
-        for (Integer id : article.getCateIds()) {
-            ArticleCate articleCate = new ArticleCate();
-            articleCate.setArticleId(article.getId());
-            articleCate.setCateId(id);
-            articleCateMapper.insert(articleCate);
+        if (articleFormDTO.getCateIds() != null && !articleFormDTO.getCateIds().isEmpty()) {
+            for (Integer id : articleFormDTO.getCateIds()) {
+                ArticleCate articleCate = new ArticleCate();
+                articleCate.setArticleId(articleFormDTO.getId());
+                articleCate.setCateId(id);
+                articleCateMapper.insert(articleCate);
+            }
         }
 
         // 重新绑定标签
-        for (Integer id : article.getTagIds()) {
-            ArticleTag articleTag = new ArticleTag();
-            articleTag.setArticleId(article.getId());
-            articleTag.setTagId(id);
-            articleTagMapper.insert(articleTag);
+        if (articleFormDTO.getTagIds() != null && !articleFormDTO.getTagIds().isEmpty()) {
+            for (Integer id : articleFormDTO.getTagIds()) {
+                ArticleTag articleTag = new ArticleTag();
+                articleTag.setArticleId(articleFormDTO.getId());
+                articleTag.setTagId(id);
+                articleTagMapper.insert(articleTag);
+            }
         }
 
         // 重新绑定文章配置
-        ArticleConfig config = article.getConfig();
+        ArticleConfig config = articleFormDTO.getConfig();
         ArticleConfig articleConfig = new ArticleConfig();
-        articleConfig.setArticleId(article.getId());
+        articleConfig.setArticleId(articleFormDTO.getId());
         articleConfig.setStatus(config.getStatus());
         articleConfig.setPassword(config.getPassword());
         articleConfig.setIsDraft(config.getIsDraft());
         articleConfig.setIsEncrypt(config.getIsEncrypt());
         articleConfig.setIsDel(0);
         articleConfigMapper.insert(articleConfig);
+
+        Article article = BeanUtil.copyProperties(articleFormDTO, Article.class);
 
         // 修改文章
         articleMapper.updateById(article);
@@ -476,15 +483,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public List<Article> getRandomArticles(Integer count) {
         List<Integer> ids = articleMapper.selectList(null).stream()
                 // 不能是加密文章，且能够正常显示
-                .map(Article::getId)
-                .filter(id -> {
+                .filter(article -> {
                     QueryWrapper<ArticleConfig> articleConfigQueryWrapper = new QueryWrapper<>();
-                    articleConfigQueryWrapper.eq("article_id", id);
+                    articleConfigQueryWrapper.eq("article_id", article.getId());
                     ArticleConfig config = articleConfigMapper.selectOne(articleConfigQueryWrapper);
-                    return "".equals(config.getPassword()) && Objects.equals(config.getStatus(), "default");
+                    return config != null && "".equals(config.getPassword()) && Objects.equals(config.getStatus(), "default");
                 })
+                .map(Article::getId)
                 .collect(Collectors.toList());
-        System.out.println(ids);
+        // 优化：提前返回
+        if (ids.isEmpty()) return new ArrayList<>();
 
         // 不能是已删除或草稿
         LambdaQueryWrapper<ArticleConfig> articleConfigLambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -492,24 +500,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDraft, 0);
         articleConfigLambdaQueryWrapper.eq(ArticleConfig::getIsDel, 0);
         ids = articleConfigMapper.selectList(articleConfigLambdaQueryWrapper).stream().map(ArticleConfig::getArticleId).collect(Collectors.toList());
-
         if (ids.size() <= count) {
-            // 如果文章数量少于或等于需要的数量，直接返回所有文章
-            return ids.stream()
-                    .map(id -> get(id, ""))
-                    .collect(Collectors.toList());
+            return ids.stream().map(id -> get(id, "")).collect(Collectors.toList());
         }
-
         // 随机打乱文章ID列表
         Collections.shuffle(ids, new Random());
 
         // 选择前 count 个文章ID
         List<Integer> randomArticleIds = ids.subList(0, count);
 
-        // 根据随机选择的文章ID获取文章
-        return randomArticleIds.stream()
-                .map(this::bindingData)
-                .collect(Collectors.toList());
+        return randomArticleIds.stream().map(this::bindingData).collect(Collectors.toList());
     }
 
     @Override
@@ -606,25 +606,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return queryWrapper;
     }
 
-    // 删除文章关联的数据
-    public void delArticleCorrelationData(Integer id) {
-        // 删除绑定的分类
-        QueryWrapper<ArticleCate> queryWrapperCate = new QueryWrapper<>();
-        queryWrapperCate.in("article_id", id);
-        articleCateMapper.delete(queryWrapperCate);
+    // 删除文章关联的数据（支持单个和批量）
+    public void delArticleCorrelationData(Collection<Integer> ids) {
+        if (ids == null || ids.isEmpty()) return;
 
-        // 删除绑定的标签
-        QueryWrapper<ArticleTag> queryWrapperTag = new QueryWrapper<>();
-        queryWrapperTag.in("article_id", id);
-        articleTagMapper.delete(queryWrapperTag);
-
-        // 删除文章配置
-        QueryWrapper<ArticleConfig> queryWrapperArticleConfig = new QueryWrapper<>();
-        queryWrapperArticleConfig.in("article_id", id);
-        articleConfigMapper.delete(queryWrapperArticleConfig);
-    }
-
-    public void delArticleCorrelationData(List<Integer> ids) {
         // 删除绑定的分类
         QueryWrapper<ArticleCate> queryWrapperCate = new QueryWrapper<>();
         queryWrapperCate.in("article_id", ids);
@@ -641,12 +626,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleConfigMapper.delete(queryWrapperArticleConfig);
     }
 
+    public void delArticleCorrelationData(Integer id) {
+        if (id == null) return;
+        delArticleCorrelationData(Collections.singletonList(id));
+    }
+
     @Override
     public void importArticle(MultipartFile[] list) throws IOException {
-        // 首先验证所有文件格式
+        if (list == null || list.length == 0) throw new CustomException(400, "导入失败：文件列表为空");
+
+        // 验证所有文件格式
         for (MultipartFile file : list) {
-            if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".md")) {
-                throw new CustomException(400, "导入失败：存在非 Markdown 格式文件，请确保所有文件都是 .md 格式");
+            if (file == null || file.getOriginalFilename() == null || !file.getOriginalFilename().endsWith(".md")) {
+                throw new CustomException(400, "导入失败：请确保所有文件都是 .md 格式");
             }
         }
 
@@ -695,12 +687,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
 
             // 创建文章对象
-            Article article = new Article();
+            ArticleFormDTO article = new ArticleFormDTO();
             article.setTitle(title);
             article.setDescription(description);
             article.setContent(articleContent.toString().trim());
-            article.setView(0);
-            article.setComment(0);
             article.setCreateTime(String.valueOf(LocalDateTime.now()));
 
             // 设置默认分类（这里假设使用 ID 为 1 的分类）
@@ -724,20 +714,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseEntity<byte[]> exportArticle(List<Integer> ids) {
         // 创建一个临时目录用于存储导出的Markdown文件
         java.io.File tempDir = new java.io.File(System.getProperty("java.io.tmpdir"), "exported_articles");
-        if (!tempDir.exists()) {
-            tempDir.mkdirs();
+
+        if (!tempDir.exists() && !tempDir.mkdirs()) {
+            throw new CustomException("无法创建临时目录");
         }
+
         if (ids == null || ids.isEmpty()) {
             // 查询所有的文章
-            List<Article> list = this.lambdaQuery()
-                    .select(Article::getId)
-                    .list();
-            if (list.isEmpty()) {
+            List<Article> list = this.lambdaQuery().select(Article::getId).list();
+            if (list == null || list.isEmpty()) {
                 throw new CustomException("没有文章可以导出");
             }
-            ids = list.stream()
-                    .map(Article::getId)
-                    .collect(Collectors.toList());
+            ids = list.stream().map(Article::getId).collect(Collectors.toList());
         }
 
         try {
@@ -784,11 +772,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             byte[] zipBytes = zipOutputStream.toByteArray();
 
             // 删除临时目录及其内容
-            for (java.io.File file : Objects.requireNonNull(tempDir.listFiles())) {
-                if (!file.delete()) {
-                    log.warn("无法删除临时文件: {}", file.getAbsolutePath());
+            java.io.File[] files = tempDir.listFiles();
+            if (files != null) {
+                for (java.io.File file : files) {
+                    if (!file.delete()) {
+                        log.warn("无法删除临时文件: {}", file.getAbsolutePath());
+                    }
                 }
             }
+
             if (!tempDir.delete()) {
                 log.warn("无法删除临时目录: {}", tempDir.getAbsolutePath());
             }

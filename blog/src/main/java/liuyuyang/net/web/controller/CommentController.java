@@ -1,5 +1,6 @@
 package liuyuyang.net.web.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
@@ -8,6 +9,7 @@ import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.model.Comment;
+import liuyuyang.net.dto.comment.CommentFormDTO;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.CommentService;
 import liuyuyang.net.common.utils.Paging;
@@ -32,7 +34,8 @@ public class CommentController {
     @PostMapping
     @ApiOperation("新增评论")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<String> add(@RequestBody Comment comment) throws Exception {
+    public Result<String> add(@RequestBody CommentFormDTO commentFormDTO) throws Exception {
+        Comment comment =  BeanUtil.copyProperties(commentFormDTO, Comment.class);
         commentService.add(comment);
         return Result.success();
     }
@@ -61,7 +64,8 @@ public class CommentController {
     @PatchMapping
     @ApiOperation("编辑评论")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
-    public Result<String> edit(@RequestBody Comment comment) {
+    public Result<String> edit(@RequestBody CommentFormDTO commentFormDTO) {
+        Comment comment =  BeanUtil.copyProperties(commentFormDTO, Comment.class);
         commentService.updateById(comment);
         return Result.success();
     }

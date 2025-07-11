@@ -49,7 +49,7 @@ public class EnvConfigController {
     }
 
     @PremName("config")
-    @ApiOperation("更新JSON配置值")
+    @ApiOperation("根据ID获取配置")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
     @PatchMapping("/json/{id}")
     public Result<String> updateJsonValue(@ApiParam(value = "环境配置ID", required = true, example = "1") @PathVariable Integer id,
@@ -59,17 +59,7 @@ public class EnvConfigController {
     }
 
     @PremName("config")
-    @ApiOperation("获取JSON配置中的特定字段值")
-    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
-    @GetMapping("/{id}/field/{fieldName}")
-    public Result<Object> getJsonFieldValue(@ApiParam(value = "环境配置ID", required = true, example = "1") @PathVariable Integer id,
-                                            @ApiParam(value = "字段名称", required = true, example = "host") @PathVariable String fieldName) {
-        Object value = envConfigService.getJsonFieldValue(id, fieldName);
-        return value != null ? Result.success("获取成功", value) : Result.error("字段不存在或配置为空");
-    }
-
-    @PremName("config")
-    @ApiOperation("更新JSON配置中的特定字段值")
+    @ApiOperation("根据ID更新配置")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 6)
     @PatchMapping("/{id}/field/{fieldName}")
     public Result<String> updateJsonFieldValue(@ApiParam(value = "环境配置ID", required = true, example = "1") @PathVariable Integer id,

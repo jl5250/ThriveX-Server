@@ -9,6 +9,7 @@ import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.common.utils.Result;
+import liuyuyang.net.dto.article.ArticleFormDTO;
 import liuyuyang.net.model.Article;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.article.ArticleFillterVo;
@@ -35,8 +36,8 @@ public class ArticleController {
     @PostMapping
     @ApiOperation("新增文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<String> add(@RequestBody Article article) {
-        articleService.add(article);
+    public Result<String> add(@RequestBody ArticleFormDTO articledFormDTO) {
+        articleService.add(articledFormDTO);
         return Result.success();
     }
 
@@ -71,8 +72,8 @@ public class ArticleController {
     @PatchMapping
     @ApiOperation("编辑文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
-    public Result<String> edit(@RequestBody Article article) {
-        articleService.edit(article);
+    public Result<String> edit(@RequestBody ArticleFormDTO articleFormDTO) {
+        articleService.edit(articleFormDTO);
         return Result.success();
     }
 

@@ -1,9 +1,11 @@
 package liuyuyang.net.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
+import liuyuyang.net.dto.album.AlbumImageAddFormDTO;
 import liuyuyang.net.model.AlbumImage;
 import liuyuyang.net.web.mapper.AlbumImageMapper;
 import liuyuyang.net.web.service.AlbumImageService;
@@ -20,26 +22,26 @@ public class AlbumImageServiceImpl extends ServiceImpl<AlbumImageMapper, AlbumIm
     private AlbumImageMapper albumImageMapper;
 
     @Override
-    public void add(AlbumImage albumImage) {
+    public void add(AlbumImageAddFormDTO albumImageAddFormDTO) {
+        AlbumImage albumImage = BeanUtil.copyProperties(albumImageAddFormDTO, AlbumImage.class);
         albumImageMapper.insert(albumImage);
     }
 
     @Override
     public void del(Integer id) {
-        AlbumImage albumImage = albumImageMapper.selectById(id);
-        if (albumImage == null) throw new CustomException(400, "该照片不存在");
+        isExist(id);
         albumImageMapper.deleteById(id);
     }
 
     @Override
     public void batchDel(List<Integer> ids) {
+        isExist(ids);
         albumImageMapper.deleteBatchIds(ids);
     }
 
     @Override
     public void edit(AlbumImage albumImage) {
-        AlbumImage existAlbumImage = albumImageMapper.selectById(albumImage.getId());
-        if (existAlbumImage == null) throw new CustomException(400, "该照片不存在");
+        isExist(albumImage.getCateId());
         updateById(albumImage);
     }
 
@@ -62,5 +64,17 @@ public class AlbumImageServiceImpl extends ServiceImpl<AlbumImageMapper, AlbumIm
         LambdaQueryWrapper<AlbumImage> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.orderByDesc(AlbumImage::getId);
         return page(new Page<>(page, size), lambdaQueryWrapper);
+    }
+
+    public void isExist(Integer id) {
+        AlbumImage albumImage = this.get(id);
+        if (albumImage == null) throw new CustomException(400, "该照片不存在");
+    }
+
+    public void isExist(List<Integer> ids) {
+        for (Integer id : ids) {
+            AlbumImage albumImage = this.get(id);
+            if (albumImage == null) throw new CustomException(400, "ID为" + id + "的照片不存在");
+        }
     }
 }

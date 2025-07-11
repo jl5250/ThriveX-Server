@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.annotation.PremName;
+import liuyuyang.net.dto.album.AlbumImageAddFormDTO;
 import liuyuyang.net.model.AlbumImage;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.AlbumImageService;
@@ -29,8 +30,8 @@ public class AlbumImageController {
     @PostMapping
     @ApiOperation("新增照片")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<String> add(@RequestBody AlbumImage albumImage) {
-        albumImageService.add(albumImage);
+    public Result<String> add(@RequestBody AlbumImageAddFormDTO albumImageAddFormDTO) {
+        albumImageService.add(albumImageAddFormDTO);
         return Result.success();
     }
 
