@@ -43,6 +43,10 @@ public class AssistantController {
     @ApiOperation("删除助手")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
     public Result<String> del(@PathVariable Integer id) {
+        Assistant data = assistantService.getById(id);
+        if (data == null) return Result.error("该助手不存在");
+        if (data.getIsDefault() == 1) return Result.error("无法删除默认助手，请更换后重试");
+
         assistantService.removeById(id);
         return Result.success();
     }
@@ -65,6 +69,7 @@ public class AssistantController {
         return Result.success();
     }
 
+    @PremName("assistant:list")
     @GetMapping("/{id}")
     @ApiOperation("获取助手")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -73,7 +78,7 @@ public class AssistantController {
         return Result.success(data);
     }
 
-    @NoTokenRequired
+    @PremName("assistant:list")
     @PostMapping("/list")
     @ApiOperation("获取助手列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 6)
