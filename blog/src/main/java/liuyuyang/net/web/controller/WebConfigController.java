@@ -3,7 +3,6 @@ package liuyuyang.net.web.controller;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.WebConfigService;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import liuyuyang.net.model.WebConfig;
 
-@Api(tags = "网站配置")
+@Api(tags = "网站配置管理")
 @RestController
 @RequestMapping("/web_config")
 @Transactional

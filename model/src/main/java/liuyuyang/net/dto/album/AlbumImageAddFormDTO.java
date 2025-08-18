@@ -16,4 +16,7 @@ public class AlbumImageAddFormDTO {
 
     @ApiModelProperty(value = "相册ID", example = "1")
     private Integer cateId;
+
+    @ApiModelProperty(value = "创建时间", example = "1723533206613", required = true)
+    private String createTime;
 }

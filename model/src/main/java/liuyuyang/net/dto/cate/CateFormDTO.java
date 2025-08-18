@@ -1,11 +1,14 @@
 package liuyuyang.net.dto.cate;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
 public class CateFormDTO {
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "分类ID")
     private Integer id;
     @ApiModelProperty(value = "分类名称", example = "大前端", required = true)
