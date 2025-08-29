@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `album_cate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `album_cate` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `name` varchar(255) NOT NULL COMMENT '相册名称',
-                              `cover` text COMMENT '相册封面',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `album_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '相册名称',
+  `cover` text COMMENT '相册封面',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `album_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,14 +49,14 @@ DROP TABLE IF EXISTS `album_image`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `album_image` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `name` varchar(255) NOT NULL COMMENT '照片名称',
-                               `description` varchar(255) DEFAULT NULL COMMENT '照片描述',
-                               `image` text COMMENT '照片地址',
-                               `cate_id` int NOT NULL COMMENT '相册 ID',
-                               `create_time` varchar(255) NOT NULL,
-                               PRIMARY KEY (`id`),
-                               UNIQUE KEY `album_image_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '照片名称',
+  `description` varchar(255) DEFAULT NULL COMMENT '照片描述',
+  `image` text COMMENT '照片地址',
+  `cate_id` int NOT NULL COMMENT '相册 ID',
+  `create_time` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `album_image_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -78,15 +78,15 @@ DROP TABLE IF EXISTS `article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article` (
-                           `id` int NOT NULL AUTO_INCREMENT COMMENT '文章ID',
-                           `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文章标题',
-                           `description` varchar(200) DEFAULT NULL COMMENT '文章介绍',
-                           `content` text NOT NULL COMMENT '文章主要内容',
-                           `cover` varchar(300) DEFAULT NULL COMMENT '文章封面',
-                           `view` int DEFAULT '0' COMMENT '文章浏览量',
-                           `comment` int DEFAULT '0' COMMENT '评论数量',
-                           `create_time` varchar(255) NOT NULL COMMENT '文章创建时间',
-                           PRIMARY KEY (`id`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '文章ID',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文章标题',
+  `description` varchar(200) DEFAULT NULL COMMENT '文章介绍',
+  `content` text NOT NULL COMMENT '文章主要内容',
+  `cover` varchar(300) DEFAULT NULL COMMENT '文章封面',
+  `view` int DEFAULT '0' COMMENT '文章浏览量',
+  `comment` int DEFAULT '0' COMMENT '评论数量',
+  `create_time` varchar(255) NOT NULL COMMENT '文章创建时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,11 +108,11 @@ DROP TABLE IF EXISTS `article_cate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article_cate` (
-                                `id` int NOT NULL AUTO_INCREMENT,
-                                `article_id` int NOT NULL COMMENT '文章ID',
-                                `cate_id` int NOT NULL COMMENT '分类ID',
-                                PRIMARY KEY (`id`),
-                                UNIQUE KEY `article_cate_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int NOT NULL COMMENT '文章ID',
+  `cate_id` int NOT NULL COMMENT '分类ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_cate_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1472 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='文章和分类的中间表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,15 +134,15 @@ DROP TABLE IF EXISTS `article_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article_config` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `status` enum('default','no_home','hide') DEFAULT 'default' COMMENT '文章状态',
-                                  `password` varchar(100) DEFAULT '' COMMENT '是否文章加密',
-                                  `is_encrypt` tinyint DEFAULT '0' COMMENT '是否加密',
-                                  `is_draft` tinyint DEFAULT '0' COMMENT '是否为草稿',
-                                  `is_del` tinyint DEFAULT '0' COMMENT '是否删除',
-                                  `article_id` int NOT NULL COMMENT '对应的文章id',
-                                  PRIMARY KEY (`id`),
-                                  UNIQUE KEY `article_config_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` enum('default','no_home','hide') DEFAULT 'default' COMMENT '文章状态',
+  `password` varchar(100) DEFAULT '' COMMENT '是否文章加密',
+  `is_encrypt` tinyint DEFAULT '0' COMMENT '是否加密',
+  `is_draft` tinyint DEFAULT '0' COMMENT '是否为草稿',
+  `is_del` tinyint DEFAULT '0' COMMENT '是否删除',
+  `article_id` int NOT NULL COMMENT '对应的文章id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_config_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='文章配置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -164,11 +164,11 @@ DROP TABLE IF EXISTS `article_tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `article_tag` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `article_id` int NOT NULL COMMENT '文章 ID',
-                               `tag_id` int NOT NULL COMMENT '标签 ID',
-                               PRIMARY KEY (`id`),
-                               UNIQUE KEY `article_tag_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int NOT NULL COMMENT '文章 ID',
+  `tag_id` int NOT NULL COMMENT '标签 ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_tag_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,15 +190,15 @@ DROP TABLE IF EXISTS `assistant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assistant` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `name` varchar(255) NOT NULL COMMENT '助手名称',
-                             `key` varchar(500) NOT NULL COMMENT '密钥',
-                             `url` varchar(255) NOT NULL COMMENT 'API 地址',
-                             `model` varchar(255) NOT NULL COMMENT '模型',
-                             `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否被启用',
-                             PRIMARY KEY (`id`),
-                             UNIQUE KEY `assistant_pk` (`name`),
-                             UNIQUE KEY `assistant_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '助手名称',
+  `key` varchar(500) NOT NULL COMMENT '密钥',
+  `url` varchar(500) NOT NULL COMMENT 'API 地址',
+  `model` varchar(255) NOT NULL COMMENT '模型',
+  `is_default` tinyint NOT NULL DEFAULT '0' COMMENT '是否被启用',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `assistant_pk` (`name`),
+  UNIQUE KEY `assistant_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='助手管理';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -220,18 +220,18 @@ DROP TABLE IF EXISTS `cate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cate` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `name` varchar(255) NOT NULL COMMENT '分类名称',
-                        `icon` varchar(100) DEFAULT NULL COMMENT '分类图标',
-                        `url` varchar(255) DEFAULT '/' COMMENT '分类链接',
-                        `mark` varchar(100) NOT NULL COMMENT '分类标识',
-                        `level` int DEFAULT NULL COMMENT '分类级别',
-                        `order` int NOT NULL DEFAULT '0' COMMENT '分类顺序',
-                        `type` varchar(10) DEFAULT 'cate' COMMENT '导航还是分类',
-                        PRIMARY KEY (`id`) USING BTREE,
-                        UNIQUE KEY `name` (`name`) USING BTREE,
-                        UNIQUE KEY `cate_pk` (`mark`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '分类名称',
+  `icon` varchar(100) DEFAULT NULL COMMENT '分类图标',
+  `url` varchar(255) DEFAULT '/' COMMENT '分类链接',
+  `mark` varchar(100) NOT NULL COMMENT '分类标识',
+  `level` int DEFAULT NULL COMMENT '分类级别',
+  `order` int NOT NULL DEFAULT '0' COMMENT '分类顺序',
+  `type` varchar(10) DEFAULT 'cate' COMMENT '导航还是分类',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `name` (`name`) USING BTREE,
+  UNIQUE KEY `cate_pk` (`mark`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `cate` (
 
 LOCK TABLES `cate` WRITE;
 /*!40000 ALTER TABLE `cate` DISABLE KEYS */;
-INSERT INTO `cate` VALUES (1,'默认分类','💻','/','kfbj',0,1,'cate'),(67,'首页','💎','/','home',0,0,'nav'),(68,'足迹','⛳️','/footprint','zj',0,9,'nav'),(69,'关于我','👋','/my','my',0,16,'nav'),(70,'朋友圈','😇','/friend','pyq',0,11,'nav'),(71,'留言墙','💌','/wall/all','wall',0,12,'nav'),(72,'GitHub','🔥','https://github.com/LiuYuYang01/ThriveX-Blog','github',0,999,'nav'),(73,'统计','📊','/data','data',0,8,'nav'),(74,'闪念','🏕️','/record','record',0,9,'nav'),(77,'我的设备','🔭','/equipment','wdsb',0,15,'nav'),(78,'标签墙','🏷️','/tags','bqy',0,13,'nav'),(79,'我的履历','💪','/resume','wdll',0,16,'nav'),(80,'照片墙','📷︎','/album','zpq',0,14,'nav'),(81,'鱼塘','🐟','/fishpond','yt',0,10,'nav');
+INSERT INTO `cate` VALUES (1,'默认分类','💻','/','kfbj',0,1,'cate'),(67,'首页','💎','/','home',0,0,'nav'),(68,'足迹','⛳️','/footprint','zj',83,9,'nav'),(69,'关于我','👋','/my','my',83,16,'nav'),(70,'朋友圈','😇','/friend','pyq',83,11,'nav'),(71,'留言墙','💌','/wall/all','wall',83,12,'nav'),(72,'GitHub','🔥','https://github.com/LiuYuYang01/ThriveX-Blog','github',83,999,'nav'),(73,'统计','📊','/data','data',83,8,'nav'),(74,'闪念','🏕️','/record','record',83,9,'nav'),(77,'我的设备','🔭','/equipment','wdsb',83,15,'nav'),(78,'标签墙','🏷️','/tags','bqy',83,13,'nav'),(79,'我的履历','💪','/resume','wdll',83,16,'nav'),(80,'照片墙','📷︎','/album','zpq',83,14,'nav'),(81,'鱼塘','🐟','/fishpond','yt',83,10,'nav'),(83,'探索','🧩','/','ts',0,999,'nav');
 /*!40000 ALTER TABLE `cate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,17 +252,17 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `name` varchar(50) NOT NULL COMMENT '评论者名称',
-                           `avatar` varchar(255) DEFAULT NULL COMMENT '评论者头像',
-                           `content` text NOT NULL COMMENT '评论内容',
-                           `email` varchar(100) DEFAULT NULL COMMENT '评论者邮箱',
-                           `url` varchar(500) DEFAULT NULL COMMENT '评论者网站',
-                           `article_id` int NOT NULL COMMENT '所属文章ID',
-                           `comment_id` int DEFAULT '0' COMMENT '二级评论',
-                           `audit_status` int DEFAULT '0' COMMENT '是否审核',
-                           `create_time` varchar(255) NOT NULL,
-                           PRIMARY KEY (`id`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL COMMENT '评论者名称',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '评论者头像',
+  `content` text NOT NULL COMMENT '评论内容',
+  `email` varchar(100) DEFAULT NULL COMMENT '评论者邮箱',
+  `url` varchar(500) DEFAULT NULL COMMENT '评论者网站',
+  `article_id` int NOT NULL COMMENT '所属文章ID',
+  `comment_id` int DEFAULT '0' COMMENT '二级评论',
+  `audit_status` int DEFAULT '0' COMMENT '是否审核',
+  `create_time` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=517 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,13 +284,13 @@ DROP TABLE IF EXISTS `env_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `env_config` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                              `value` json NOT NULL COMMENT '配置项',
-                              `notes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '配置备注',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `env_config_pk_2` (`id`),
-                              UNIQUE KEY `env_config_pk` (`name`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `value` json NOT NULL COMMENT '配置项',
+  `notes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '配置备注',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `env_config_pk_2` (`id`),
+  UNIQUE KEY `env_config_pk` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -312,34 +312,34 @@ DROP TABLE IF EXISTS `file_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `file_detail` (
-                               `id` varchar(32) NOT NULL COMMENT '文件id',
-                               `url` varchar(512) NOT NULL COMMENT '文件访问地址',
-                               `size` bigint DEFAULT NULL COMMENT '文件大小，单位字节',
-                               `filename` varchar(256) DEFAULT NULL COMMENT '文件名称',
-                               `original_filename` varchar(256) DEFAULT NULL COMMENT '原始文件名',
-                               `base_path` varchar(256) DEFAULT NULL COMMENT '基础存储路径',
-                               `path` varchar(256) DEFAULT NULL COMMENT '存储路径',
-                               `ext` varchar(32) DEFAULT NULL COMMENT '文件扩展名',
-                               `content_type` varchar(128) DEFAULT NULL COMMENT 'MIME类型',
-                               `platform` varchar(32) DEFAULT NULL COMMENT '存储平台',
-                               `th_url` varchar(512) DEFAULT NULL COMMENT '缩略图访问路径',
-                               `th_filename` varchar(256) DEFAULT NULL COMMENT '缩略图名称',
-                               `th_size` bigint DEFAULT NULL COMMENT '缩略图大小，单位字节',
-                               `th_content_type` varchar(128) DEFAULT NULL COMMENT '缩略图MIME类型',
-                               `object_id` varchar(32) DEFAULT NULL COMMENT '文件所属对象id',
-                               `object_type` varchar(32) DEFAULT NULL COMMENT '文件所属对象类型，例如用户头像，评价图片',
-                               `metadata` text COMMENT '文件元数据',
-                               `user_metadata` text COMMENT '文件用户元数据',
-                               `th_metadata` text COMMENT '缩略图元数据',
-                               `th_user_metadata` text COMMENT '缩略图用户元数据',
-                               `attr` text COMMENT '附加属性',
-                               `file_acl` varchar(32) DEFAULT NULL COMMENT '文件ACL',
-                               `th_file_acl` varchar(32) DEFAULT NULL COMMENT '缩略图文件ACL',
-                               `hash_info` text COMMENT '哈希信息',
-                               `upload_id` varchar(128) DEFAULT NULL COMMENT '上传ID，仅在手动分片上传时使用',
-                               `upload_status` int DEFAULT NULL COMMENT '上传状态，仅在手动分片上传时使用，1：初始化完成，2：上传完成',
-                               `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-                               PRIMARY KEY (`id`)
+  `id` varchar(32) NOT NULL COMMENT '文件id',
+  `url` varchar(512) NOT NULL COMMENT '文件访问地址',
+  `size` bigint DEFAULT NULL COMMENT '文件大小，单位字节',
+  `filename` varchar(256) DEFAULT NULL COMMENT '文件名称',
+  `original_filename` varchar(256) DEFAULT NULL COMMENT '原始文件名',
+  `base_path` varchar(256) DEFAULT NULL COMMENT '基础存储路径',
+  `path` varchar(256) DEFAULT NULL COMMENT '存储路径',
+  `ext` varchar(32) DEFAULT NULL COMMENT '文件扩展名',
+  `content_type` varchar(128) DEFAULT NULL COMMENT 'MIME类型',
+  `platform` varchar(32) DEFAULT NULL COMMENT '存储平台',
+  `th_url` varchar(512) DEFAULT NULL COMMENT '缩略图访问路径',
+  `th_filename` varchar(256) DEFAULT NULL COMMENT '缩略图名称',
+  `th_size` bigint DEFAULT NULL COMMENT '缩略图大小，单位字节',
+  `th_content_type` varchar(128) DEFAULT NULL COMMENT '缩略图MIME类型',
+  `object_id` varchar(32) DEFAULT NULL COMMENT '文件所属对象id',
+  `object_type` varchar(32) DEFAULT NULL COMMENT '文件所属对象类型，例如用户头像，评价图片',
+  `metadata` text COMMENT '文件元数据',
+  `user_metadata` text COMMENT '文件用户元数据',
+  `th_metadata` text COMMENT '缩略图元数据',
+  `th_user_metadata` text COMMENT '缩略图用户元数据',
+  `attr` text COMMENT '附加属性',
+  `file_acl` varchar(32) DEFAULT NULL COMMENT '文件ACL',
+  `th_file_acl` varchar(32) DEFAULT NULL COMMENT '缩略图文件ACL',
+  `hash_info` text COMMENT '哈希信息',
+  `upload_id` varchar(128) DEFAULT NULL COMMENT '上传ID，仅在手动分片上传时使用',
+  `upload_status` int DEFAULT NULL COMMENT '上传状态，仅在手动分片上传时使用，1：初始化完成，2：上传完成',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='文件记录表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -360,15 +360,15 @@ DROP TABLE IF EXISTS `footprint`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `footprint` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `title` varchar(255) NOT NULL COMMENT '标题',
-                             `content` varchar(1500) DEFAULT NULL COMMENT '内容',
-                             `address` varchar(255) NOT NULL COMMENT '地址',
-                             `position` varchar(255) NOT NULL COMMENT '坐标纬度',
-                             `images` json DEFAULT NULL COMMENT '图片',
-                             `create_time` varchar(255) NOT NULL COMMENT '时间',
-                             PRIMARY KEY (`id`),
-                             UNIQUE KEY `footprint_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `content` varchar(1500) DEFAULT NULL COMMENT '内容',
+  `address` varchar(255) NOT NULL COMMENT '地址',
+  `position` varchar(255) NOT NULL COMMENT '坐标纬度',
+  `images` json DEFAULT NULL COMMENT '图片',
+  `create_time` varchar(255) NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `footprint_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -390,18 +390,18 @@ DROP TABLE IF EXISTS `link`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `link` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `title` varchar(100) NOT NULL COMMENT '网站标题',
-                        `description` varchar(255) NOT NULL COMMENT '网站描述',
-                        `email` varchar(100) DEFAULT NULL COMMENT '网站邮箱',
-                        `image` varchar(255) NOT NULL COMMENT '网站logo',
-                        `url` varchar(500) DEFAULT NULL COMMENT '网站链接',
-                        `rss` varchar(500) DEFAULT NULL,
-                        `order` int NOT NULL DEFAULT '0' COMMENT '友联顺序',
-                        `type_id` int NOT NULL COMMENT '网站所绑定的类型',
-                        `audit_status` int NOT NULL DEFAULT '0' COMMENT '是否审核',
-                        `create_time` varchar(255) NOT NULL COMMENT '网站创建时间',
-                        PRIMARY KEY (`id`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL COMMENT '网站标题',
+  `description` varchar(255) NOT NULL COMMENT '网站描述',
+  `email` varchar(100) DEFAULT NULL COMMENT '网站邮箱',
+  `image` varchar(255) NOT NULL COMMENT '网站logo',
+  `url` varchar(500) DEFAULT NULL COMMENT '网站链接',
+  `rss` varchar(500) DEFAULT NULL,
+  `order` int NOT NULL DEFAULT '0' COMMENT '友联顺序',
+  `type_id` int NOT NULL COMMENT '网站所绑定的类型',
+  `audit_status` int NOT NULL DEFAULT '0' COMMENT '是否审核',
+  `create_time` varchar(255) NOT NULL COMMENT '网站创建时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -423,12 +423,12 @@ DROP TABLE IF EXISTS `link_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `link_type` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `name` varchar(100) NOT NULL COMMENT '类型名称',
-                             `is_admin` int NOT NULL DEFAULT '0' COMMENT '用户是否可选择',
-                             `order` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
-                             PRIMARY KEY (`id`),
-                             UNIQUE KEY `type_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '类型名称',
+  `is_admin` int NOT NULL DEFAULT '0' COMMENT '用户是否可选择',
+  `order` int NOT NULL DEFAULT '0' COMMENT '显示顺序',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `type_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='网站类型';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -450,16 +450,16 @@ DROP TABLE IF EXISTS `oss`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oss` (
-                       `id` int NOT NULL AUTO_INCREMENT,
-                       `platform` varchar(255) NOT NULL COMMENT '平台',
-                       `access_key` varchar(100) DEFAULT NULL COMMENT 'key',
-                       `secret_key` varchar(255) DEFAULT '/' COMMENT '密钥',
-                       `end_point` varchar(100) DEFAULT NULL COMMENT 'endPoint',
-                       `bucket_name` varchar(255) DEFAULT NULL,
-                       `domain` varchar(255) DEFAULT NULL,
-                       `base_path` varchar(255) DEFAULT NULL,
-                       `is_enable` int DEFAULT NULL COMMENT '是否启用',
-                       PRIMARY KEY (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `platform` varchar(255) NOT NULL COMMENT '平台',
+  `access_key` varchar(100) DEFAULT NULL COMMENT 'key',
+  `secret_key` varchar(255) DEFAULT '/' COMMENT '密钥',
+  `end_point` varchar(100) DEFAULT NULL COMMENT 'endPoint',
+  `bucket_name` varchar(255) DEFAULT NULL,
+  `domain` varchar(255) DEFAULT NULL,
+  `base_path` varchar(255) DEFAULT NULL,
+  `is_enable` int DEFAULT NULL COMMENT '是否启用',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='oss配置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -481,14 +481,14 @@ DROP TABLE IF EXISTS `page_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `page_config` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `name` varchar(255) NOT NULL COMMENT '配置项名称',
-                               `value` json NOT NULL COMMENT '配置项值',
-                               `notes` varchar(255) DEFAULT NULL COMMENT '配置备注',
-                               PRIMARY KEY (`id`),
-                               UNIQUE KEY `page_config_pk_2` (`id`),
-                               UNIQUE KEY `page_config_pk_3` (`id`),
-                               UNIQUE KEY `page_config_pk` (`name`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '配置项名称',
+  `value` json NOT NULL COMMENT '配置项值',
+  `notes` varchar(255) DEFAULT NULL COMMENT '配置备注',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `page_config_pk_2` (`id`),
+  UNIQUE KEY `page_config_pk_3` (`id`),
+  UNIQUE KEY `page_config_pk` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -498,7 +498,7 @@ CREATE TABLE `page_config` (
 
 LOCK TABLES `page_config` WRITE;
 /*!40000 ALTER TABLE `page_config` DISABLE KEYS */;
-INSERT INTO `page_config` VALUES (1,'my','{\"goals\": [{\"value\": \"1、涨薪2k！！！\", \"status\": 3}, {\"value\": \"2、提高前端技术栈深度\", \"status\": 1}, {\"value\": \"3、提高后端技术栈深度与广度，往后端迁移\", \"status\": 1}, {\"value\": \"4、ThriveX 博客管理系统 ⭐️ 破千\", \"status\": 1}, {\"value\": \"5、ThriveX 最低要求保持周更\", \"status\": 1}, {\"value\": \"6、输出 30 篇高质量技术博客\", \"status\": 1}], \"project\": [{\"name\": \"ThriveX\", \"front\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Blog\", \"technology\": \"NextJS、TypeScript、Zustand、TailwindCSS、Scss、Echarts\"}, \"images\": [\"https://bu.dusays.com/2024/09/17/66e9704b2b809.png\", \"https://bu.dusays.com/2024/09/17/66e97036dddcb.png\", \"https://bu.dusays.com/2024/09/17/66e97035726ae.png\", \"https://bu.dusays.com/2024/09/17/66e97031cd456.png\"], \"backend\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Server\", \"technology\": \"Spring Boot、Mybatis Plus、MySQL、Redis、Qiniu、Socket.io、Swagger\"}, \"control\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Admin\", \"technology\": \"React、Antd、TypeScript、Zustand、TailwindCSS、Echarts\"}, \"description\": \"🎉 ThriveX 相比旧版 Thrive 的核心改变是从 Vue 全面迁移到了 React 技术栈并采用了 Nextjs 服务端渲染技术进行全方面重构，对SEO方面有了显著的提高。并且还新增了很多额外的功能...\"}, {\"name\": \"Thrive\", \"front\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Blog\", \"technology\": \"Vue3、TypeScript、Pinia、Element-plus、Scss、Echarts 、highlight.js\"}, \"images\": [\"https://bu.dusays.com/2024/09/17/66e96cb4e8417.png\", \"https://bu.dusays.com/2024/09/17/66e96ca366600.png\", \"https://bu.dusays.com/2024/09/17/66e96ca781d49.png\", \"https://bu.dusays.com/2024/09/17/66e96c9e76c81.png\"], \"backend\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Server\", \"technology\": \"Python、Flask、SQLAlchemy、MySQL、Flask-JWT、Socket.io、Swagger\"}, \"control\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Admin\", \"technology\": \"Vue3、TypeScript、Pinia、Element-plus、Scss\"}, \"description\": \"🎉 Thrive 是一个简而不简单的现代化博客管理系统，专注于分享技术文章和知识，为技术爱好者和从业者提供一个分享、交流和学习的平台。用户可以在平台上发表自己的技术文章，或浏览其他用户分享的文章，并与他们进行讨论和互动。\"}, {\"name\": \"云上校园\", \"front\": {\"url\": \"\", \"technology\": \"微信小程序、Vant、Echarts、Autojs\"}, \"images\": [\"https://bu.dusays.com/2024/09/18/66ea606eb5aa1.png\", \"https://bu.dusays.com/2024/09/18/66ea605d89df7.png\", \"https://bu.dusays.com/2024/09/18/66ea605ca9f0d.jpg\"], \"backend\": {\"url\": \"\", \"technology\": \"Nodejs、Eggjs、Socket.io、MySQL\"}, \"control\": {\"url\": \"\", \"technology\": \"Vue2、Element UI、vue-element-admin\"}, \"description\": \"🎉 云上校园是一个现代化大学生社交平台，该项目的立意是为了打造一个完整的校园生态圈，使校园触手可及!\"}], \"info_one\": {\"name\": \"Liu YuYang\", \"notes\": \"不是修改这个哦，这段代码暂时先保留，勿删！！！\", \"avatar\": \"https://q.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"profession\": \"一名Web全栈开发工程师\", \"introduction\": \"我从小就对计算机技术有着无穷的兴趣，因此我的梦想是做一名技术顶尖的 架构师。所以我一直在朝着这个方向去努力、去坚持 直到梦想成真！\"}, \"info_two\": {\"author\": \"宇阳\", \"know_me\": \"https://liuyuyang.net/article/2227\", \"left_tags\": [\"🤖️ 数码科技爱好者\", \"🔍 分享与热心帮助\", \"💻 全栈开发工程师\"], \"avatar_url\": \"https://q.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"right_tags\": [\"源于热爱而发电 ✨\", \"开源项目作者 🥳\", \"热爱漫无边际 🎉\"]}, \"character\": [{\"color\": \"#4298b4\", \"text1\": \"内向\", \"text2\": \"外向\", \"value\": 54, \"content\": \"内向型的人往往更喜欢较少但深入和有意义的社交互动，通常更喜欢安静的环境。\"}, {\"color\": \"#e4ae3a\", \"text1\": \"现实\", \"text2\": \"有远见\", \"value\": 41, \"content\": \"有远见型的人非常富有想象力、思想开放并充满好奇心。他们重视原创性，专注于隐含的意义和遥远的可能性。\"}, {\"color\": \"#33a474\", \"text1\": \"感受\", \"text2\": \"理性分析\", \"value\": 41, \"content\": \"感受型的人重视情感表达和敏感性。他们非常重视同理心、社会和谐及合作。\"}, {\"color\": \"#88619a\", \"text1\": \"展望\", \"text2\": \"评判\", \"value\": 79, \"content\": \"评判型的人果断、周到，很有条理。他们重视清晰度、可预测性和封闭性，更喜欢结构和计划，而不是自发性。\"}, {\"color\": \"#f25e62\", \"text1\": \"起伏不定\", \"text2\": \"坚决\", \"value\": 78, \"content\": \"起伏不定型的人自我意识强，对压力敏感。他们在情绪上有一种紧迫感，往往以成功为导向，追求完美，渴望进步。\"}], \"info_style\": \"info_one\"}','关于我'),(2,'resume','{\"links\": {\"csdn\": \"https://thrive.blog.csdn.net\", \"github\": \"https://github.com/LiuYuYang01\", \"project\": \"https://liuyuyang.net/\"}, \"skills\": [\"熟练 HTML5、CSS3、Flex、Scss、TailwindCSS 能够精准还原 UI 设计师的产品原型图，实现产品级的复现\", \"熟练 TypeScript、JavaScript、jQuery、面向对象、闭包、原型链、WebApi、原生DOM\", \"熟练 Vue2 / 3 相关生态：Axios、Vuex、Pinia\", \"熟练 React18 相关生态：NextJS、Redux、Zustand、Ahooks、Motion\", \"熟练 Uniapp 完成多端适配 以及 原生微信小程序开发\", \"熟练 Echarts 数据可视化开发 且 能够根据业务需求进行自定义扩展\", \"熟练 Ant Design、NextUI、Element UI、Vant、Naive UI、Bootstrap 等多种组件库的使用\", \"熟悉 NodeJS 相关生态：Express、NextJS、NestJS、Prisma\", \"熟悉 Python Flask 及 SQLAlchemy 对象映射（ORM）框架\", \"熟悉 Electron 跨平台桌面应用开发框架\", \"了解 Remix 全栈开发框架\", \"了解 WebPack、Vite 等打包构建工具\", \"熟悉 Spring Boot、Spring MVC、Mybatis Plus 等主流框架\", \"熟练 MySQL 关系型数据库，具备手写 SQL 及复杂查询的能力\", \"了解 Spring Cloud 微服务框架及常用的组件 Nacos、OpenFeign、Gateway\", \"熟悉 Linux 常用命令以及 Nginx 基本配置\", \"熟悉 Docker 基本命令、容器编排、镜像构建，并熟练使用可视化工具如：宝塔、1Panel 等，并有项目部署上线的经验\"], \"projects\": [{\"name\": \"ThriveX CMS 建站管理系统\", \"role\": \"全栈开发（NextJS + Spring Boot）\", \"links\": {\"api\": \"https://api.liuyuyang.net/doc.html\", \"docs\": \"https://docs.liuyuyang.net/\", \"preview\": \"https://liuyuyang.net/\", \"website\": \"https://thrivex.liuyuyang.net/\"}, \"period\": \"2023.03-至今\", \"techStack\": {\"backend\": \"Spring Boot、Mybatis Plus、MySQL、Qiniu、Swagger、Python、Flask、SQLalchemy\", \"frontend\": \"React、NextJS、TypeScript、Zustand、TailwindCSS、Scss、Next UI、Antd UI、Echarts、React Hook Form、Ahooks、百度统计API、高德地图API、Vue3、Pinia、Element UI\", \"deployment\": \"采用 Docker Compose 一键部署、采用 Nginx 实现反向代理、SSL 证书等\"}, \"highlights\": [\"【AI】采用科大讯飞AI大模型实现文章续写、优化、总结、智能问答\", \"【权限】RBAC 权限管理，动态路由、按钮权限、多用户登录\", \"【地图】采用 高德地图实现旅游足迹可视化等功能\", \"【安全】限制异地登录 及 以及多设备登录同一账号\", \"【交互】采用 TailwindCSS 实现白天、昼夜主题切换效果\", \"【适配】采用 TailwindCSS 媒体查询实现手机、平板、电脑三端适配\", \"【可视化】采用 百度统计API + Echarts 实现数据可视化\", \"【SEO】采用 NextJS 服务端渲染技术进行 SEO 优化，在 Lighthouse 中评分 100%\", \"【文件系统】同时兼容阿里云、腾讯云、华为云、七牛云、百度云等对象存储\", \"【一键部署】采用 Docker Compose 脚本实现前端、控制端、后端、数据库一键部署\", \"【自动化部署】利用 Vercel 实现高效的持续集成与自动化部署\"], \"description\": \"ThriveX 是一个年轻、高颜值、全开源、永不收费的现代化 CMS 管理系统，项目组成是前端、控制端、后端，采用前后端分离开发式，是一个 NextJS + Spring Boot 的产物。\", \"achievements\": [\"一个人完成产品、UI、前端、控制端、后端、数据库、测试 以及 项目部署上线\", \"项目代码全开源，截止目前在 GitHub 已经有 1867 条 Commit 记录，收获 700+ Star，156+ Fork\", \"目前已有多数用户在使用该系统，粉丝群已超千名用户\"], \"repositories\": {\"admin\": \"https://github.com/LiuYuYang01/ThriveX-Admin\", \"backend\": \"https://github.com/LiuYuYang01/ThriveX-Server\", \"frontend\": \"https://github.com/LiuYuYang01/ThriveX-Blog\"}}, {\"name\": \"点点易付（DianDianPay）\", \"role\": \"前端开发工程师\", \"links\": {\"docs\": \"https://docs.diandianpay.com/\", \"website\": \"https://diandianpay.com/\", \"dashboard\": \"https://dashboard.diandianpay.com/\"}, \"period\": \"2024.12-至今\", \"techStack\": \"React、TypeScript、Zustand、TailwindCSS、Scss、Antd UI、Echarts、React Hook Form、Ahooks、百度统计API\", \"description\": [\"点点易付专注打造一站式支付解决方案，通过安全可靠的支付通道和高效便捷的服务，助力全球商户拓展国际市场，实现业务全球化\", \"简化中国企业在跨境收单的繁琐流程，提供一站式服务，从账户申请到交易处理全程支持\"], \"achievements\": \"结果令老板满意，完成涨薪 60%，并赠与 5 万元一次性奖金\"}, {\"name\": \"Shopify 跨境电商结账页\", \"role\": \"前端开发工程师\", \"period\": \"2024.07-2024.09\", \"challenges\": \"商品的最终价格需要根据多种因素决定，如商品单价、运费、税费、运费险等不同的条件进行计算，而且还要通过同一套代码完成单页面布局和多页面布局，整体的逻辑相对复杂\", \"achievements\": \"结果令老板满意，完成涨薪 25%\", \"responsibilities\": [\"主导 jQuery 项目全面迁移至 React 生态，提高项目代码规范及可维护性\", \"负责组件库架构设计，保证组件库可扩展性、易用性\", \"使用 React-i18next 完成八国语言一键切换\", \"集成 Sentry 实现前端监控，快速排查线上项目疑难杂症\"]}, {\"name\": \"云上校园\", \"role\": \"全栈开发（小程序 + Eggjs）\", \"period\": \"2022.12-2023.05\", \"techStack\": \"微信小程序、Vant、Vue2、Element UI、Echarts、Nodejs（Eggjs）、MySQL、Socket.io\", \"highlights\": [\"通过 Echarts 搭配百度统计API实现数据可视化\", \"微信登录、登录状态检测\", \"实时通讯聊天室：支持私聊、群聊、表情、图片聊天记录存储\"], \"description\": \"云上校园是一个专注提升大学校园生活质量与便利性的平台，打造一个集信息传播、学习辅助、就业赚取、维权举报、科技体验于一体的综合服务平台。\", \"achievements\": \"上海市第十五届计算机应用能力大赛三等奖\"}], \"education\": {\"major\": \"软件工程\", \"degree\": \"本科\", \"period\": \"2021-2026\", \"school\": \"上海开放大学\", \"achievements\": [\"上海市计算机应用能力大赛三等奖\", \"上海开放大学创新项目奖\", \"二等奖学金\", \"计算机软件著作权\"]}, \"advantages\": [\"上海市第十五届计算机应用能力大赛 三等奖、创新项目奖\", \"GitHub 开源项目作者（ThriveX CMS 建站系统）Star 900+\", \"ThriveX CMS 建站系统 计算机软件著作权（申请中）\", \"具备项目从 0 到 1 部署上线的经验：https://liuyuyang.net/\", \"利用业余时间持续输出技术文章，目前在 CSDN 累计拥有 1700+ 粉丝\", \"熟练 Spring Boot 以及 Express、Flask 等多种后端开发语言 对前后端接口联调过程中的问题能够进行清晰定位\", \"能够独当一面，从 0 到 1 构建前端项目 且 具备完整项目设计、研发、部署、全链路问题排查能力\"], \"personalInfo\": {\"age\": \"22岁\", \"name\": \"刘宇阳\", \"title\": \"前端开发工程师\", \"avatar\": \"https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"contact\": {\"email\": \"liuyuyang1024@yeah.net\", \"phone\": \"1778811xxxx\", \"github\": \"https://github.com/LiuYuYang01\"}, \"location\": \"郑州\"}, \"workExperience\": [{\"period\": \"2024.07-至今\", \"company\": \"宁波 XXXX 数字科技有限公司\", \"position\": \"前端负责人\", \"responsibilities\": [\"带领前端团队优化日常项目的开发与落地，并承担重点项目开发与上线\", \"在项目紧急情况下，由我负责前端的设计与实现，在经过 3 个月的 996 加班后，如期完成了项目的高质量上线。最终结果令老板满意，奖励一次性 5 万元奖金。在半年内完成涨薪 100%\"]}, {\"period\": \"2024.05-2024.06\", \"company\": \"成都 XX 科技有限公司\", \"position\": \"前端开发工程师\", \"responsibilities\": [\"负责公司内部 Todo 系统开发与改进，采用 Electron 桌面软件开发框架\"]}]}','我的简历'),(3,'equipment','{\"list\": [{\"items\": [{\"name\": \"MacBook Air M4\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/MacBook%20Air%20M4.jpg\", \"price\": 8757, \"description\": \"发布当天就买了，目前在为我创造价值\"}, {\"name\": \"iPhone 16 Pro Max\", \"color\": \"#F6F6F8\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/iPhone16ProMax.jpg\", \"price\": 8299, \"description\": \"第一次用苹果，感觉除了流畅些，其他的都不如安卓 [:狗头]\"}, {\"name\": \"Xiaomi 7s Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Xiaomi7sPro.png\", \"price\": 2300, \"description\": \"用来学习是个不错的选择\"}, {\"name\": \"Redmi A27U 4K 显示器\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Redmi%20A27U%204K%20%E6%98%BE%E7%A4%BA%E5%99%A8.png\", \"price\": 1399, \"description\": \"4K 显示屏性价比天花板\"}, {\"name\": \"Magic Keyboard\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Magic%20Keyboard.jpg\", \"price\": 599, \"description\": \"习惯了用触控板，自然少不了这个\"}, {\"name\": \"洛斐小顺青春版\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%B4%9B%E6%96%90%E5%B0%8F%E9%A1%BA%E9%9D%92%E6%98%A5%E7%89%88.jpeg\", \"price\": 399, \"description\": \"目前我的主力键盘\"}, {\"name\": \"Keychron K3 Max\", \"color\": \"#E9E9E9\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Keychron%20K3%20Max.jpeg\", \"price\": 379, \"description\": \"比小顺手感略差些\"}, {\"name\": \"ROG月刃无线AimPoint36k\", \"color\": \"#E9E9E9\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/ROGAimPoint36k.png\", \"price\": 319, \"description\": \"颜值、手感和续航都很 Nice，可惜没有无极滚轮功能\"}], \"category\": \"正在使用的装备\", \"description\": \"这些是我的核心生产力设备\"}, {\"items\": [{\"name\": \"MacBook Air M2\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/MacBook%20Air%20M2.png\", \"price\": 10017, \"description\": \"第四台电脑， 用了半年以 6k 价位卖给了同学， 几乎每个月亏损 1k 🥺\"}, {\"name\": \"华硕灵耀 14\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%8D%8E%E7%A1%95%E7%81%B5%E8%80%80%2014.png\", \"price\": 6596, \"description\": \"我的第三台电脑，我比较看重这台电脑的屏幕显示效果。可不知道为什么电脑各方面配置还不错，但经常死机，不夸张的说一天能死机最起码 5 次，只能强制重启。最终用了半年多以 4k 出掉了 😤\"}, {\"name\": \"联想拯救者 R900k\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%20R900k.jpg\", \"price\": 9298, \"description\": \"我的第二台电脑，买来之后几乎没打过游戏，每天在教室搬来搬去 用了一年左右干脆 5k 卖掉了\"}, {\"name\": \"联想小新 14\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E5%B0%8F%E6%96%B0%2014.jpg\", \"price\": 4279, \"description\": \"我的第一台电脑，用了 2 年以 2700 卖掉，还挺保值的 😌\"}, {\"name\": \"小米 14 Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2014%20Pro.jpg\", \"price\": 4999, \"description\": \"我的第三款小米手机\"}, {\"name\": \"小米 13\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2013.jpg\", \"price\": 3920, \"description\": \"我的第二款小米手机\"}, {\"name\": \"小米 10 至尊纪念版\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2010%20%E8%87%B3%E5%B0%8A%E7%BA%AA%E5%BF%B5%E7%89%88.webp\", \"price\": 5599, \"description\": \"我的第一款小米手机，用了 2 年以 1500 元卖掉了\"}, {\"name\": \"Vivo X23\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Vivo%20X23.jpg\", \"price\": 2100, \"description\": \"我的第一款安卓手机\"}, {\"name\": \"iPhone SE\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/iPhone%20SE.jpg\", \"price\": 0, \"description\": \"第一次用苹果 🤩\"}, {\"name\": \"HUAWEI FreeBuds SE 2\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/HUAWEI%20FreeBuds%20SE%202.png\", \"price\": 175, \"description\": \"还可以，只可惜不支持降噪和多设备连接\"}, {\"name\": \"漫步者 LOLLI3 ANC\", \"color\": \"#829887\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%BC%AB%E6%AD%A5%E8%80%85%20LOLLI3%20ANC.jpg\", \"price\": 469, \"description\": \"最终还是丢了 😭，以后不会再买这么贵的耳机了\"}, {\"name\": \"小度降噪耳机 Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E5%BA%A6%E9%99%8D%E5%99%AA%E8%80%B3%E6%9C%BA%20Pro.webp\", \"price\": 438, \"description\": \"丢了 😭\"}, {\"name\": \"漫步者 LolliPods plus\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%BC%AB%E6%AD%A5%E8%80%85%20LolliPods%20plus.jpg\", \"price\": 279, \"description\": \"丢了 😭\"}, {\"name\": \"腹灵 MK800\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%85%B9%E7%81%B5%20MK800.webp\", \"price\": 449, \"description\": \"做工和外观都不错，只是按压偏重适合打游戏，最终以 200 元卖给了同学\"}, {\"name\": \"RK987\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/RK987.webp\", \"price\": 273, \"description\": \"键盘进水导致部分按键失灵，但不影响打游戏，后来以 20 元送给了同学\"}, {\"name\": \"联想拯救者 M600\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%20M600.jpg\", \"price\": 205, \"description\": \"手感还不错，只是过保就坏😠，修的话也不划算就扔掉了\"}, {\"name\": \"联想拯救者无线鼠标 M7\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%E6%97%A0%E7%BA%BF%E9%BC%A0%E6%A0%87%20M7.jpg\", \"price\": 199, \"description\": \"外观和手感都不错，尤其是滚轮支持无极滚动\"}], \"category\": \"以往的设备\", \"description\": \"这些设备已经退役，但它们曾经陪伴我度过了一段美好的时光\"}]}','我的设备');
+INSERT INTO `page_config` VALUES (1,'my','{\"goals\": [{\"value\": \"1、涨薪2k！！！\", \"status\": 3}, {\"value\": \"2、提高前端技术栈深度\", \"status\": 1}, {\"value\": \"3、提高后端技术栈深度与广度，往后端迁移\", \"status\": 1}, {\"value\": \"4、ThriveX 博客管理系统 ⭐️ 破千\", \"status\": 1}, {\"value\": \"5、ThriveX 最低要求保持周更\", \"status\": 1}, {\"value\": \"6、输出 30 篇高质量技术博客\", \"status\": 1}], \"project\": [{\"name\": \"ThriveX\", \"front\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Blog\", \"name\": \"前端：\", \"technology\": \"NextJS、TypeScript、Zustand、TailwindCSS、Scss、Echarts\"}, \"images\": [\"https://bu.dusays.com/2024/09/17/66e9704b2b809.png\", \"https://bu.dusays.com/2024/09/17/66e97036dddcb.png\", \"https://bu.dusays.com/2024/09/17/66e97035726ae.png\", \"https://bu.dusays.com/2024/09/17/66e97031cd456.png\"], \"backend\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Server\", \"name\": \"后端：\", \"technology\": \"Spring Boot、Mybatis Plus、MySQL、Redis、Qiniu、Socket.io、Swagger\"}, \"control\": {\"url\": \"https://github.com/LiuYuYang01/ThriveX-Admin\", \"name\": \"控制端：\", \"technology\": \"React、Antd、TypeScript、Zustand、TailwindCSS、Echarts\"}, \"description\": \"🎉 ThriveX 相比旧版 Thrive 的核心改变是从 Vue 全面迁移到了 React 技术栈并采用了 Nextjs 服务端渲染技术进行全方面重构，对SEO方面有了显著的提高。并且还新增了很多额外的功能...\"}, {\"name\": \"Thrive\", \"front\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Blog\", \"technology\": \"前端：Vue3、TypeScript、Pinia、Element-plus、Scss、Echarts 、highlight.js\"}, \"images\": [\"https://bu.dusays.com/2024/09/17/66e96cb4e8417.png\", \"https://bu.dusays.com/2024/09/17/66e96ca366600.png\", \"https://bu.dusays.com/2024/09/17/66e96ca781d49.png\", \"https://bu.dusays.com/2024/09/17/66e96c9e76c81.png\"], \"backend\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Server\", \"name\": \"后端：\", \"technology\": \"Python、Flask、SQLAlchemy、MySQL、Flask-JWT、Socket.io、Swagger\"}, \"control\": {\"url\": \"https://github.com/LiuYuYang01/Thrive_Admin\", \"name\": \"控制端：\", \"technology\": \"Vue3、TypeScript、Pinia、Element-plus、Scss\"}, \"description\": \"🎉 Thrive 是一个简而不简单的现代化博客管理系统，专注于分享技术文章和知识，为技术爱好者和从业者提供一个分享、交流和学习的平台。用户可以在平台上发表自己的技术文章，或浏览其他用户分享的文章，并与他们进行讨论和互动。\"}, {\"name\": \"云上校园\", \"front\": {\"url\": \"\", \"name\": \"前端：\", \"technology\": \"微信小程序、Vant、Echarts、Autojs\"}, \"images\": [\"https://bu.dusays.com/2024/09/18/66ea606eb5aa1.png\", \"https://bu.dusays.com/2024/09/18/66ea605d89df7.png\", \"https://bu.dusays.com/2024/09/18/66ea605ca9f0d.jpg\"], \"backend\": {\"url\": \"\", \"name\": \"后端：\", \"technology\": \"Nodejs、Eggjs、Socket.io、MySQL\"}, \"control\": {\"url\": \"\", \"name\": \"控制端：\", \"technology\": \"Vue2、Element UI、vue-element-admin\"}, \"description\": \"🎉 云上校园是一个现代化大学生社交平台，该项目的立意是为了打造一个完整的校园生态圈，使校园触手可及!\"}], \"hometown\": [113.625351, 34.746303], \"info_one\": {\"name\": \"Liu YuYang\", \"notes\": \"不是修改这个哦，这段代码暂时先保留，勿删！！！\", \"avatar\": \"https://q.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"profession\": \"一名Web全栈开发工程师\", \"introduction\": \"我从小就对计算机技术有着无穷的兴趣，因此我的梦想是做一名技术顶尖的 架构师。所以我一直在朝着这个方向去努力、去坚持 直到梦想成真！\"}, \"info_two\": {\"author\": \"宇阳\", \"know_me\": \"https://liuyuyang.net/article/2227\", \"left_tags\": [\"🤖️ 数码科技爱好者\", \"🔍 分享与热心帮助\", \"💻 全栈开发工程师\"], \"avatar_url\": \"https://q.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"right_tags\": [\"源于热爱而发电 ✨\", \"开源项目作者 🥳\", \"热爱漫无边际 🎉\"]}, \"character\": [{\"color\": \"#4298b4\", \"text1\": \"内向\", \"text2\": \"外向\", \"value\": 54, \"content\": \"内向型的人往往更喜欢较少但深入和有意义的社交互动，通常更喜欢安静的环境。\"}, {\"color\": \"#e4ae3a\", \"text1\": \"现实\", \"text2\": \"有远见\", \"value\": 41, \"content\": \"有远见型的人非常富有想象力、思想开放并充满好奇心。他们重视原创性，专注于隐含的意义和遥远的可能性。\"}, {\"color\": \"#33a474\", \"text1\": \"感受\", \"text2\": \"理性分析\", \"value\": 41, \"content\": \"感受型的人重视情感表达和敏感性。他们非常重视同理心、社会和谐及合作。\"}, {\"color\": \"#88619a\", \"text1\": \"展望\", \"text2\": \"评判\", \"value\": 79, \"content\": \"评判型的人果断、周到，很有条理。他们重视清晰度、可预测性和封闭性，更喜欢结构和计划，而不是自发性。\"}, {\"color\": \"#f25e62\", \"text1\": \"起伏不定\", \"text2\": \"坚决\", \"value\": 78, \"content\": \"起伏不定型的人自我意识强，对压力敏感。他们在情绪上有一种紧迫感，往往以成功为导向，追求完美，渴望进步。\"}], \"work_open\": false, \"info_style\": \"info_one\", \"technology_stack\": [\"scss\", \"css\", \"html\", \"tailwindcss\", \"axios\", \"fetch\", \"vue\", \"vuex\", \"redux\", \"zustand\", \"element-plus\", \"typescript\", \"javascript\", \"antdesign\", \"motion\", \"pinia\", \"framer-motion\", \"echarts\", \"java\", \"spring\", \"springboot\", \"mybatis\", \"mybatis-plus\", \"redis\", \"rabbitmq\", \"mysql\", \"mongodb\", \"react\", \"nextjs\", \"nestjs\", \"webpack\", \"vite\", \"nodedotjs\", \"nextdotjs\", \"prisma\", \"koa\", \"express\", \"python\", \"flask\", \"nginx\", \"vercel\", \"docker\", \"git\", \"github\", \"visualstudiocode\", \"intellijidea\", \"datagrip\", \"apifox\", \"postman\", \"trae\", \"cursor\", \"webstorm\", \"navicat\", \"hbuilder\", \"hbuilderx\", \"googledrive\", \"apple\", \"windows\", \"linux\", \"pycharm\", \"wechat\"]}','关于我'),(2,'resume','{\"links\": {\"csdn\": \"https://thrive.blog.csdn.net\", \"github\": \"https://github.com/LiuYuYang01\", \"project\": \"https://liuyuyang.net/\"}, \"skills\": [\"熟练 HTML5、CSS3、Flex、Scss、TailwindCSS 能够精准还原 UI 设计师的产品原型图，实现产品级的复现\", \"熟练 TypeScript、JavaScript、jQuery、面向对象、闭包、原型链、WebApi、原生DOM\", \"熟练 Vue2 / 3 相关生态：Axios、Vuex、Pinia\", \"熟练 React18 相关生态：NextJS、Redux、Zustand、Ahooks、Motion\", \"熟练 Uniapp 完成多端适配 以及 原生微信小程序开发\", \"熟练 Echarts 数据可视化开发 且 能够根据业务需求进行自定义扩展\", \"熟练 Ant Design、NextUI、Element UI、Vant、Naive UI、Bootstrap 等多种组件库的使用\", \"熟悉 NodeJS 相关生态：Express、NextJS、NestJS、Prisma\", \"熟悉 Python Flask 及 SQLAlchemy 对象映射（ORM）框架\", \"熟悉 Electron 跨平台桌面应用开发框架\", \"了解 Remix 全栈开发框架\", \"了解 WebPack、Vite 等打包构建工具\", \"熟悉 Spring Boot、Spring MVC、Mybatis Plus 等主流框架\", \"熟练 MySQL 关系型数据库，具备手写 SQL 及复杂查询的能力\", \"了解 Spring Cloud 微服务框架及常用的组件 Nacos、OpenFeign、Gateway\", \"熟悉 Linux 常用命令以及 Nginx 基本配置\", \"熟悉 Docker 基本命令、容器编排、镜像构建，并熟练使用可视化工具如：宝塔、1Panel 等，并有项目部署上线的经验\"], \"projects\": [{\"name\": \"ThriveX CMS 建站管理系统\", \"role\": \"全栈开发（NextJS + Spring Boot）\", \"links\": {\"api\": \"https://api.liuyuyang.net/doc.html\", \"docs\": \"https://docs.liuyuyang.net/\", \"preview\": \"https://liuyuyang.net/\", \"website\": \"https://thrivex.liuyuyang.net/\"}, \"period\": \"2023.03-至今\", \"techStack\": {\"backend\": \"Spring Boot、Mybatis Plus、MySQL、Qiniu、Swagger、Python、Flask、SQLalchemy\", \"frontend\": \"React、NextJS、TypeScript、Zustand、TailwindCSS、Scss、Next UI、Antd UI、Echarts、React Hook Form、Ahooks、百度统计API、高德地图API、Vue3、Pinia、Element UI\", \"deployment\": \"采用 Docker Compose 一键部署、采用 Nginx 实现反向代理、SSL 证书等\"}, \"highlights\": [\"【AI】采用科大讯飞AI大模型实现文章续写、优化、总结、智能问答\", \"【权限】RBAC 权限管理，动态路由、按钮权限、多用户登录\", \"【地图】采用 高德地图实现旅游足迹可视化等功能\", \"【安全】限制异地登录 及 以及多设备登录同一账号\", \"【交互】采用 TailwindCSS 实现白天、昼夜主题切换效果\", \"【适配】采用 TailwindCSS 媒体查询实现手机、平板、电脑三端适配\", \"【可视化】采用 百度统计API + Echarts 实现数据可视化\", \"【SEO】采用 NextJS 服务端渲染技术进行 SEO 优化，在 Lighthouse 中评分 100%\", \"【文件系统】同时兼容阿里云、腾讯云、华为云、七牛云、百度云等对象存储\", \"【一键部署】采用 Docker Compose 脚本实现前端、控制端、后端、数据库一键部署\", \"【自动化部署】利用 Vercel 实现高效的持续集成与自动化部署\"], \"description\": \"ThriveX 是一个年轻、高颜值、全开源、永不收费的现代化 CMS 管理系统，项目组成是前端、控制端、后端，采用前后端分离开发式，是一个 NextJS + Spring Boot 的产物。\", \"achievements\": [\"一个人完成产品、UI、前端、控制端、后端、数据库、测试 以及 项目部署上线\", \"项目代码全开源，截止目前在 GitHub 已经有 1867 条 Commit 记录，收获 700+ Star，156+ Fork\", \"目前已有多数用户在使用该系统，粉丝群已超千名用户\"], \"repositories\": {\"admin\": \"https://github.com/LiuYuYang01/ThriveX-Admin\", \"backend\": \"https://github.com/LiuYuYang01/ThriveX-Server\", \"frontend\": \"https://github.com/LiuYuYang01/ThriveX-Blog\"}}, {\"name\": \"点点易付（DianDianPay）\", \"role\": \"前端开发工程师\", \"links\": {\"docs\": \"https://docs.diandianpay.com/\", \"website\": \"https://diandianpay.com/\", \"dashboard\": \"https://dashboard.diandianpay.com/\"}, \"period\": \"2024.12-至今\", \"techStack\": \"React、TypeScript、Zustand、TailwindCSS、Scss、Antd UI、Echarts、React Hook Form、Ahooks、百度统计API\", \"description\": [\"点点易付专注打造一站式支付解决方案，通过安全可靠的支付通道和高效便捷的服务，助力全球商户拓展国际市场，实现业务全球化\", \"简化中国企业在跨境收单的繁琐流程，提供一站式服务，从账户申请到交易处理全程支持\"], \"achievements\": \"结果令老板满意，完成涨薪 60%，并赠与 5 万元一次性奖金\"}, {\"name\": \"Shopify 跨境电商结账页\", \"role\": \"前端开发工程师\", \"period\": \"2024.07-2024.09\", \"challenges\": \"商品的最终价格需要根据多种因素决定，如商品单价、运费、税费、运费险等不同的条件进行计算，而且还要通过同一套代码完成单页面布局和多页面布局，整体的逻辑相对复杂\", \"achievements\": \"结果令老板满意，完成涨薪 25%\", \"responsibilities\": [\"主导 jQuery 项目全面迁移至 React 生态，提高项目代码规范及可维护性\", \"负责组件库架构设计，保证组件库可扩展性、易用性\", \"使用 React-i18next 完成八国语言一键切换\", \"集成 Sentry 实现前端监控，快速排查线上项目疑难杂症\"]}, {\"name\": \"云上校园\", \"role\": \"全栈开发（小程序 + Eggjs）\", \"period\": \"2022.12-2023.05\", \"techStack\": \"微信小程序、Vant、Vue2、Element UI、Echarts、Nodejs（Eggjs）、MySQL、Socket.io\", \"highlights\": [\"通过 Echarts 搭配百度统计API实现数据可视化\", \"微信登录、登录状态检测\", \"实时通讯聊天室：支持私聊、群聊、表情、图片聊天记录存储\"], \"description\": \"云上校园是一个专注提升大学校园生活质量与便利性的平台，打造一个集信息传播、学习辅助、就业赚取、维权举报、科技体验于一体的综合服务平台。\", \"achievements\": \"上海市第十五届计算机应用能力大赛三等奖\"}], \"education\": {\"major\": \"软件工程\", \"degree\": \"本科\", \"period\": \"2021-2026\", \"school\": \"上海开放大学\", \"achievements\": [\"上海市计算机应用能力大赛三等奖\", \"上海开放大学创新项目奖\", \"二等奖学金\", \"计算机软件著作权\"]}, \"advantages\": [\"上海市第十五届计算机应用能力大赛 三等奖、创新项目奖\", \"GitHub 开源项目作者（ThriveX CMS 建站系统）Star 900+\", \"ThriveX CMS 建站系统 计算机软件著作权（申请中）\", \"具备项目从 0 到 1 部署上线的经验：https://liuyuyang.net/\", \"利用业余时间持续输出技术文章，目前在 CSDN 累计拥有 1700+ 粉丝\", \"熟练 Spring Boot 以及 Express、Flask 等多种后端开发语言 对前后端接口联调过程中的问题能够进行清晰定位\", \"能够独当一面，从 0 到 1 构建前端项目 且 具备完整项目设计、研发、部署、全链路问题排查能力\"], \"personalInfo\": {\"age\": \"22岁\", \"name\": \"刘宇阳\", \"title\": \"前端开发工程师\", \"avatar\": \"https://q1.qlogo.cn/g?b=qq&nk=3311118881&s=640\", \"contact\": {\"email\": \"liuyuyang1024@yeah.net\", \"phone\": \"1778811xxxx\", \"github\": \"https://github.com/LiuYuYang01\"}, \"location\": \"郑州\"}, \"workExperience\": [{\"period\": \"2024.07-至今\", \"company\": \"宁波 XXXX 数字科技有限公司\", \"position\": \"前端负责人\", \"responsibilities\": [\"带领前端团队优化日常项目的开发与落地，并承担重点项目开发与上线\", \"在项目紧急情况下，由我负责前端的设计与实现，在经过 3 个月的 996 加班后，如期完成了项目的高质量上线。最终结果令老板满意，奖励一次性 5 万元奖金。在半年内完成涨薪 100%\"]}, {\"period\": \"2024.05-2024.06\", \"company\": \"成都 XX 科技有限公司\", \"position\": \"前端开发工程师\", \"responsibilities\": [\"负责公司内部 Todo 系统开发与改进，采用 Electron 桌面软件开发框架\"]}]}','我的简历'),(3,'equipment','{\"list\": [{\"items\": [{\"name\": \"MacBook Air M4\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/MacBook%20Air%20M4.jpg\", \"price\": 8757, \"description\": \"发布当天就买了，目前在为我创造价值\"}, {\"name\": \"iPhone 16 Pro Max\", \"color\": \"#F6F6F8\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/iPhone16ProMax.jpg\", \"price\": 8299, \"description\": \"第一次用苹果，感觉除了流畅些，其他的都不如安卓 [:狗头]\"}, {\"name\": \"Xiaomi 7s Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Xiaomi7sPro.png\", \"price\": 2300, \"description\": \"用来学习是个不错的选择\"}, {\"name\": \"Redmi A27U 4K 显示器\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Redmi%20A27U%204K%20%E6%98%BE%E7%A4%BA%E5%99%A8.png\", \"price\": 1399, \"description\": \"4K 显示屏性价比天花板\"}, {\"name\": \"Magic Keyboard\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Magic%20Keyboard.jpg\", \"price\": 599, \"description\": \"习惯了用触控板，自然少不了这个\"}, {\"name\": \"洛斐小顺青春版\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%B4%9B%E6%96%90%E5%B0%8F%E9%A1%BA%E9%9D%92%E6%98%A5%E7%89%88.jpeg\", \"price\": 399, \"description\": \"目前我的主力键盘\"}, {\"name\": \"Keychron K3 Max\", \"color\": \"#E9E9E9\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Keychron%20K3%20Max.jpeg\", \"price\": 379, \"description\": \"比小顺手感略差些\"}, {\"name\": \"ROG月刃无线AimPoint36k\", \"color\": \"#E9E9E9\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/ROGAimPoint36k.png\", \"price\": 319, \"description\": \"颜值、手感和续航都很 Nice，可惜没有无极滚轮功能\"}], \"category\": \"正在使用的装备\", \"description\": \"这些是我的核心生产力设备\"}, {\"items\": [{\"name\": \"MacBook Air M2\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/MacBook%20Air%20M2.png\", \"price\": 10017, \"description\": \"第四台电脑， 用了半年以 6k 价位卖给了同学， 几乎每个月亏损 1k 🥺\"}, {\"name\": \"华硕灵耀 14\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%8D%8E%E7%A1%95%E7%81%B5%E8%80%80%2014.png\", \"price\": 6596, \"description\": \"我的第三台电脑，我比较看重这台电脑的屏幕显示效果。可不知道为什么电脑各方面配置还不错，但经常死机，不夸张的说一天能死机最起码 5 次，只能强制重启。最终用了半年多以 4k 出掉了 😤\"}, {\"name\": \"联想拯救者 R900k\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%20R900k.jpg\", \"price\": 9298, \"description\": \"我的第二台电脑，买来之后几乎没打过游戏，每天在教室搬来搬去 用了一年左右干脆 5k 卖掉了\"}, {\"name\": \"联想小新 14\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E5%B0%8F%E6%96%B0%2014.jpg\", \"price\": 4279, \"description\": \"我的第一台电脑，用了 2 年以 2700 卖掉，还挺保值的 😌\"}, {\"name\": \"小米 14 Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2014%20Pro.jpg\", \"price\": 4999, \"description\": \"我的第三款小米手机\"}, {\"name\": \"小米 13\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2013.jpg\", \"price\": 3920, \"description\": \"我的第二款小米手机\"}, {\"name\": \"小米 10 至尊纪念版\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E7%B1%B3%2010%20%E8%87%B3%E5%B0%8A%E7%BA%AA%E5%BF%B5%E7%89%88.webp\", \"price\": 5599, \"description\": \"我的第一款小米手机，用了 2 年以 1500 元卖掉了\"}, {\"name\": \"Vivo X23\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/Vivo%20X23.jpg\", \"price\": 2100, \"description\": \"我的第一款安卓手机\"}, {\"name\": \"iPhone SE\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/iPhone%20SE.jpg\", \"price\": 0, \"description\": \"第一次用苹果 🤩\"}, {\"name\": \"HUAWEI FreeBuds SE 2\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/HUAWEI%20FreeBuds%20SE%202.png\", \"price\": 175, \"description\": \"还可以，只可惜不支持降噪和多设备连接\"}, {\"name\": \"漫步者 LOLLI3 ANC\", \"color\": \"#829887\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%BC%AB%E6%AD%A5%E8%80%85%20LOLLI3%20ANC.jpg\", \"price\": 469, \"description\": \"最终还是丢了 😭，以后不会再买这么贵的耳机了\"}, {\"name\": \"小度降噪耳机 Pro\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E5%B0%8F%E5%BA%A6%E9%99%8D%E5%99%AA%E8%80%B3%E6%9C%BA%20Pro.webp\", \"price\": 438, \"description\": \"丢了 😭\"}, {\"name\": \"漫步者 LolliPods plus\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E6%BC%AB%E6%AD%A5%E8%80%85%20LolliPods%20plus.jpg\", \"price\": 279, \"description\": \"丢了 😭\"}, {\"name\": \"腹灵 MK800\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%85%B9%E7%81%B5%20MK800.webp\", \"price\": 449, \"description\": \"做工和外观都不错，只是按压偏重适合打游戏，最终以 200 元卖给了同学\"}, {\"name\": \"RK987\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/RK987.webp\", \"price\": 273, \"description\": \"键盘进水导致部分按键失灵，但不影响打游戏，后来以 20 元送给了同学\"}, {\"name\": \"联想拯救者 M600\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%20M600.jpg\", \"price\": 205, \"description\": \"手感还不错，只是过保就坏😠，修的话也不划算就扔掉了\"}, {\"name\": \"联想拯救者无线鼠标 M7\", \"image\": \"https://res.liuyuyang.net/thrive/equipment/%E8%81%94%E6%83%B3%E6%8B%AF%E6%95%91%E8%80%85%E6%97%A0%E7%BA%BF%E9%BC%A0%E6%A0%87%20M7.jpg\", \"price\": 199, \"description\": \"外观和手感都不错，尤其是滚轮支持无极滚动\"}], \"category\": \"以往的设备\", \"description\": \"这些设备已经退役，但它们曾经陪伴我度过了一段美好的时光\"}]}','我的设备');
 /*!40000 ALTER TABLE `page_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,12 +510,12 @@ DROP TABLE IF EXISTS `permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `permission` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `name` varchar(100) NOT NULL COMMENT '权限标识',
-                              `description` varchar(255) NOT NULL COMMENT '权限介绍',
-                              `group` varchar(50) NOT NULL COMMENT '权限分组',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `Permission_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '权限标识',
+  `description` varchar(255) NOT NULL COMMENT '权限介绍',
+  `group` varchar(50) NOT NULL COMMENT '权限分组',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Permission_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -537,12 +537,12 @@ DROP TABLE IF EXISTS `record`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `record` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `content` text NOT NULL COMMENT '内容',
-                          `images` json DEFAULT NULL COMMENT '图片',
-                          `create_time` varchar(255) NOT NULL COMMENT '时间',
-                          PRIMARY KEY (`id`),
-                          UNIQUE KEY `record_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL COMMENT '内容',
+  `images` json DEFAULT NULL COMMENT '图片',
+  `create_time` varchar(255) NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -564,11 +564,11 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `name` varchar(255) NOT NULL COMMENT '角色名称',
-                        `mark` varchar(100) NOT NULL COMMENT '角色标识',
-                        `description` varchar(255) NOT NULL COMMENT '角色描述',
-                        PRIMARY KEY (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '角色名称',
+  `mark` varchar(100) NOT NULL COMMENT '角色标识',
+  `description` varchar(255) NOT NULL COMMENT '角色描述',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -590,11 +590,11 @@ DROP TABLE IF EXISTS `role_permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role_permission` (
-                                   `id` int NOT NULL AUTO_INCREMENT,
-                                   `role_id` int NOT NULL COMMENT '角色ID',
-                                   `permission_id` int NOT NULL COMMENT '权限ID',
-                                   PRIMARY KEY (`id`),
-                                   UNIQUE KEY `role_permission_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int NOT NULL COMMENT '角色ID',
+  `permission_id` int NOT NULL COMMENT '权限ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_permission_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -615,12 +615,12 @@ DROP TABLE IF EXISTS `route`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `route` (
-                         `id` int NOT NULL AUTO_INCREMENT,
-                         `path` varchar(100) NOT NULL COMMENT '路由路径',
-                         `description` varchar(255) NOT NULL COMMENT '路由描述',
-                         PRIMARY KEY (`id`),
-                         UNIQUE KEY `routes_pk_2` (`id`),
-                         UNIQUE KEY `routes_pk` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `path` varchar(100) NOT NULL COMMENT '路由路径',
+  `description` varchar(255) NOT NULL COMMENT '路由描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `routes_pk_2` (`id`),
+  UNIQUE KEY `routes_pk` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -642,11 +642,11 @@ DROP TABLE IF EXISTS `route_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `route_role` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `route_id` int NOT NULL COMMENT '路由id',
-                              `role_id` int NOT NULL COMMENT '角色id',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `routes_role_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `route_id` int NOT NULL COMMENT '路由id',
+  `role_id` int NOT NULL COMMENT '角色id',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `routes_role_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -668,12 +668,12 @@ DROP TABLE IF EXISTS `swiper`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `swiper` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                          `description` varchar(255) DEFAULT NULL,
-                          `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                          `url` varchar(500) DEFAULT NULL,
-                          PRIMARY KEY (`id`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `url` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -695,9 +695,9 @@ DROP TABLE IF EXISTS `tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tag` (
-                       `id` int NOT NULL AUTO_INCREMENT,
-                       `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-                       PRIMARY KEY (`id`) USING BTREE
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -719,17 +719,17 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `username` varchar(50) NOT NULL COMMENT '用户名',
-                        `password` varchar(50) NOT NULL COMMENT '密码',
-                        `name` varchar(50) NOT NULL COMMENT '用户名称',
-                        `email` varchar(100) DEFAULT NULL COMMENT '用户邮箱',
-                        `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
-                        `info` varchar(255) DEFAULT NULL COMMENT '用户介绍',
-                        `role_id` varchar(50) NOT NULL COMMENT '用户角色ID',
-                        `create_time` varchar(255) NOT NULL COMMENT '用户创建时间',
-                        PRIMARY KEY (`id`) USING BTREE,
-                        UNIQUE KEY `user_pk` (`username`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `name` varchar(50) NOT NULL COMMENT '用户名称',
+  `email` varchar(100) DEFAULT NULL COMMENT '用户邮箱',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
+  `info` varchar(255) DEFAULT NULL COMMENT '用户介绍',
+  `role_id` varchar(50) NOT NULL COMMENT '用户角色ID',
+  `create_time` varchar(255) NOT NULL COMMENT '用户创建时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `user_pk` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -751,13 +751,13 @@ DROP TABLE IF EXISTS `user_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_token` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `uid` int NOT NULL COMMENT '用户 ID',
-                              `token` text NOT NULL COMMENT '用户token',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `user_token_pk_2` (`id`),
-                              UNIQUE KEY `user_token_pk_3` (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uid` int NOT NULL COMMENT '用户 ID',
+  `token` text NOT NULL COMMENT '用户token',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_token_pk_2` (`id`),
+  UNIQUE KEY `user_token_pk_3` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户 token';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -766,7 +766,7 @@ CREATE TABLE `user_token` (
 
 LOCK TABLES `user_token` WRITE;
 /*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
-INSERT INTO `user_token` VALUES (76,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzU0NjY0MTg3LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwibmFtZSI6IuWuh-mYsyIsImluZm8iOiJUaHJpdmVYIOWNmuWuoueuoeeQhuezu-e7n-S9nOiAhSIsImVtYWlsIjoiMzMxMTExODg4MUBxcS5jb20iLCJhdmF0YXIiOiJodHRwczovL2J1LmR1c2F5cy5jb20vMjAyNC8xMS8xNy82NzM5YWRmMTg4ZjY0LnBuZyIsInJvbGVJZCI6IjEiLCJyb2xlIjpudWxsfX0.iqN2CxLgJLQoTv2VC7tw-DDwgj_wfoF0nu5IO_8ZX18');
+INSERT INTO `user_token` VALUES (79,1,'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjp7ImlkIjoxLCJuYW1lIjoi566h55CG5ZGYIiwibWFyayI6ImFkbWluIiwiZGVzY3JpcHRpb24iOiLmnIDpq5jmnYPpmZAifSwiZXhwIjoxNzU2NzI1NDM4LCJ1c2VyIjp7ImlkIjoxLCJjcmVhdGVUaW1lIjoiMTcyMzUzMzIwNjYxMyIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwibmFtZSI6IuWuh-mYsyIsImluZm8iOiJUaHJpdmVYIOWNmuWuoueuoeeQhuezu-e7n-S9nOiAhSIsImVtYWlsIjoiMzMxMTExODg4MUBxcS5jb20iLCJhdmF0YXIiOiJodHRwczovL2J1LmR1c2F5cy5jb20vMjAyNC8xMS8xNy82NzM5YWRmMTg4ZjY0LnBuZyIsInJvbGVJZCI6IjEiLCJyb2xlIjpudWxsfX0.1WN9GT1PkSTe4DTlQfnTRjo8HMAWBupEycxklByuJDc');
 /*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -778,17 +778,17 @@ DROP TABLE IF EXISTS `wall`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wall` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `name` varchar(100) DEFAULT '神秘人' COMMENT '留言人名称',
-                        `content` varchar(255) NOT NULL COMMENT '留言内容',
-                        `color` varchar(100) DEFAULT '#ffe3944d' COMMENT '留言墙颜色',
-                        `email` varchar(100) DEFAULT NULL COMMENT '留言者邮箱',
-                        `cate_id` int NOT NULL,
-                        `audit_status` int DEFAULT '0' COMMENT '是否审核',
-                        `is_choice` int NOT NULL DEFAULT '0' COMMENT '是否为精选留言',
-                        `create_time` varchar(255) NOT NULL COMMENT '发布时间',
-                        PRIMARY KEY (`id`),
-                        UNIQUE KEY `wall_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT '神秘人' COMMENT '留言人名称',
+  `content` varchar(255) NOT NULL COMMENT '留言内容',
+  `color` varchar(100) DEFAULT '#ffe3944d' COMMENT '留言墙颜色',
+  `email` varchar(100) DEFAULT NULL COMMENT '留言者邮箱',
+  `cate_id` int NOT NULL,
+  `audit_status` int DEFAULT '0' COMMENT '是否审核',
+  `is_choice` int NOT NULL DEFAULT '0' COMMENT '是否为精选留言',
+  `create_time` varchar(255) NOT NULL COMMENT '发布时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wall_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言墙';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -810,12 +810,12 @@ DROP TABLE IF EXISTS `wall_cate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wall_cate` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `name` varchar(100) NOT NULL COMMENT '分类名称',
-                             `mark` varchar(100) NOT NULL COMMENT '分类标识',
-                             `order` int NOT NULL COMMENT '分类顺序',
-                             PRIMARY KEY (`id`),
-                             UNIQUE KEY `wall_cate_pk_2` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL COMMENT '分类名称',
+  `mark` varchar(100) NOT NULL COMMENT '分类标识',
+  `order` int NOT NULL COMMENT '分类顺序',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `wall_cate_pk_2` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='留言分类';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -837,14 +837,14 @@ DROP TABLE IF EXISTS `web_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `web_config` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `name` varchar(255) NOT NULL COMMENT '配置项名称',
-                              `value` json NOT NULL COMMENT '配置项值',
-                              `notes` varchar(255) DEFAULT NULL COMMENT '配置备注',
-                              PRIMARY KEY (`id`),
-                              UNIQUE KEY `web_page1_pk_2` (`id`),
-                              UNIQUE KEY `web_page1_pk_3` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='网站配置';
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT '配置项名称',
+  `value` json NOT NULL COMMENT '配置项值',
+  `notes` varchar(255) DEFAULT NULL COMMENT '配置备注',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `web_page1_pk_2` (`id`),
+  UNIQUE KEY `web_page1_pk_3` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='网站配置';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -853,7 +853,7 @@ CREATE TABLE `web_config` (
 
 LOCK TABLES `web_config` WRITE;
 /*!40000 ALTER TABLE `web_config` DISABLE KEYS */;
-INSERT INTO `web_config` VALUES (1,'web','{\"icp\": \"豫ICP备2020031040号-1\", \"url\": \"https://liuyuyang.net/\", \"title\": \"ThriveX\", \"footer\": \"真诚邀请大家成为 ThriveX 博客管理系统的贡献者，一起参与项目开发，构建一个强大的博客管理系统！\", \"favicon\": \"https://res.liuyuyang.net/usr/images/favicon.ico\", \"keyword\": \"宇阳,刘宇阳,Thrive,前端,Python,Java,Thrive,ThriveX,ThriveX现代化博客管理系统\", \"subhead\": \"现代化博客管理系统\", \"create_time\": 1547568000000, \"description\": \"也许会是最好用的博客管理系统\"}','网站配置'),(2,'theme','{\"covers\": [\"https://bu.dusays.com/2023/11/10/654e2da1d80f8.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d719d31c.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf92cd45.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf6055b0.jpg\", \"https://bu.dusays.com/2023/11/10/654e2db0889fe.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d50015a9.jpg\", \"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c870e280.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c717eb73.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c5d75d5b.jpg\", \"https://bu.dusays.com/2023/11/10/654e2da27801e.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d2a67517.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf47f17a.jpg\", \"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\"], \"social\": [{\"url\": \"https://github.com/LiuYuYang01\", \"name\": \"GitHub\"}, {\"url\": \"https://gitee.com/liu_yu_yang666\", \"name\": \"Gitee\"}, {\"url\": \"https://juejin.cn/user/3083456627092078/posts\", \"name\": \"Juejin\"}, {\"url\": \"https://blog.csdn.net/haodian666?type=blog\", \"name\": \"CSDN\"}, {\"url\": \"http://wpa.qq.com/msgrd?v=3&uin=3311118881&site=qq&menu=yes\", \"name\": \"QQ\"}], \"dark_logo\": \"https://bu.dusays.com/2024/05/03/663481106dcfd.png\", \"light_logo\": \"https://bu.dusays.com/2024/05/03/663481106e2a4.png\", \"record_info\": \"🎯 梦想做一名技术顶尖的架构师，奈何学历太低！\", \"record_name\": \"👋 Liu 宇阳\", \"swiper_text\": [\"System.out.print(\\\"欢迎使用 ThriveX 博客管理系统！\\\");\", \"print(\\\"这是一个 Nextjs + Spring Boot 的产物\\\")\"], \"reco_article\": [1, 2], \"swiper_image\": \"https://bu.dusays.com/2024/04/24/6628990012b51.jpg\", \"right_sidebar\": [\"author\", \"hotArticle\", \"newComments\", \"randomArticle\"], \"is_article_layout\": \"classics\"}','主题配置');
+INSERT INTO `web_config` VALUES (1,'web','{\"icp\": \"豫ICP备2020031040号-1\", \"url\": \"https://liuyuyang.net/\", \"title\": \"ThriveX\", \"footer\": \"真诚邀请大家成为 ThriveX 博客管理系统的贡献者，一起参与项目开发，构建一个强大的博客管理系统！\", \"favicon\": \"https://res.liuyuyang.net/usr/images/favicon.ico\", \"keyword\": \"宇阳,刘宇阳,Thrive,前端,Python,Java,Thrive,ThriveX,ThriveX现代化博客管理系统\", \"subhead\": \"现代化博客管理系统\", \"create_time\": 1547568000000, \"description\": \"也许会是最好用的博客管理系统\"}','网站配置'),(2,'theme','{\"covers\": [\"https://bu.dusays.com/2023/11/10/654e2da1d80f8.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d719d31c.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf92cd45.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf6055b0.jpg\", \"https://bu.dusays.com/2023/11/10/654e2db0889fe.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d50015a9.jpg\", \"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c870e280.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c717eb73.jpg\", \"https://bu.dusays.com/2023/11/10/654e2c5d75d5b.jpg\", \"https://bu.dusays.com/2023/11/10/654e2da27801e.jpg\", \"https://bu.dusays.com/2023/11/10/654e2d2a67517.jpg\", \"https://bu.dusays.com/2023/11/10/654e2cf47f17a.jpg\", \"https://bu.dusays.com/2023/11/05/65473848ed863.jpg\"], \"social\": [{\"url\": \"https://github.com/LiuYuYang01\", \"name\": \"GitHub\"}, {\"url\": \"https://gitee.com/liu_yu_yang666\", \"name\": \"Gitee\"}, {\"url\": \"https://juejin.cn/user/3083456627092078/posts\", \"name\": \"Juejin\"}, {\"url\": \"https://blog.csdn.net/haodian666?type=blog\", \"name\": \"CSDN\"}, {\"url\": \"http://wpa.qq.com/msgrd?v=3&uin=3311118881&site=qq&menu=yes\", \"name\": \"QQ\"}], \"dark_logo\": \"https://bu.dusays.com/2024/05/03/663481106dcfd.png\", \"light_logo\": \"https://bu.dusays.com/2024/05/03/663481106e2a4.png\", \"record_info\": \"🎯 梦想做一名技术顶尖的架构师，奈何学历太低！\", \"record_name\": \"👋 Liu 宇阳\", \"swiper_text\": [\"System.out.print(\\\"欢迎使用 ThriveX 博客管理系统！\\\");\", \"print(\\\"这是一个 Nextjs + Spring Boot 的产物\\\")\"], \"reco_article\": [1, 2], \"swiper_image\": \"https://bu.dusays.com/2024/04/24/6628990012b51.jpg\", \"right_sidebar\": [\"author\", \"hotArticle\", \"newComments\", \"randomArticle\"], \"is_article_layout\": \"classics\"}','主题配置'),(3,'other','{\"baidu_token\": \"\", \"hcaptcha_key\": \"\"}','其他配置');
 /*!40000 ALTER TABLE `web_config` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -866,4 +866,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-05 23:28:55
+-- Dump completed on 2025-08-29 19:56:45
