@@ -4,7 +4,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.model.PageConfig;
 import liuyuyang.net.web.service.PageConfigService;

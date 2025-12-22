@@ -4,7 +4,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Footprint;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.FootprintService;
@@ -23,7 +22,6 @@ public class FootprintController {
     @Resource
     private FootprintService footprintService;
 
-    @PremName("footprint:add")
     @PostMapping
     @ApiOperation("新增足迹")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -32,7 +30,6 @@ public class FootprintController {
         return Result.success();
     }
 
-    @PremName("footprint:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除足迹")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -41,7 +38,6 @@ public class FootprintController {
         return Result.success();
     }
 
-    @PremName("footprint:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除足迹")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -50,7 +46,6 @@ public class FootprintController {
         return Result.success();
     }
 
-    @PremName("footprint:edit")
     @PatchMapping
     @ApiOperation("编辑足迹")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)

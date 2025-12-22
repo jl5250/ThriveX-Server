@@ -3,7 +3,6 @@ package liuyuyang.net.web.controller;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Oss;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.OssService;
@@ -22,7 +21,6 @@ import java.util.Map;
 public class OssController {
     private final OssService ossService;
 
-    @PremName("oss:add")
     @PostMapping
     @ApiOperation("新增oss配置")
     @ApiOperationSupport(author = "laifeng", order = 1)
@@ -31,7 +29,6 @@ public class OssController {
         return Result.success();
     }
 
-    @PremName("oss:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除oss配置")
     @ApiOperationSupport(author = "laifeng", order = 2)
@@ -43,7 +40,6 @@ public class OssController {
         return Result.success();
     }
 
-    @PremName("oss:edit")
     @PatchMapping
     @ApiOperation("更新oss配置")
     @ApiOperationSupport(author = "laifeng", order = 3)
@@ -52,7 +48,6 @@ public class OssController {
         return Result.success();
     }
 
-    @PremName("oss:info")
     @GetMapping("/{id}")
     @ApiOperation("获取oss配置")
     @ApiOperationSupport(author = "laifeng", order = 4)
@@ -69,7 +64,6 @@ public class OssController {
         return Result.success(vo);
     }
 
-    @PremName("oss:list")
     @PostMapping("/list")
     @ApiOperation("获取oss配置列表")
     @ApiOperationSupport(author = "laifeng", order = 5)
@@ -78,7 +72,6 @@ public class OssController {
         return Result.success(list);
     }
 
-    @PremName("oss:enable")
     @PatchMapping("/enable/{id}")
     @ApiOperation("启用oss配置")
     @ApiOperationSupport(author = "laifeng", order = 6)
@@ -87,7 +80,6 @@ public class OssController {
         return Result.success();
     }
 
-    @PremName("oss:getEnableOss")
     @GetMapping("/getEnableOss")
     @ApiOperation("获取当前启用的oss配置")
     @ApiOperationSupport(author = "laifeng", order = 8)
@@ -95,7 +87,6 @@ public class OssController {
         return Result.success(ossService.getEnableOss());
     }
 
-    @PremName("oss:getPlatform")
     @GetMapping("/platform")
     @ApiOperation("获取目前支持的oss平台")
     @ApiOperationSupport(author = "宇阳", order = 9)

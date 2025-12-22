@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.NoTokenRequired;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.dto.article.ArticleFormDTO;
@@ -32,7 +31,6 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
-    @PremName("article:add")
     @PostMapping
     @ApiOperation("新增文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -41,7 +39,6 @@ public class ArticleController {
         return Result.success();
     }
 
-    @PremName("article:del")
     @DeleteMapping("/{id}/{is_del}")
     @ApiOperation("删除文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -50,7 +47,6 @@ public class ArticleController {
         return Result.success();
     }
 
-    @PremName("article:reduction")
     @PatchMapping("/reduction/{id}")
     @ApiOperation("还原被删除的文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -59,7 +55,6 @@ public class ArticleController {
         return Result.success();
     }
 
-    @PremName("article:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
@@ -68,7 +63,6 @@ public class ArticleController {
         return Result.success();
     }
 
-    @PremName("article:edit")
     @PatchMapping
     @ApiOperation("编辑文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)

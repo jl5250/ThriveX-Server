@@ -5,7 +5,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Tag;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.TagService;
@@ -25,7 +24,6 @@ public class TagController {
     @Resource
     private TagService tagService;
 
-    @PremName("tag:add")
     @PostMapping
     @ApiOperation("新增标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -34,7 +32,6 @@ public class TagController {
         return Result.success();
     }
 
-    @PremName("tag:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -45,7 +42,6 @@ public class TagController {
         return Result.success();
     }
 
-    @PremName("tag:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -54,7 +50,6 @@ public class TagController {
         return Result.success();
     }
 
-    @PremName("tag:edit")
     @PatchMapping
     @ApiOperation("编辑标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)

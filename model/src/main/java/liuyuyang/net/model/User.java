@@ -26,11 +26,4 @@ public class User extends BaseModel {
 
     @ApiModelProperty(value = "用户头像", example = "yuyang.jpg")
     private String avatar;
-
-    // @JsonIgnore // 不在接口中显示该字段
-    @ApiModelProperty(value = "用户角色ID", example = "1", required = true)
-    private String roleId;
-    @TableField(exist = false)
-    @ApiModelProperty(value = "用户角色信息", example = "...")
-    private Role role;
 }

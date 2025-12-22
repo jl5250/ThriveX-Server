@@ -14,7 +14,4 @@ public class UserDTO extends BaseModel {
 
     @ApiModelProperty(value = "用户名称", example = "宇阳", required = true)
     private String name;
-
-    @ApiModelProperty(value = "用户角色ID", example = "1", required = true)
-    private String roleId;
 }

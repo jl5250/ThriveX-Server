@@ -5,7 +5,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.model.Record;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.RecordService;
@@ -27,7 +26,6 @@ public class RecordController {
     @Resource
     private RecordService recordService;
 
-    @PremName("record:add")
     @PostMapping
     @ApiOperation("新增说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
@@ -36,7 +34,6 @@ public class RecordController {
         return Result.success();
     }
 
-    @PremName("record:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -45,7 +42,6 @@ public class RecordController {
         return Result.success();
     }
 
-    @PremName("record:edit")
     @PatchMapping
     @ApiOperation("编辑说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)

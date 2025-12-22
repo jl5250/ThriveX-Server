@@ -5,7 +5,6 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
-import liuyuyang.net.common.annotation.PremName;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.web.mapper.LinkTypeMapper;
 import liuyuyang.net.model.Link;
@@ -41,7 +40,6 @@ public class LinkController {
         return Result.success();
     }
 
-    @PremName("link:del")
     @DeleteMapping("/{id}")
     @ApiOperation("删除网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 2)
@@ -52,7 +50,6 @@ public class LinkController {
         return Result.success();
     }
 
-    @PremName("link:del")
     @DeleteMapping("/batch")
     @ApiOperation("批量删除网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 3)
@@ -61,7 +58,6 @@ public class LinkController {
         return Result.success();
     }
 
-    @PremName("link:edit")
     @PatchMapping
     @ApiOperation("编辑网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 4)
@@ -105,7 +101,6 @@ public class LinkController {
         return Result.success(data);
     }
 
-    @PremName("link:audit")
     @PatchMapping("/audit/{id}")
     @ApiOperation("审核指定网站")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 9)

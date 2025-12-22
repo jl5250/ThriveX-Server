@@ -5,23 +5,19 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import liuyuyang.net.common.execption.CustomException;
-import liuyuyang.net.common.properties.JwtProperties;
 import liuyuyang.net.common.utils.JwtUtils;
 import liuyuyang.net.common.utils.YuYangUtils;
 import liuyuyang.net.dto.user.EditPassDTO;
 import liuyuyang.net.dto.user.UserDTO;
 import liuyuyang.net.dto.user.UserInfoDTO;
 import liuyuyang.net.dto.user.UserLoginDTO;
-import liuyuyang.net.model.Role;
 import liuyuyang.net.model.User;
 import liuyuyang.net.model.UserToken;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.user.UserFilterVo;
-import liuyuyang.net.web.mapper.RoleMapper;
 import liuyuyang.net.web.mapper.UserMapper;
 import liuyuyang.net.web.mapper.UserTokenMapper;
 import liuyuyang.net.web.service.UserService;
-import lombok.Getter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +39,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private YuYangUtils yuYangUtils;
     @Resource
     private UserMapper userMapper;
-    @Resource
-    private RoleMapper roleMapper;
     @Resource
     private UserTokenMapper userTokenMapper;
 
@@ -93,25 +87,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User data = userMapper.selectById(id);
         data.setPassword("只有聪明的人才能看到密码");
 
-        Role role = roleMapper.selectById(data.getRoleId());
-        data.setRole(role);
-
         return data;
     }
 
     @Override
     public List<User> list(UserFilterVo filterVo) {
         QueryWrapper<User> queryWrapper = yuYangUtils.queryWrapperFilter(filterVo, "name");
-        if (filterVo.getRoleId() != null) {
-            queryWrapper.eq("role_id", filterVo.getRoleId());
-        }
 
         List<User> list = userMapper.selectList(queryWrapper);
 
         for (User user : list) {
             user.setPassword("只有聪明的人才能看到密码");
-            Role role = roleMapper.selectById(user.getRoleId());
-            user.setRole(role);
         }
 
         list = list.stream().sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime())).collect(Collectors.toList());
@@ -134,11 +120,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) throw new CustomException(400, "用户名或密码错误");
 
-        Role role = roleMapper.selectById(user.getRoleId());
 
         Map<String, Object> result = new HashMap<>();
         result.put("user", user);
-        result.put("role", role);
         String token = JwtUtils.createJWT(result);
         result.put("token", token);
 
