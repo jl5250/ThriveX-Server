@@ -6,6 +6,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.model.Comment;
 import liuyuyang.net.dto.comment.CommentFormDTO;
@@ -29,6 +30,7 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping
     @ApiOperation("新增评论")
@@ -66,6 +68,7 @@ public class CommentController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取评论")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -74,6 +77,7 @@ public class CommentController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取评论列表")
@@ -83,6 +87,7 @@ public class CommentController {
         return Result.success(list);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询评论列表")
@@ -93,6 +98,7 @@ public class CommentController {
         return Result.success(result);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/article/{articleId}")
     @ApiOperation("获取指定文章中所有评论")

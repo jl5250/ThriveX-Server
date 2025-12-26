@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.model.Rss;
 import liuyuyang.net.common.utils.Result;
@@ -22,6 +23,7 @@ public class RssController {
     @Resource
     private RssService rssService;
 
+    @RateLimit
     @NoTokenRequired
     @GetMapping("/list")
     @ApiOperation("获取订阅内容")
@@ -31,6 +33,7 @@ public class RssController {
         return Result.success(list);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询订阅内容")

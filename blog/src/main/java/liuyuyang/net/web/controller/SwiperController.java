@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.model.Swiper;
 import liuyuyang.net.common.utils.Result;
@@ -72,6 +73,7 @@ public class SwiperController {
         }
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取轮播图")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -80,6 +82,7 @@ public class SwiperController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取轮播图列表")
@@ -89,6 +92,7 @@ public class SwiperController {
         return Result.success(data);
     }
 
+    @RateLimit
     @PostMapping("/paging")
     @ApiOperation("分页查询轮播图列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 7)

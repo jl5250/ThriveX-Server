@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.model.Tag;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.TagService;
@@ -58,6 +59,7 @@ public class TagController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -66,6 +68,7 @@ public class TagController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取标签列表")
@@ -75,6 +78,7 @@ public class TagController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询标签列表")
@@ -86,6 +90,7 @@ public class TagController {
     }
 
     // 统计文章数量
+    @RateLimit
     @GetMapping("/article/count")
     @ApiOperation("统计每个标签下的文章数量")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 8)

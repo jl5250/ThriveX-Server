@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.model.Record;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.web.service.RecordService;
@@ -50,6 +51,7 @@ public class RecordController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取说说")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -58,6 +60,7 @@ public class RecordController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取说说列表")
@@ -67,6 +70,7 @@ public class RecordController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询说说列表")

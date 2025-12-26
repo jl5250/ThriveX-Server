@@ -5,6 +5,8 @@ import io.jsonwebtoken.Claims;
 import liuyuyang.net.common.annotation.NoTokenRequired;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.common.properties.JwtProperties;
+import liuyuyang.net.common.utils.BlackListUtils;
+import liuyuyang.net.common.utils.IpUtils;
 import liuyuyang.net.common.utils.JwtUtils;
 import liuyuyang.net.model.UserToken;
 import liuyuyang.net.web.mapper.UserTokenMapper;
@@ -30,10 +32,21 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
     private JwtProperties jwtProperties;
     @Resource
     private UserTokenMapper userTokenMapper;
+    @Resource
+    private BlackListUtils blackListUtils;
 
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
         // 从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getTokenName());
+
+        // 获取客户端IP
+        String ip = IpUtils.getRealIp(request);
+
+        // 检查IP是否在黑名单中
+        if (blackListUtils.isBlacklisted(ip)) {
+            log.warn("IP {} 已被加入黑名单", ip);
+            throw new CustomException("您已被加入黑名单，请稍后再试");
+        }
 
         // 如果是预检请求，直接放行
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {

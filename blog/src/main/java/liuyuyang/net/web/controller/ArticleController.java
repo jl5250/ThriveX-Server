@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.common.utils.Paging;
 import liuyuyang.net.common.utils.Result;
 import liuyuyang.net.dto.article.ArticleFormDTO;
@@ -71,6 +72,7 @@ public class ArticleController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 6)
@@ -80,6 +82,7 @@ public class ArticleController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取文章列表")
@@ -89,6 +92,7 @@ public class ArticleController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询文章列表")
@@ -99,6 +103,7 @@ public class ArticleController {
         return Result.success(result);
     }
 
+    @RateLimit
     @GetMapping("/cate/{cate_id}")
     @ApiOperation("获取指定分类的文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 9)
@@ -108,6 +113,7 @@ public class ArticleController {
         return Result.success(result);
     }
 
+    @RateLimit
     @GetMapping("/tag/{tag_id}")
     @ApiOperation("获取指定标签的文章")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 10)
@@ -117,14 +123,7 @@ public class ArticleController {
         return Result.success(result);
     }
 
-    @GetMapping("/random")
-    @ApiOperation("随机获取文章数据")
-    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 11)
-    public Result<List<Article>> getRandomArticles(@ApiParam(value = "默认随机获取5篇文章，可以通过count指定数量") @RequestParam(defaultValue = "5") Integer count) {
-        List<Article> data = articleService.getRandomArticles(count);
-        return Result.success(data);
-    }
-
+    @RateLimit
     @GetMapping("/hot")
     @ApiOperation("获取热门文章数据")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 12)
@@ -133,6 +132,16 @@ public class ArticleController {
         return Result.success(data);
     }
 
+    @RateLimit
+    @GetMapping("/random")
+    @ApiOperation("随机获取文章数据")
+    @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 11)
+    public Result<List<Article>> getRandomArticles(@ApiParam(value = "默认随机获取5篇文章，可以通过count指定数量") @RequestParam(defaultValue = "5") Integer count) {
+        List<Article> data = articleService.getRandomArticles(count);
+        return Result.success(data);
+    }
+
+    @RateLimit
     @GetMapping("/view/{article_id}")
     @ApiOperation("递增文章浏览量")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 13)

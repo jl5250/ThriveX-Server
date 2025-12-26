@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.common.execption.CustomException;
 import liuyuyang.net.model.Wall;
 import liuyuyang.net.model.WallCate;
@@ -28,6 +29,7 @@ public class WallController {
     @Resource
     private WallService wallService;
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping
     @ApiOperation("新增留言")
@@ -63,6 +65,7 @@ public class WallController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取留言")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -71,6 +74,7 @@ public class WallController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取留言列表")
@@ -80,6 +84,7 @@ public class WallController {
         return Result.success(list);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询留言列表")
@@ -90,6 +95,7 @@ public class WallController {
         return Result.success(result);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/cate/{cateId}")
     @ApiOperation("获取指定分类中所有留言")
@@ -100,6 +106,7 @@ public class WallController {
         return Result.success(result);
     }
 
+    @RateLimit
     @GetMapping("/cate")
     @ApiOperation("获取留言分类列表")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 9)

@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import liuyuyang.net.common.annotation.NoTokenRequired;
+import liuyuyang.net.common.annotation.RateLimit;
 import liuyuyang.net.dto.cate.CateFormDTO;
 import liuyuyang.net.model.Cate;
 import liuyuyang.net.common.utils.Result;
@@ -67,6 +68,7 @@ public class CateController {
         return Result.success();
     }
 
+    @RateLimit
     @GetMapping("/{id}")
     @ApiOperation("获取分类")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 5)
@@ -75,6 +77,7 @@ public class CateController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/list")
     @ApiOperation("获取分类列表")
@@ -84,6 +87,7 @@ public class CateController {
         return Result.success(data);
     }
 
+    @RateLimit
     @NoTokenRequired
     @PostMapping("/paging")
     @ApiOperation("分页查询分类列表")
@@ -94,6 +98,7 @@ public class CateController {
         return Result.success(result);
     }
 
+    @RateLimit
     @GetMapping("/article/count")
     @ApiOperation("获取每个分类中的文章数量")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 8)
