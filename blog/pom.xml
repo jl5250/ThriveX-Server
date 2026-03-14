@@ -95,7 +95,7 @@
 
         <!-- 自定义依赖 -->
         <dependency>
-            <groupId>liuyuyang.net</groupId>
+            <groupId>loongblog.fun</groupId>
             <artifactId>model</artifactId>
         </dependency>
 
