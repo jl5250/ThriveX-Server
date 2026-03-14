@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 
@@ -37,18 +39,54 @@ public class FileController {
     @PostMapping
     @ApiOperation("文件上传")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
-    public Result<Object> add(@RequestParam(defaultValue = "") String dir, @RequestParam MultipartFile[] files) throws IOException {
-        if (dir == null || dir.trim().isEmpty()) throw new CustomException(400, "请指定一个目录");
+    public Result<Object> add(@RequestParam(defaultValue = "") String dir, @RequestParam MultipartFile[] files)
+            throws IOException {
+        if (dir == null || dir.trim().isEmpty())
+            throw new CustomException(400, "请指定一个目录");
 
         List<String> urls = new ArrayList<>();
 
         for (MultipartFile file : files) {
+            // 校验文件是否为空
+            if (file.isEmpty()) {
+                throw new CustomException(400, "文件不能为空");
+            }
+
+            // 只允许的图片扩展名
+            Set<String> allowedExt = new HashSet<>(Arrays.asList("jpg", "jpeg", "png", "webp"));
+            String originalFilename = file.getOriginalFilename();
+            String ext = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                ext = originalFilename.substring(originalFilename.lastIndexOf('.') + 1).toLowerCase();
+            }
+
+            if (!allowedExt.contains(ext)) {
+                throw new CustomException(400, "仅支持上传图片类型文件（jpg、jpeg、png、webp）");
+            }
+
+            // 只允许的图片 MIME 类型
+            Set<String> allowedContentTypes = new HashSet<>(Arrays.asList(
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp"));
+            String contentType = file.getContentType();
+            if (contentType == null || !allowedContentTypes.contains(contentType.toLowerCase())) {
+                throw new CustomException(400, "文件类型不合法，仅支持上传图片类型文件");
+            }
+
+            // 解码校验，防止伪装成图片的恶意文件
+            BufferedImage image = ImageIO.read(file.getInputStream());
+            if (image == null) {
+                throw new CustomException(400, "文件内容不是有效的图片");
+            }
+
             FileInfo result = fileStorageService.of(file)
                     .setPlatform(OssUtils.getPlatform())
                     .setPath(dir + '/')
                     .upload();
 
-            if (result == null) throw new CustomException("上传文件失败");
+            if (result == null)
+                throw new CustomException("上传文件失败");
 
             String url = result.getUrl();
             urls.add(url.startsWith("https://") ? url : "https://" + url);
@@ -72,7 +110,8 @@ public class FileController {
     public Result batchDel(@RequestBody String[] pathList) throws QiniuException {
         for (String url : pathList) {
             boolean delete = fileStorageService.delete(url.startsWith("https://") ? url : "https://" + url);
-            if (!delete) throw new CustomException("删除文件失败");
+            if (!delete)
+                throw new CustomException("删除文件失败");
         }
         return Result.success();
     }
@@ -113,9 +152,9 @@ public class FileController {
     public Result<Map<String, Object>> getFileList(
             @RequestParam String dir,
             @RequestParam(defaultValue = "1") Integer page,
-            @RequestParam(defaultValue = "20") Integer size
-    ) {
-        if (dir == null || dir.trim().isEmpty()) throw new CustomException(400, "请指定一个目录");
+            @RequestParam(defaultValue = "20") Integer size) {
+        if (dir == null || dir.trim().isEmpty())
+            throw new CustomException(400, "请指定一个目录");
 
         ListFilesResult result = fileStorageService.listFiles()
                 .setPlatform(OssUtils.getPlatform())
@@ -133,13 +172,14 @@ public class FileController {
         int total = remoteFileList.size();
         int startIndex = (page - 1) * size;
         int endIndex = Math.min(startIndex + size, total);
-        
+
         // 分页处理
         List<RemoteFileInfo> pageList = remoteFileList.subList(startIndex, endIndex);
 
         for (RemoteFileInfo item : pageList) {
             // 如果是目录就略过
-            if (Objects.equals(item.getExt(), "")) continue;
+            if (Objects.equals(item.getExt(), ""))
+                continue;
 
             Map<String, Object> data = new HashMap<>();
             data.put("basePath", item.getBasePath());
@@ -151,7 +191,8 @@ public class FileController {
             data.put("date", item.getLastModified());
 
             String url = item.getUrl();
-            if (!url.startsWith("https://")) url = "https://" + url;
+            if (!url.startsWith("https://"))
+                url = "https://" + url;
             data.put("url", url);
 
             fileList.add(data);
