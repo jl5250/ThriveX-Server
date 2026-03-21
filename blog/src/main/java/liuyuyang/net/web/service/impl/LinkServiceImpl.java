@@ -11,12 +11,14 @@ import liuyuyang.net.model.Link;
 import liuyuyang.net.web.service.LinkService;
 import liuyuyang.net.common.utils.EmailUtils;
 import liuyuyang.net.common.utils.CommonUtils;
+import liuyuyang.net.common.utils.UrlSecurityUtils;
 import liuyuyang.net.vo.PageVo;
 import liuyuyang.net.vo.link.LinkFilterVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,8 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
 
     @Override
     public void add(Link link, String token) throws Exception {
+        UrlSecurityUtils.validateExternalHttpUrl("RSS 地址", link.getRss());
+
         // 前端用户手动提交
         if (token == null || token.isEmpty()) {
             // 添加之前先判断所选的网站类型是否为当前用户可选的
@@ -57,7 +61,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
         }
 
         // 判断权限
-        boolean isAdminPermissions = commonUtils.isAdmin();
+        boolean isAdminPermissions = CommonUtils.isAdmin();
         // 如果是超级管理员在添加时候不需要审核，直接显示
         if (isAdminPermissions) {
             link.setAuditStatus(1);
@@ -101,17 +105,17 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements Li
     @Override
     public Page<Link> paging(LinkFilterVo filterVo, PageVo pageVo) {
         List<Link> list = list(filterVo);
+        int p = pageVo.getPage() != null ? Math.max(1, pageVo.getPage()) : 1;
+        int s = pageVo.getSize() != null ? Math.max(1, pageVo.getSize()) : 5;
 
         // 分页处理
-        int start = (pageVo.getPage() - 1) * pageVo.getSize();
-        int end = Math.min(start + pageVo.getSize(), list.size());
-        List<Link> pagedLinks = list.subList(start, end);
+        int start = Math.min((p - 1) * s, list.size());
+        int end = Math.min(start + s, list.size());
+        List<Link> pagedLinks = start >= end ? new ArrayList<>() : list.subList(start, end);
 
-        // 返回分页结果
-        Page<Link> result = new Page<>(pageVo.getPage(), pageVo.getSize());
+        Page<Link> result = new Page<>(p, s);
         result.setRecords(pagedLinks);
         result.setTotal(list.size());
-
         return result;
     }
 }

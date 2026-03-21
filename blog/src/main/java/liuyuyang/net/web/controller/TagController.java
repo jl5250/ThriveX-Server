@@ -29,7 +29,7 @@ public class TagController {
     @ApiOperation("新增标签")
     @ApiOperationSupport(author = "刘宇阳 | liuyuyang1024@yeah.net", order = 1)
     public Result<String> add(@RequestBody Tag tag) {
-        tagService.save(tag);
+        tagService.addTagData(tag);
         return Result.success();
     }
 
@@ -90,6 +90,7 @@ public class TagController {
     }
 
     // 统计文章数量
+    @NoTokenRequired
     @RateLimit
     @GetMapping("/article/count")
     @ApiOperation("统计每个标签下的文章数量")
